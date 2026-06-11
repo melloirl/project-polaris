@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EIDOLON — Personnel Dossier System</title>
+<style>
+/* ============================================================
+   RESONANCE S2 — EIDOLON DOSSIER SYSTEM
+   Palette (flat hex, no rgba layering):
+     --paper   #EFE7D6   aged file paper
+     --paper2  #E4D9C2   panel / inset paper
+     --ink     #2B2722   typewriter ink
+     --rule    #C2B496   hairlines, dividers
+     --stamp   #9E2B25   classification red
+     --eden    #5C4B73   Occult Eden violet (negative karma / resonance)
+     --echo    #3E6259   Echologist teal (positive karma / signal)
+   ============================================================ */
+:root{
+  --paper:#EFE7D6; --paper2:#E4D9C2; --ink:#2B2722; --rule:#C2B496;
+  --stamp:#9E2B25; --eden:#5C4B73; --echo:#3E6259;
+  --mono:'Courier Prime','Courier New',ui-monospace,monospace;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{background:#3A352D;}
+body{
+  font-family:var(--mono); color:var(--ink); background:var(--paper);
+  max-width:1180px; margin:0 auto; min-height:100vh;
+  border-left:1px solid var(--rule); border-right:1px solid var(--rule);
+  font-size:14px; line-height:1.5;
+}
+::selection{background:var(--ink); color:var(--paper);}
+
+/* ---------- letterhead ---------- */
+header.letterhead{
+  border-bottom:3px double var(--ink); padding:18px 28px 14px;
+  display:flex; justify-content:space-between; align-items:flex-end; gap:16px; flex-wrap:wrap;
+}
+.org{display:flex; align-items:center; gap:14px;}
+.org-sigil{
+  width:44px;height:44px;border:2px solid var(--ink);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;font-weight:700;letter-spacing:0;
+}
+.org h1{font-size:20px;letter-spacing:.32em;font-weight:700;text-transform:uppercase;}
+.org .sub{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);}
+.stamp{
+  border:3px solid var(--stamp); color:var(--stamp); padding:4px 14px;
+  font-weight:700; letter-spacing:.3em; text-transform:uppercase; font-size:14px;
+  transform:rotate(-3deg);
+}
+.fileline{font-size:11px;letter-spacing:.12em;text-transform:uppercase;text-align:right;}
+.fileline b{font-weight:700;}
+
+/* ---------- nav tabs ---------- */
+nav.tabs{display:flex; gap:0; border-bottom:1px solid var(--ink); padding:0 28px; flex-wrap:wrap;}
+nav.tabs a{
+  font-family:var(--mono); text-decoration:none; color:var(--ink);
+  padding:8px 18px 6px; font-size:12px; letter-spacing:.22em; text-transform:uppercase;
+  border:1px solid var(--rule); border-bottom:none; margin-right:6px; margin-top:8px;
+  background:var(--paper2);
+}
+nav.tabs a.active{background:var(--paper); border-color:var(--ink); font-weight:700; position:relative; top:1px;}
+nav.tabs .spacer{flex:1;}
+nav.tabs .toolbtns{display:flex; align-items:center; gap:8px; padding:8px 0 6px;}
+
+button, .btn{
+  font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+  background:var(--paper); color:var(--ink); border:1px solid var(--ink);
+  padding:4px 10px; cursor:pointer;
+}
+button:hover,.btn:hover{background:var(--ink); color:var(--paper);}
+button.danger{border-color:var(--stamp); color:var(--stamp);}
+button.danger:hover{background:var(--stamp); color:var(--paper);}
+button.gm-on{background:var(--stamp); color:var(--paper); border-color:var(--stamp);}
+
+/* ---------- layout ---------- */
+main{padding:22px 28px 60px;}
+.cols{display:grid; grid-template-columns:1fr 330px; gap:24px; align-items:start;}
+@media(max-width:900px){ .cols{grid-template-columns:1fr;} body{font-size:13px;} }
+
+/* ---------- form sections ---------- */
+section.form{border:1px solid var(--ink); margin-bottom:20px; background:var(--paper);}
+section.form > .form-head{
+  display:flex; justify-content:space-between; align-items:baseline; gap:10px;
+  border-bottom:1px solid var(--ink); padding:7px 12px; cursor:pointer;
+  background:var(--paper2);
+}
+section.form > .form-head h2{font-size:12px; letter-spacing:.24em; text-transform:uppercase; font-weight:700;}
+section.form > .form-head .code{font-size:10px; letter-spacing:.18em; color:var(--ink);}
+section.form > .form-body{padding:12px 14px;}
+section.form.collapsed > .form-body{display:none;}
+
+.fieldgrid{display:grid; grid-template-columns:1fr 1fr; gap:8px 22px;}
+@media(max-width:700px){ .fieldgrid{grid-template-columns:1fr;} }
+.field{display:flex; flex-direction:column; gap:1px;}
+.field.wide{grid-column:1 / -1;}
+.field label{font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink); opacity:.75;}
+.field .val{
+  border-bottom:1px dotted var(--ink); min-height:21px; padding:1px 2px;
+  outline:none; white-space:pre-wrap;
+}
+.field .val:focus{background:var(--paper2); border-bottom-style:solid;}
+.field .val:empty::before{content:'—'; opacity:.3;}
+
+.note{font-size:11px; opacity:.7; margin-top:8px; line-height:1.45;}
+.note em{font-style:italic;}
+
+/* ---------- attribute / domain rows ---------- */
+table.stat{width:100%; border-collapse:collapse;}
+table.stat td{padding:4px 6px; border-bottom:1px dotted var(--rule); vertical-align:middle;}
+table.stat td.name{font-weight:700; letter-spacing:.08em; text-transform:uppercase; font-size:12px; width:34%;}
+table.stat td.desc{font-size:11px; opacity:.7;}
+table.stat td.ctl{width:110px; text-align:right; white-space:nowrap;}
+.step{display:inline-flex; align-items:center; gap:6px;}
+.step button{padding:0 7px; font-size:13px; line-height:20px;}
+.step .num{display:inline-block; min-width:34px; text-align:center; font-weight:700; font-size:15px;
+  border:1px solid var(--ink); padding:1px 4px; background:var(--paper2);}
+
+/* ---------- sidebar status panel ---------- */
+aside .panel{border:2px solid var(--ink); margin-bottom:18px; background:var(--paper);}
+aside .panel h3{
+  font-size:11px; letter-spacing:.26em; text-transform:uppercase; font-weight:700;
+  border-bottom:1px solid var(--ink); padding:6px 10px; background:var(--paper2);
+  display:flex; justify-content:space-between; align-items:baseline;
+}
+aside .panel h3 .mini{font-size:9px; letter-spacing:.12em; opacity:.7; font-weight:400;}
+aside .panel .pad{padding:10px 12px;}
+.bigread{font-size:26px; font-weight:700; letter-spacing:.04em;}
+.bigread small{font-size:11px; letter-spacing:.16em; font-weight:400; text-transform:uppercase;}
+
+/* resonance strip gauge */
+.gauge{margin-top:8px;}
+.gauge .track{position:relative; height:26px; border:1px solid var(--ink); background:var(--paper2);}
+.gauge .fill{position:absolute; left:0; top:0; bottom:0; background:var(--eden); border-right:2px solid var(--ink);}
+.gauge .tick{position:absolute; top:0; bottom:0; width:1px; background:var(--ink);}
+.gauge .stages{display:flex; font-size:8.5px; letter-spacing:.06em; text-transform:uppercase; margin-top:3px;}
+.gauge .stages span{text-align:center; overflow:hidden; white-space:nowrap;}
+.gauge .stages span.cur{font-weight:700; text-decoration:underline;}
+
+/* karma ruler */
+.kruler{display:grid; grid-template-columns:repeat(11,1fr); margin-top:8px; border:1px solid var(--ink);}
+.kruler .cell{
+  text-align:center; font-size:10px; padding:5px 0; border-right:1px solid var(--rule);
+  background:var(--paper2); cursor:pointer; user-select:none;
+}
+.kruler .cell:last-child{border-right:none;}
+.kruler .cell.neg{color:var(--eden);}
+.kruler .cell.pos{color:var(--echo);}
+.kruler .cell.cur{font-weight:700; color:var(--paper);}
+.kruler .cell.cur.neg{background:var(--eden);}
+.kruler .cell.cur.pos{background:var(--echo);}
+.kruler .cell.cur.zero{background:var(--ink); color:var(--paper);}
+.kruler .cell.barred{text-decoration:line-through; opacity:.45; cursor:not-allowed;}
+.klabels{display:flex; justify-content:space-between; font-size:9px; letter-spacing:.1em;
+  text-transform:uppercase; margin-top:3px;}
+.klabels .l{color:var(--eden);} .klabels .r{color:var(--echo);}
+
+/* signal pips */
+.pips{display:flex; gap:6px; margin-top:6px; flex-wrap:wrap;}
+.pip{width:20px; height:20px; border:1px solid var(--ink); cursor:pointer; background:var(--paper2);}
+.pip.on{background:var(--echo);}
+
+/* wound boxes */
+.wounds .wrow{display:flex; align-items:center; gap:8px; margin-bottom:5px;}
+.wounds .wrow .wlab{font-size:10px; letter-spacing:.14em; text-transform:uppercase; width:64px;}
+.wbox{width:18px;height:18px;border:1px solid var(--ink); cursor:pointer; background:var(--paper);}
+.wbox.on{background:var(--stamp);}
+
+/* ---------- technique / gear cards ---------- */
+.cardlist{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+@media(max-width:760px){ .cardlist{grid-template-columns:1fr;} }
+.card{border:1px solid var(--ink); background:var(--paper);}
+.card .chead{border-bottom:1px solid var(--ink); padding:5px 9px; background:var(--paper2);
+  display:flex; justify-content:space-between; gap:8px; align-items:baseline;}
+.card .chead .cname{font-weight:700; font-size:13px; outline:none;}
+.card .chead .cfac{font-size:9px; letter-spacing:.16em; text-transform:uppercase;}
+.card .cbody{padding:8px 10px; display:flex; flex-direction:column; gap:5px;}
+.card .crow{display:flex; gap:8px; font-size:12px;}
+.card .crow .k{font-size:9px; letter-spacing:.14em; text-transform:uppercase; opacity:.7; min-width:86px; padding-top:2px;}
+.card .crow .v{flex:1; border-bottom:1px dotted var(--rule); outline:none; min-height:18px; white-space:pre-wrap;}
+.card .crow .v:focus{background:var(--paper2);}
+.card .crow .v:empty::before{content:'—'; opacity:.3;}
+.card .cfoot{padding:4px 9px; border-top:1px dotted var(--rule); text-align:right;}
+.fac-general{color:var(--ink);} .fac-eidolon{color:var(--ink);}
+.fac-eden{color:var(--eden);} .fac-echologist{color:var(--echo);} .fac-pact{color:var(--stamp);}
+
+.addrow{margin-top:10px; display:flex; gap:8px; flex-wrap:wrap;}
+
+/* ---------- GM classified panel ---------- */
+section.gmpanel{border:2px solid var(--stamp);}
+section.gmpanel > .form-head{border-bottom-color:var(--stamp); background:var(--paper);}
+section.gmpanel > .form-head h2{color:var(--stamp);}
+.redacted .val{background:var(--ink); color:var(--ink); border-bottom:none; pointer-events:none; user-select:none;}
+.gmnotice{font-size:11px; color:var(--stamp); letter-spacing:.08em; padding:8px 0 0;}
+
+/* ---------- archive / operations lists ---------- */
+.listgrid{display:grid; grid-template-columns:250px 1fr; gap:22px; align-items:start;}
+@media(max-width:820px){ .listgrid{grid-template-columns:1fr;} }
+.index{border:1px solid var(--ink);}
+.index .ihead{padding:6px 10px; border-bottom:1px solid var(--ink); background:var(--paper2);
+  font-size:10px; letter-spacing:.22em; text-transform:uppercase; font-weight:700;}
+.index .ientry{padding:6px 10px; border-bottom:1px dotted var(--rule); cursor:pointer; font-size:12px;}
+.index .ientry:hover{background:var(--paper2);}
+.index .ientry.cur{background:var(--ink); color:var(--paper);}
+.index .ientry .tag{font-size:9px; letter-spacing:.12em; text-transform:uppercase; opacity:.65; display:block;}
+.index .ifoot{padding:8px 10px;}
+.article h2{font-size:16px; letter-spacing:.14em; text-transform:uppercase; border-bottom:2px solid var(--ink);
+  padding-bottom:6px; margin-bottom:10px;}
+.article .meta{font-size:10px; letter-spacing:.16em; text-transform:uppercase; opacity:.7; margin-bottom:12px;}
+.article .body{white-space:pre-wrap; outline:none; line-height:1.6;}
+.article .body:focus{background:var(--paper2);}
+
+/* reference tables */
+table.ref{width:100%; border-collapse:collapse; margin-bottom:18px; font-size:12px;}
+table.ref caption{text-align:left; font-size:11px; letter-spacing:.2em; text-transform:uppercase;
+  font-weight:700; padding:4px 0; border-bottom:2px solid var(--ink);}
+table.ref td, table.ref th{border-bottom:1px dotted var(--rule); padding:4px 8px; text-align:left;}
+table.ref th{font-size:10px; letter-spacing:.16em; text-transform:uppercase;}
+
+/* character picker strip */
+.charstrip{display:flex; gap:8px; align-items:center; margin-bottom:18px; flex-wrap:wrap;}
+.charstrip select{font-family:var(--mono); font-size:12px; padding:4px 6px; background:var(--paper);
+  border:1px solid var(--ink); color:var(--ink);}
+.charstrip .who{font-size:11px; letter-spacing:.14em; text-transform:uppercase; opacity:.75;}
+
+footer{border-top:1px solid var(--rule); padding:12px 28px 26px; font-size:10px;
+  letter-spacing:.14em; text-transform:uppercase; opacity:.6; display:flex;
+  justify-content:space-between; flex-wrap:wrap; gap:8px;}
+
+/* print = paper dossier */
+@media print{
+  html{background:#fff;} body{border:none; max-width:none;}
+  nav.tabs, .toolbtns, .addrow, .charstrip, .step button, footer .hint, .cfoot{display:none !important;}
+  section.form{break-inside:avoid;}
+}
+@media (prefers-reduced-motion: reduce){ *{transition:none !important;} }
+</style>
+</head>
+<body>
+
+<header class="letterhead">
+  <div class="org">
+    <div class="org-sigil">E</div>
+    <div>
+      <h1>Eidolon</h1>
+      <div class="sub">Advanced Research Directorate — Personnel Dossier System</div>
+    </div>
+  </div>
+  <div class="stamp" id="stampbox">Restricted</div>
+  <div class="fileline">
+    File Ref. <b id="fileref">EID/70-—</b><br>
+    Era: <b>1970s — Welderhide Operations</b><br>
+    Form Rev. <b>S2 / v0.1</b>
+  </div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <a href="#/dossier" data-view="dossier">Dossier</a>
+  <a href="#/archive" data-view="archive">Archive</a>
+  <a href="#/operations" data-view="operations">Operations Log</a>
+  <a href="#/reference" data-view="reference">Reference</a>
+  <span class="spacer"></span>
+  <span class="toolbtns">
+    <button id="gmToggle" title="Reveal GM classified dossier fields">GM Mode: Off</button>
+    <button id="exportBtn">Export File</button>
+    <button id="importBtn">Import File</button>
+    <button onclick="window.print()">Print</button>
+    <input type="file" id="importInput" accept="application/json" style="display:none">
+  </span>
+</nav>
+
+<main id="app"></main>
+
+<footer>
+  <span>Internal use only · Unauthorized disclosure is a federal offense</span>
+  <span class="hint">Data lives in memory — use Export File to save your campaign as JSON.</span>
+</footer>
+
+<script>
+/* ============================================================
+   RESONANCE S2 DOSSIER SYSTEM — vanilla JS, no dependencies.
+
+   ARCHITECTURE (extension points marked ►):
+   - DB: single in-memory store {characters, archive, operations}.
+     ► Add new top-level collections here (npcs, geists, cases...).
+   - SECTIONS: declarative schema for the character sheet.
+     ► Add a field = add one object. Add a module = add one section.
+   - VIEWS: hash-routed render functions.
+     ► Add a view = add an entry to VIEWS + a nav tab.
+   - Persistence: Export/Import JSON of the whole DB.
+   ============================================================ */
+
+/* ---------------- reference data ---------------- */
+const REF = {
+  resonanceStages: [
+    {min:0,  max:19,  name:'Clear'},
+    {min:20, max:39,  name:'Touched'},
+    {min:40, max:59,  name:'Atravessado'},
+    {min:60, max:79,  name:'Marked'},
+    {min:80, max:99,  name:'Consumed'},
+    {min:100,max:100, name:'Echo / Lost'}
+  ],
+  karmaDepth: {
+    '-5':'Occult Eden apex','-4':'Occult Eden deep commitment','-3':'Occult Eden true initiation',
+    '-2':'Occult Eden initiate','-1':'Occult Eden-touched','0':'Eidolon / neutral instrument',
+    '1':'Echologist-touched','2':'Echologist initiate','3':'Echologist true initiation',
+    '4':'Echologist deep commitment','5':'Echologist apex'
+  },
+  // Working stage names — final naming pending (see doc §29.6)
+  karmaStageNames: {'-1':'Whisper-Touched','0':'Calibrated Instrument','1':'Static-Cleansed'},
+  attributes: [
+    {key:'corpo',   name:'Corpo',   desc:'Physical force, endurance, coordination, bodily resilience.'},
+    {key:'mente',   name:'Mente',   desc:'Reasoning, memory, analysis, technical understanding, patterns.'},
+    {key:'carisma', name:'Carisma', desc:'Presence, persuasion, empathy, social intuition, performance.'},
+    {key:'vontade', name:'Vontade', desc:'Composure, identity, focus, resistance, inner stability.'}
+  ],
+  domains: [
+    {key:'physical',  name:'Physical',  desc:'Running, climbing, forcing, carrying, resisting strain.'},
+    {key:'fieldwork', name:'Fieldwork', desc:'Stealth, awareness, tracking, searching dangerous spaces.'},
+    {key:'research',  name:'Research',  desc:'Archives, documents, case theory, pattern reconstruction.'},
+    {key:'technical', name:'Technical', desc:'Machines, electronics, medical procedure, device repair.'},
+    {key:'social',    name:'Social',    desc:'Persuasion, deception, contacts, reading people.'},
+    {key:'occult',    name:'Occult',    desc:'Ritual logic, Geist lore, Resonance theory, forbidden texts.'},
+    {key:'combat',    name:'Combat',    desc:'Tactical violence, restraint, fighting under pressure.'}
+  ],
+  difficulty: [[8,'Easy'],[12,'Routine'],[15,'Challenging'],[18,'Difficult'],['20+','Extreme']],
+  accessStates: ['Restricted','Provisional','Watched','Contained','Full Access','Compromised','Blacklisted','Hunted / Burned']
+};
+
+function stageFor(pct){
+  pct = Math.max(0, Math.min(100, pct|0));
+  return REF.resonanceStages.find(s => pct >= s.min && pct <= s.max);
+}
+function nextThreshold(pct){
+  const s = stageFor(pct);
+  const i = REF.resonanceStages.indexOf(s);
+  return i < REF.resonanceStages.length-1 ? REF.resonanceStages[i+1].min + '% — ' + REF.resonanceStages[i+1].name : '—';
+}
+function karmaPath(k){ return k < 0 ? 'Occult Eden' : k > 0 ? 'Echologist' : 'Eidolon / Neutral'; }
+function karmaStage(k){ return REF.karmaStageNames[String(k)] || REF.karmaDepth[String(k)] || '—'; }
+
+/* ---------------- card / entry factories ---------------- */
+const uid = () => 'id' + Math.random().toString(36).slice(2,9);
+
+function blankTechnique(f){ return {id:uid(), name:'New Technique', faction:f||'General', tags:'', type:'Position-Gated',
+  effect:'', cost:'', hardReq:'', softReq:'', karma:'', gear:'', risk:''}; }
+function blankGear(){ return {id:uid(), name:'New Device', type:'', capacity:'', charge:'', func:'',
+  compat:'', requirements:'', risk:'', maintenance:'', tracking:'', notes:''}; }
+function blankMark(){ return {id:uid(), name:'New Mark', source:'', symptom:'', effect:'', duration:'', notes:''}; }
+function blankLog(){ return {id:uid(), caseName:'', advancement:'', domains:'', techniques:'',
+  karmaActs:'', access:'', gear:'', wounds:'', notes:''}; }
+function blankArmor(){ return {id:uid(), name:'New Protection', slots:'', applies:'', notApplies:'', notes:''}; }
+
+function blankCharacter(name){
+  return {
+    id: uid(), fileNo: 'EID/70-' + String(Math.floor(Math.random()*900)+100),
+    identity:{name:name||'', age:'', gender:'', appearance:'', personality:'', motivation:'', fear:'',
+      background:'', relationships:'', whyEidolonCares:''},
+    occupation:{role:'', description:'', handler:'', startingGear:'', notes:''},
+    attributes:{corpo:0, mente:0, carisma:0, vontade:0},
+    domains:{physical:0, fieldwork:0, research:0, technical:0, social:0, occult:0, combat:0},
+    signal:{current:2, maxMod:0, anchor:'', recoveryNotes:'', permanentMods:''},
+    resonance:{pct:0, symptoms:'', permanentChanges:''},
+    karma:{value:0, lastAct:'', investments:'', edenLimit:-5, echoLimit:5, scars:''},
+    access:{state:'Restricted', scope:'', handler:'', permitted:'', restricted:'', gearSupport:'', damage:''},
+    harm:{minor:[false,false], serious:[false,false], critical:[false], recoveryNotes:'', scars:''},
+    armor:[],
+    mental:{state:'', conditions:'', notes:''},
+    techniques:[
+      {...blankTechnique('General'), name:'Ground Yourself', tags:'Signal, Stabilization, Self',
+       effect:'Spend 1 Signal to hold identity steady through a brief resonance surge, false memory, Geist pressure, panic spiral, or emotional bleed.',
+       cost:'1 Signal.', hardReq:'Current Signal 1+.',
+       softReq:'You must be able to name yourself, access your Anchor, or be grounded by another character.'}
+    ],
+    gear:[], pact:{geistName:'', tier:'', domain:'', signature:'', formed:'', resonanceGained:'',
+      terms:'', abilities:'', restrictions:'', demands:'', risks:'', relationship:'', debt:''},
+    marks:[], log:[],
+    gm:{trueReason:'', classification:'', handlerAgenda:'', treatmentConsequences:'', factionInterest:'',
+      geistAgenda:'', npcTrust:'', factionStanding:'', futureConsequence:'', caseRelevance:''}
+  };
+}
+
+/* ---------------- seeded sample character ---------------- */
+function sampleCharacter(){
+  const c = blankCharacter('Irene Vasquez');
+  c.fileNo = 'EID/70-114';
+  Object.assign(c.identity, {
+    age:'29', gender:'F',
+    appearance:'Practical clothes under a maintenance coat; permanent solder burns on both hands.',
+    personality:'Methodical, dry, quietly stubborn.',
+    motivation:'Pay off her brother\u2019s debt before Eidolon decides it owns him too.',
+    fear:'Becoming useful enough that they never let her leave.',
+    background:'Civilian electronics repair, recruited after fixing a device she was never supposed to see working.',
+    relationships:'Tom\u00e1s Vasquez (brother, indebted); Supervisor Hale (handler, Engineering).',
+    whyEidolonCares:'Useful technical labor; not trusted with full theory.'
+  });
+  Object.assign(c.occupation, {
+    role:'Eidolon Field Technician',
+    description:'Low-clearance technical employee assigned to maintain, calibrate, and troubleshoot unstable field equipment.',
+    handler:'Supervisor Hale — Engineering Division',
+    startingGear:'Diagnostic meter, insulated tool kit, restricted maintenance badge, calibration notebook.',
+    notes:'Permitted: maintenance areas, assigned devices, basic field support.'
+  });
+  c.attributes = {corpo:1, mente:3, carisma:0, vontade:2};
+  c.domains    = {physical:1, fieldwork:1, research:1, technical:2, social:0, occult:0, combat:0};
+  c.signal.current = 4; // max = Vontade + 2 = 4
+  c.signal.anchor  = 'Every morning: black coffee and a written schedule.';
+  c.signal.recoveryNotes = 'Recovers when she keeps the morning routine, or when Tom\u00e1s calls.';
+  c.resonance.pct = 0;
+  Object.assign(c.access, {
+    state:'Restricted', scope:'Maintenance areas, assigned devices, basic field support',
+    handler:'Supervisor Hale', permitted:'Workshops, motor pool, field staging',
+    restricted:'Theoretical Harmonics wing, Subject Management, Archives B-level',
+    gearSupport:'Standard repair and replacement through Engineering requisition', damage:'None'
+  });
+  c.techniques.push({...blankTechnique('General'), name:'Read the Static',
+    tags:'Detection, Resonance, Investigation', type:'Position-Gated',
+    effect:'When examining a resonant site, object, or person, ask the GM one basic question about emotional residue, dominant feeling, or recent spectral disturbance.',
+    cost:'Gain 1\u20135% Resonance or accept a minor symptom.',
+    hardReq:'Touched Resonance or access to basic Eidolon detection equipment.',
+    softReq:'The scene must contain meaningful resonant residue.',
+    risk:'The answer may come through sensation rather than clean information.'});
+  c.gear.push({...blankGear(), name:'Resonant Cell Mk.I', type:'Portable resonant battery',
+    capacity:'20% stored Resonance', charge:'8%',
+    func:'Stores Resonance externally and powers compatible Eidolon techniques.',
+    compat:'Harmonic Discharge, Emergency Calibration',
+    risk:'Overload, leakage, tracking, malfunction, confiscation',
+    maintenance:'Requires Eidolon calibration support',
+    tracking:'Serial-logged; unauthorized use is recorded.'});
+  c.gm = {
+    trueReason:'Blood sample flagged compatible with battery containment trials (Batch 7).',
+    classification:'MED-7c — latent resonant susceptibility, unconfirmed.',
+    handlerAgenda:'Hale reports her error rates to Theoretical Harmonics, not Engineering.',
+    treatmentConsequences:'', factionInterest:'An Echologist cell has noticed her repair signatures on purged sites.',
+    geistAgenda:'', npcTrust:'Motor pool crew trusts her; lab staff treat her as expendable.',
+    factionStanding:'', futureConsequence:'A protocol may carry her name into the 1990s files.',
+    caseRelevance:''
+  };
+  return c;
+}
+
+/* ---------------- seeded archive (wiki) ---------------- */
+const seedArchive = [
+ {id:uid(), tag:'Institution', title:'Eidolon (1970s)', body:
+'A classified, government-linked research project — not yet the public technological giant of the 1990s. Its science is promising, its methods secretive, its ambitions far larger than most personnel understand.\n\nKnowledge is compartmentalized in tiers: base personnel see classified-but-bland work; lower-mid staff know impossible things occur; upper-mid staff know Resonance touches consciousness and identity; only the inner circle understands the keystone project and the Great Transcendent.\n\nDesign rule: Eidolon must be tempting. It produces real good, real progress, and real protection — otherwise refusing it is too easy.'},
+ {id:uid(), tag:'Location', title:'Welderhide', body:
+'A high-elevation mining city ringed by mountains. Three overlapping reasons it matters:\n\nGEOLOGICAL — the mountains, mines, and mineral formations act as a natural resonant chamber, amplifying and stabilizing Resonance and producing more naturally resonant individuals.\n\nECONOMIC — the mines are failing. The city is desperate to diversify, which makes it politically and financially receptive to Eidolon\u2019s investment. Conquest through dependency: it should look like salvation.\n\nHISTORICAL — it is where Adrian Voss first touched the Great Transcendent in the 1920s. To him, Welderhide is sacred. The origin point.'},
+ {id:uid(), tag:'Person', title:'Adrian Voss', body:
+'Founder of Eidolon. Not originally a superhuman genius — his transformation began in the Welderhide mines in the 1920s, where his consciousness made contact with the Great Transcendent.\n\nHe wants to solve mortality. He sees death, aging, grief, and loss as flaws to correct. The horror is that his cure does not preserve humanity — it freezes it: no death, but no growth, change, or future.\n\nHis mistake is not identifying suffering as a problem. It is believing he has the right to answer on behalf of everyone.'},
+ {id:uid(), tag:'Entity', title:'The Great Transcendent', body:
+'A sovereign-level Geist tied to the most dangerous horizon of Eidolon\u2019s work. In the 1970s it should remain a deep gravitational presence, not a revealed antagonist — fragments, theological language buried in scientific notes, impossible data, strange executive behavior.\n\nThe players only need to understand enough to realize: whatever Eidolon is building, it is not truly for us.'},
+ {id:uid(), tag:'Lore', title:'Geists', body:
+'Born from human emotion, shaped by human beings — but extradimensional and alien because they are too pure. A Geist is a human emotion extrapolated beyond human limits.\n\nA Geist of grief does not move on. A Geist of hope does not give up. A Geist of love does not let go. A Geist of fear does not calm down.\n\nThesis: they are so human that they become alien.\n\nTiers: Apparition (no pact) \u2192 Lesser (marks, debts, hauntings) \u2192 Greater (true pact) \u2192 Sovereign (identity-shaping pact).'},
+ {id:uid(), tag:'System', title:'Resonance & Signal', body:
+'Resonance is how much the impossible has entered you. Signal is how clearly you can still answer back as yourself.\n\nResonance (0\u2013100%) is contamination, fuel, and classification risk. Stages are unlock keys and narrative tone, not automatic penalties: Clear \u2192 Touched \u2192 Atravessado \u2192 Marked \u2192 Consumed \u2192 Echo/Lost.\n\nSignal (Max = Vontade + 2) is spent to resist Geist influence, stabilize identity, power Echologist techniques, and pull others back. It recovers through grounding — Anchor, human choices, refusal of temptation, safe downtime — not sleep alone.\n\nCentral rule: Resonance can be good for humanity, but never for free.'},
+ {id:uid(), tag:'System', title:'Karma & the Three Paths', body:
+'Karma is a signed integer (\u22125 to +5): how far down a metaphysical path the soul has walked. Not XP, not morality, not reputation. It moves only through transparent Karma-Moving Acts, always telegraphed by the GM.\n\nOCCULT EDEN (\u22121 to \u22125) — Accumulate. Consumes Resonance as fuel. Communion, intimacy with the dead. Failure mode: powerful but increasingly distant from ordinary humanity.\n\nEIDOLON (0) — Channel. Routes Resonance through gear: bank, store, discharge. Failure mode: dependency on access, calibration, and the institution.\n\nECHOLOGIST (+1 to +5) — Purge. Uses Signal and clean frequency to reduce or weaponize the absence of Resonance. Failure mode: the deepest purifiers must touch what they hate to destroy it.\n\nHard reversals after real commitment leave Contradiction Scars that lower the ceiling on the opposite path.'},
+ {id:uid(), tag:'Faction', title:'Factions as Philosophical Alignments', body:
+'Factions are alignments, not adventuring teams — the squad stays operationally together while disagreeing about what their work means.\n\nEidolon-aligned: humanity survives through CONTROL. Effective, organized, morally compromised.\nEcologist-aligned: humanity survives through ADAPTATION. Principled, fragmented, possibly reckless.\nOccult Eden-aligned: humanity survives through UNDERSTANDING. Insightful, empathetic, dangerous.\n\nOpposing Eidolon should not automatically mean finding the correct answer.'},
+ {id:uid(), tag:'Campaign', title:'1970s Campaign Spine', body:
+'Pitch: a squad of low-ranking or coerced Eidolon assets investigates increasingly impossible Resonance cases, only to realize they are helping build the infrastructure that will let Eidolon decide humanity\u2019s future without consent.\n\nEmotional hook: \u201cI did not sign up for this, but I have no choice.\u201d\nCore arc: Asset \u2192 Witness \u2192 Accomplice \u2192 Doubter \u2192 Actor.\n\nThree reveals: (1) The supernatural is real — and Eidolon has forms for it. (2) The cases were never separate. (3) We can choose.\n\nCentral lie: \u201cWe are developing technologies that will save humanity.\u201d\nHidden truth: \u201cWe are building infrastructure that will let Eidolon decide humanity\u2019s future without humanity\u2019s consent.\u201d\n\nEndpoint: not \u201cthe network is ready\u201d — but \u201cOh God. It works.\u201d'}
+];
+
+/* ---------------- seeded operations log ---------------- */
+function blankCase(){ return {id:uid(), code:'', title:'New Case', date:'', status:'Open',
+  investigation:'', conclusion:'', preparation:'', clash:'', advancementMenu:'', gmNotes:''}; }
+const seedOps = [{...blankCase(), code:'CASE 01', title:'(Template) First Assignment', status:'Template',
+  investigation:'What is happening? Strange reports, failing equipment, contradictory witnesses — ambiguity is allowed before the first threshold.',
+  conclusion:'What do we think this is?',
+  preparation:'Tools, tactics, rituals, permissions, or sacrifices needed.',
+  clash:'The direct confrontation, containment, choice, or consequence that resolves the case. After the first threshold, the supernatural is undeniable.',
+  advancementMenu:'Offer 2\u20133 grounded options: one tree technique, one mundane growth, one case-specific reward.',
+  gmNotes:'Seed one clue pointing at the keystone project.'}];
+
+/* ---------------- DB ---------------- */
+let DB = {
+  meta:{system:'Resonance S2', formRev:'v0.1', exported:null},
+  characters:[sampleCharacter()],
+  archive: seedArchive,
+  operations: seedOps
+};
+let UI = { charId: DB.characters[0].id, view:'dossier', gm:false,
+  archiveId: seedArchive[0].id, opsId: seedOps[0].id, collapsed:{} };
+
+/* ---------------- path helpers ---------------- */
+function getPath(obj, path){ return path.split('.').reduce((o,k)=> (o==null?o:o[k]), obj); }
+function setPath(obj, path, val){
+  const ks = path.split('.'); const last = ks.pop();
+  const tgt = ks.reduce((o,k)=> o[k], obj); tgt[last] = val;
+}
+const esc = s => String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+function activeChar(){ return DB.characters.find(c=>c.id===UI.charId) || DB.characters[0]; }
+
+/* ============================================================
+   CHARACTER SHEET SCHEMA  (► extension point)
+   kind:'fields' renders label/value pairs bound by data-path.
+   kind:'custom' calls a named renderer.
+   ============================================================ */
+const SECTIONS = [
+ {code:'FORM E-1', title:'Identity', kind:'fields', fields:[
+   {l:'Name', p:'identity.name'}, {l:'Age', p:'identity.age'},
+   {l:'Gender', p:'identity.gender'}, {l:'Appearance', p:'identity.appearance'},
+   {l:'Personality', p:'identity.personality'}, {l:'Motivation', p:'identity.motivation'},
+   {l:'Fear', p:'identity.fear'},
+   {l:'Background / File Summary', p:'identity.background', wide:1},
+   {l:'Important Relationships', p:'identity.relationships', wide:1},
+   {l:'Why Eidolon Cares', p:'identity.whyEidolonCares', wide:1}],
+  note:'Keep the character human. The supernatural complicates identity — it does not replace it.'},
+
+ {code:'FORM E-2', title:'Occupation / Role', kind:'fields', fields:[
+   {l:'Role', p:'occupation.role'}, {l:'Handler / Supervisor', p:'occupation.handler'},
+   {l:'Description', p:'occupation.description', wide:1},
+   {l:'Starting Gear', p:'occupation.startingGear', wide:1},
+   {l:'Notes', p:'occupation.notes', wide:1}],
+  note:'Occupation is how Eidolon labels the character. It may not match how they see themselves.'},
+
+ {code:'FORM E-3', title:'Attributes', kind:'custom', render:'renderAttributes',
+  note:'Assign +3, +2, +1, +0 at creation. Attributes define natural approach; Domains define trained competence. Core roll: d20 + Attribute + Domain \u2265 Difficulty.'},
+
+ {code:'FORM E-4', title:'Domains', kind:'custom', render:'renderDomains',
+  note:'Default spread: one at 2, three at 1, three at 0; the player may move one point. No starting domain above 2. Scale: 0 untrained \u00b7 1 trained \u00b7 2 expert \u00b7 3 exceptional.'},
+
+ {code:'FORM E-5', title:'Signal & Anchor', kind:'fields', fields:[
+   {l:'Anchor', p:'signal.anchor', wide:1},
+   {l:'Recovery Notes', p:'signal.recoveryNotes', wide:1},
+   {l:'Permanent Modifiers', p:'signal.permanentMods', wide:1}],
+  note:'Signal Max = Vontade + 2 (computed in the status panel). Signal is clean human frequency — spend it to stay yourself, not as generic reroll fuel. Recovers through grounding, not sleep alone.'},
+
+ {code:'FORM E-6', title:'Resonance', kind:'fields', fields:[
+   {l:'Symptoms / Manifestations', p:'resonance.symptoms', wide:1},
+   {l:'Permanent Changes', p:'resonance.permanentChanges', wide:1}],
+  note:'Current % and stage live in the status panel. Stages are unlock keys and narrative pressure, not automatic penalties. Starting: 0% default \u00b7 10% minor prior exposure (GM-approved) \u00b7 20% Resonant Subject.'},
+
+ {code:'FORM E-7', title:'Karma', kind:'fields', fields:[
+   {l:'Last Karma-Moving Act', p:'karma.lastAct', wide:1},
+   {l:'Investment Techniques Used', p:'karma.investments', wide:1},
+   {l:'Contradiction Scars', p:'karma.scars', wide:1}],
+  note:'Karma moves only through transparent Karma-Moving Acts — always telegraphed. Crossing zero is a story event, not a build option. Path limits are set on the ruler in the status panel.'},
+
+ {code:'FORM E-8', title:'Eidolon Access', kind:'custom', render:'renderAccess',
+  note:'Access is institutional permission and dependency — not Karma. It must be useful before it is threatening.'},
+
+ {code:'FORM E-9', title:'Harm & Recovery', kind:'fields', fields:[
+   {l:'Recovery Notes', p:'harm.recoveryNotes', wide:1},
+   {l:'Scars / Lasting Consequences', p:'harm.scars', wide:1}],
+  note:'Wound slots live in the status panel. Overflow: full Minor \u2192 next becomes Serious; full Serious \u2192 next becomes Critical. Serious wounds: \u22122 when directly interfering. Eidolon medical help works — and creates records, monitoring, debt, and dependency.'},
+
+ {code:'FORM E-10', title:'Armor / Protection', kind:'custom', render:'renderArmor',
+  note:'Mark one relevant Protection Slot to reduce a wound by one severity (Critical\u2192Serious, Serious\u2192Minor, Minor\u2192ignored).'},
+
+ {code:'FORM E-11', title:'Mental State', kind:'fields', fields:[
+   {l:'Current State', p:'mental.state'},
+   {l:'Active Mental Conditions', p:'mental.conditions'},
+   {l:'Notes', p:'mental.notes', wide:1}],
+  note:'Light and narrative — there is no sanity HP track. Pressure shows through Signal loss, Anchor stress, symptoms, and consequences.'},
+
+ {code:'FORM E-12', title:'Techniques & Skill Cards', kind:'custom', render:'renderTechniques',
+  note:'Position-Gated techniques require visible conditions and do not move Karma. Investment techniques move Karma when unlocked or used — rare and defining. Soft requirements never hide secret numbers.'},
+
+ {code:'FORM E-13', title:'Gear Registry', kind:'custom', render:'renderGear',
+  note:'Gear is external infrastructure; techniques are trained use. Carrying a device does not grant its techniques. Eidolon power is procedural — and traceable.'},
+
+ {code:'FORM E-14', title:'Pact Addendum', kind:'fields', fields:[
+   {l:'Geist Name / Title', p:'pact.geistName'}, {l:'Geist Tier', p:'pact.tier'},
+   {l:'Domain', p:'pact.domain'}, {l:'Signature', p:'pact.signature'},
+   {l:'How the Pact Was Formed', p:'pact.formed', wide:1},
+   {l:'Resonance Gained', p:'pact.resonanceGained'}, {l:'Current Relationship', p:'pact.relationship'},
+   {l:'Pact Terms', p:'pact.terms', wide:1},
+   {l:'Granted Abilities', p:'pact.abilities', wide:1},
+   {l:'Restrictions', p:'pact.restrictions'}, {l:'Demands', p:'pact.demands'},
+   {l:'Risks', p:'pact.risks'}, {l:'Broken Terms / Debt', p:'pact.debt'}],
+  note:'One major pact at a time. Forming one costs Resonance (+10% limited \u00b7 +15% deep \u00b7 +20% possessive). Apparitions cannot grant pacts; Lesser Geists leave marks and debts instead. A pact is a relationship, not an equipped spell.'},
+
+ {code:'FORM E-15', title:'Exposure / Haunting Addendum', kind:'custom', render:'renderMarks',
+  note:'Geist Marks are minor supernatural consequences — small but memorable. A mark can become a clue, a soft requirement, a pact seed, or a liability under observation.'},
+
+ {code:'FORM E-16', title:'Incident / Advancement Log', kind:'custom', render:'renderLog',
+  note:'Three lanes — Mundane Growth (what I learned), Technique Acquisition (what I can do), Karma Movement (what I have become). One advancement opportunity per completed case; the GM offers 2\u20133 grounded options.'}
+];
+
+/* GM classified dossier fields (rendered separately, redacted unless GM Mode) */
+const GM_FIELDS = [
+ {l:'True Reason Eidolon Cares', p:'gm.trueReason'},
+ {l:'Hidden Medical Classification', p:'gm.classification'},
+ {l:'Handler Agenda', p:'gm.handlerAgenda'},
+ {l:'Unrevealed Treatment Consequences', p:'gm.treatmentConsequences'},
+ {l:'Secret Faction Interest', p:'gm.factionInterest'},
+ {l:'Geist Long-Term Agenda', p:'gm.geistAgenda'},
+ {l:'NPC Trust & Suspicion', p:'gm.npcTrust'},
+ {l:'Faction Standing', p:'gm.factionStanding'},
+ {l:'Future 1990s Consequence', p:'gm.futureConsequence'},
+ {l:'Hidden Case Relevance', p:'gm.caseRelevance'}
+];
+
+/* ============================================================ RENDERERS */
+function fieldHTML(f, c){
+  return `<div class="field ${f.wide?'wide':''}">
+    <label>${f.l}</label>
+    <div class="val" contenteditable="true" data-path="${f.p}">${esc(getPath(c,f.p))}</div>
+  </div>`;
+}
+function sectionShell(s, inner){
+  const col = UI.collapsed[s.code] ? 'collapsed' : '';
+  return `<section class="form ${col}" data-code="${s.code}">
+    <div class="form-head" data-collapse="${s.code}">
+      <h2>${s.title}</h2><span class="code">${s.code} · S2/v0.1</span>
+    </div>
+    <div class="form-body">${inner}${s.note?`<p class="note">${s.note}</p>`:''}</div>
+  </section>`;
+}
+function stepperHTML(path, val, min, max){
+  return `<span class="step">
+    <button data-step="${path}" data-d="-1" data-min="${min}" data-max="${max}">−</button>
+    <span class="num">${val>=0&&path.startsWith('attributes')?'+':''}${val}</span>
+    <button data-step="${path}" data-d="1" data-min="${min}" data-max="${max}">+</button>
+  </span>`;
+}
+
+const CUSTOM = {
+ renderAttributes(c){
+   return `<table class="stat">` + REF.attributes.map(a=>
+     `<tr><td class="name">${a.name}</td><td class="desc">${a.desc}</td>
+      <td class="ctl">${stepperHTML('attributes.'+a.key, c.attributes[a.key], -1, 5)}</td></tr>`).join('') + `</table>`;
+ },
+ renderDomains(c){
+   return `<table class="stat">` + REF.domains.map(d=>
+     `<tr><td class="name">${d.name}</td><td class="desc">${d.desc}</td>
+      <td class="ctl">${stepperHTML('domains.'+d.key, c.domains[d.key], 0, 5)}</td></tr>`).join('') + `</table>`;
+ },
+ renderAccess(c){
+   const opts = REF.accessStates.map(s=>`<option ${c.access.state===s?'selected':''}>${s}</option>`).join('');
+   return `<div class="fieldgrid">
+     <div class="field"><label>Access State</label>
+       <select data-select="access.state" style="font-family:var(--mono);background:var(--paper);border:1px solid var(--ink);padding:3px;">${opts}</select></div>
+     ${fieldHTML({l:'Access Scope', p:'access.scope'}, c)}
+     ${fieldHTML({l:'Handler / Supervisor', p:'access.handler'}, c)}
+     ${fieldHTML({l:'Gear Support', p:'access.gearSupport'}, c)}
+     ${fieldHTML({l:'Permitted Areas', p:'access.permitted', wide:1}, c)}
+     ${fieldHTML({l:'Restricted Areas', p:'access.restricted', wide:1}, c)}
+     ${fieldHTML({l:'Current Access Damage', p:'access.damage', wide:1}, c)}
+   </div>`;
+ },
+ renderArmor(c){
+   const cards = c.armor.map((a,i)=>`
+    <div class="card"><div class="chead">
+      <span class="cname" contenteditable="true" data-path="armor.${i}.name">${esc(a.name)}</span>
+      <span class="cfac">Protection</span></div>
+     <div class="cbody">
+      ${['slots|Protection Slots','applies|Applies Against','notApplies|Does Not Apply','notes|Notes']
+        .map(x=>{const [k,l]=x.split('|');
+        return `<div class="crow"><span class="k">${l}</span><span class="v" contenteditable="true" data-path="armor.${i}.${k}">${esc(a[k])}</span></div>`;}).join('')}
+     </div><div class="cfoot"><button class="danger" data-del="armor" data-id="${a.id}">Remove</button></div></div>`).join('');
+   return `<div class="cardlist">${cards||'<p class="note">No protection registered.</p>'}</div>
+     <div class="addrow"><button data-add="armor">+ Add Protection</button></div>`;
+ },
+ renderTechniques(c){
+   const rows = ['tags|Tags','type|Type','effect|Effect','cost|Cost','hardReq|Hard Requirements',
+                 'softReq|Soft Requirements','karma|Karma','gear|Gear','risk|Risk / Limitation'];
+   const facClass = f => ({'Occult Eden':'fac-eden','Echologist':'fac-echologist','Geist Pact':'fac-pact'})[f]||'fac-general';
+   const cards = c.techniques.map((t,i)=>`
+    <div class="card"><div class="chead">
+      <span class="cname" contenteditable="true" data-path="techniques.${i}.name">${esc(t.name)}</span>
+      <span class="cfac ${facClass(t.faction)}" contenteditable="true" data-path="techniques.${i}.faction">${esc(t.faction)}</span></div>
+     <div class="cbody">${rows.map(x=>{const [k,l]=x.split('|');
+        return `<div class="crow"><span class="k">${l}</span><span class="v" contenteditable="true" data-path="techniques.${i}.${k}">${esc(t[k])}</span></div>`;}).join('')}
+     </div><div class="cfoot"><button class="danger" data-del="techniques" data-id="${t.id}">Remove</button></div></div>`).join('');
+   return `<div class="cardlist">${cards}</div>
+     <div class="addrow">
+       <button data-add="techniques" data-fac="General">+ General</button>
+       <button data-add="techniques" data-fac="Eidolon">+ Eidolon</button>
+       <button data-add="techniques" data-fac="Occult Eden">+ Occult Eden</button>
+       <button data-add="techniques" data-fac="Echologist">+ Echologist</button>
+       <button data-add="techniques" data-fac="Geist Pact">+ Pact Ability</button>
+     </div>`;
+ },
+ renderGear(c){
+   const rows = ['type|Type','capacity|Capacity','charge|Current Charge','func|Function','compat|Compatible Techniques',
+                 'requirements|Requirements','risk|Risk','maintenance|Maintenance','tracking|Tracking / Access','notes|Notes'];
+   const cards = c.gear.map((g,i)=>`
+    <div class="card"><div class="chead">
+      <span class="cname" contenteditable="true" data-path="gear.${i}.name">${esc(g.name)}</span>
+      <span class="cfac">Device</span></div>
+     <div class="cbody">${rows.map(x=>{const [k,l]=x.split('|');
+        return `<div class="crow"><span class="k">${l}</span><span class="v" contenteditable="true" data-path="gear.${i}.${k}">${esc(g[k])}</span></div>`;}).join('')}
+     </div><div class="cfoot"><button class="danger" data-del="gear" data-id="${g.id}">Remove</button></div></div>`).join('');
+   return `<div class="cardlist">${cards||'<p class="note">No devices registered.</p>'}</div>
+     <div class="addrow"><button data-add="gear">+ Register Device</button></div>`;
+ },
+ renderMarks(c){
+   const rows = ['source|Source','symptom|Symptom','effect|Mechanical Effect','duration|Duration','notes|Notes'];
+   const cards = c.marks.map((m,i)=>`
+    <div class="card"><div class="chead">
+      <span class="cname" contenteditable="true" data-path="marks.${i}.name">${esc(m.name)}</span>
+      <span class="cfac fac-eden">Geist Mark</span></div>
+     <div class="cbody">${rows.map(x=>{const [k,l]=x.split('|');
+        return `<div class="crow"><span class="k">${l}</span><span class="v" contenteditable="true" data-path="marks.${i}.${k}">${esc(m[k])}</span></div>`;}).join('')}
+     </div><div class="cfoot"><button class="danger" data-del="marks" data-id="${m.id}">Remove</button></div></div>`).join('');
+   return `<div class="cardlist">${cards||'<p class="note">No marks or hauntings on file.</p>'}</div>
+     <div class="addrow"><button data-add="marks">+ Record Mark / Haunting</button></div>`;
+ },
+ renderLog(c){
+   const rows = ['caseName|Case','advancement|Advancement Chosen','domains|Domain Changes','techniques|Techniques Learned',
+     'karmaActs|Karma-Moving Acts','access|Access Changes','gear|Gear Changes','wounds|Wounds / Scars','notes|Notes'];
+   const cards = c.log.map((e,i)=>`
+    <div class="card" style="grid-column:1/-1;"><div class="chead">
+      <span class="cname">Entry ${String(i+1).padStart(2,'0')}</span><span class="cfac">Advancement</span></div>
+     <div class="cbody">${rows.map(x=>{const [k,l]=x.split('|');
+        return `<div class="crow"><span class="k">${l}</span><span class="v" contenteditable="true" data-path="log.${i}.${k}">${esc(e[k])}</span></div>`;}).join('')}
+     </div><div class="cfoot"><button class="danger" data-del="log" data-id="${e.id}">Remove</button></div></div>`).join('');
+   return `<div class="cardlist">${cards||'<p class="note">Log is empty. Entries are added after completed cases.</p>'}</div>
+     <div class="addrow"><button data-add="log">+ Log Advancement</button></div>`;
+ }
+};
+
+/* ---------------- sidebar status panel ---------------- */
+function sidebarHTML(c){
+  const v = c.attributes.vontade, sigMax = Math.max(0, v + 2 + (c.signal.maxMod||0));
+  if(c.signal.current > sigMax) c.signal.current = sigMax;
+  const pct = c.resonance.pct, st = stageFor(pct);
+  const pips = Array.from({length:sigMax}, (_,i)=>
+    `<div class="pip ${i < c.signal.current ? 'on':''}" data-pip="${i}"></div>`).join('');
+  const ticks = [20,40,60,80].map(t=>`<div class="tick" style="left:${t}%"></div>`).join('');
+  const stages = REF.resonanceStages.slice(0,5).map(s=>
+    `<span style="width:20%" class="${s===st?'cur':''}">${s.name}</span>`).join('');
+  const k = c.karma.value;
+  const cells = [];
+  for(let i=-5;i<=5;i++){
+    const cls = ['cell', i<0?'neg':i>0?'pos':'zero'];
+    if(i===k) cls.push('cur');
+    if(i < c.karma.edenLimit || i > c.karma.echoLimit) cls.push('barred');
+    cells.push(`<div class="${cls.join(' ')}" data-karma="${i}">${i>0?'+':''}${i}</div>`);
+  }
+  const wbox = (arr, key) => arr.map((on,i)=>
+    `<div class="wbox ${on?'on':''}" data-wound="${key}" data-i="${i}"></div>`).join('');
+  return `
+  <div class="panel"><h3>Signal <span class="mini">Max = Vontade + 2</span></h3><div class="pad">
+    <div class="bigread">${c.signal.current} / ${sigMax} <small>clean frequency</small></div>
+    <div class="pips">${pips}</div>
+    <p class="note">Click pips to spend or recover. Temp max modifier:
+      ${stepperHTML('signal.maxMod', c.signal.maxMod||0, -5, 5)}</p>
+  </div></div>
+
+  <div class="panel"><h3>Resonance <span class="mini">contamination</span></h3><div class="pad">
+    <div class="bigread">${pct}% <small>${st.name}</small></div>
+    <div class="gauge"><div class="track"><div class="fill" style="width:${pct}%"></div>${ticks}</div>
+      <div class="stages">${stages}</div></div>
+    <p class="note">Next threshold: ${nextThreshold(pct)}</p>
+    <div class="addrow">
+      <button data-res="-5">−5</button><button data-res="-1">−1</button>
+      <button data-res="1">+1</button><button data-res="5">+5</button>
+    </div>
+  </div></div>
+
+  <div class="panel"><h3>Karma <span class="mini">−5 Eden · +5 Echologist</span></h3><div class="pad">
+    <div class="bigread">${k>0?'+':''}${k} <small>${karmaPath(k)}</small></div>
+    <p class="note" style="margin-top:2px;">Stage: ${karmaStage(k)}</p>
+    <div class="kruler">${cells.join('')}</div>
+    <div class="klabels"><span class="l">Occult Eden · Accumulate</span><span class="r">Echologist · Purge</span></div>
+    <p class="note">Limits — Eden: ${stepperHTML('karma.edenLimit', c.karma.edenLimit, -5, 0)}
+       Echologist: ${stepperHTML('karma.echoLimit', c.karma.echoLimit, 0, 5)}</p>
+  </div></div>
+
+  <div class="panel"><h3>Harm <span class="mini">wound slots</span></h3><div class="pad wounds">
+    <div class="wrow"><span class="wlab">Minor</span>${wbox(c.harm.minor,'minor')}</div>
+    <div class="wrow"><span class="wlab">Serious</span>${wbox(c.harm.serious,'serious')}<span class="note" style="margin:0;">−2 when relevant</span></div>
+    <div class="wrow"><span class="wlab">Critical</span>${wbox(c.harm.critical,'critical')}</div>
+    <p class="note">Overflow: full Minor \u2192 Serious; full Serious \u2192 Critical. No death save — consequence follows from fiction.</p>
+  </div></div>
+
+  <div class="panel"><h3>Access <span class="mini">institutional leash</span></h3><div class="pad">
+    <div class="bigread" style="font-size:18px;">${esc(c.access.state)}</div>
+    <p class="note">${esc(c.access.scope || 'Scope unrecorded.')}</p>
+    <p class="note">Damage: ${esc(c.access.damage || 'None')}</p>
+  </div></div>`;
+}
+
+/* ---------------- views ---------------- */
+const VIEWS = {
+ dossier(){
+   const c = activeChar();
+   if(!c) return `<p class="note">No personnel on file. Create one to begin.</p>`;
+   document.getElementById('fileref').textContent = c.fileNo;
+   const picker = `<div class="charstrip">
+     <span class="who">Subject:</span>
+     <select id="charSel">${DB.characters.map(x=>
+       `<option value="${x.id}" ${x.id===UI.charId?'selected':''}>${esc(x.identity.name||'(unnamed asset)')} — ${x.fileNo}</option>`).join('')}</select>
+     <button id="newChar">+ New Dossier</button>
+     <button id="dupChar">Duplicate</button>
+     <button id="delChar" class="danger">Destroy File</button>
+   </div>`;
+   const sections = SECTIONS.map(s => sectionShell(s,
+     s.kind==='fields' ? `<div class="fieldgrid">${s.fields.map(f=>fieldHTML(f,c)).join('')}</div>`
+                       : CUSTOM[s.render](c))).join('');
+   const gmInner = `<div class="fieldgrid ${UI.gm?'':'redacted'}">${GM_FIELDS.map(f=>fieldHTML(f,c)).join('')}</div>
+     ${UI.gm?'':'<p class="gmnotice">CONTENTS REDACTED — enable GM Mode to read or edit. Hidden information creates context and consequence; it never contradicts the visible sheet.</p>'}`;
+   const gmPanel = `<section class="form gmpanel ${UI.collapsed['GM']?'collapsed':''}">
+     <div class="form-head" data-collapse="GM"><h2>GM Classified Dossier</h2><span class="code">EYES ONLY</span></div>
+     <div class="form-body">${gmInner}</div></section>`;
+   return picker + `<div class="cols"><div>${sections}${gmPanel}</div><aside>${sidebarHTML(c)}</aside></div>`;
+ },
+
+ archive(){
+   const cur = DB.archive.find(a=>a.id===UI.archiveId) || DB.archive[0];
+   const idx = DB.archive.map(a=>`<div class="ientry ${cur&&a.id===cur.id?'cur':''}" data-open-archive="${a.id}">
+      <span class="tag">${esc(a.tag)}</span>${esc(a.title)}</div>`).join('');
+   const art = cur ? `<div class="article">
+      <h2 contenteditable="true" data-apath="title">${esc(cur.title)}</h2>
+      <div class="meta">Classification: <span contenteditable="true" data-apath="tag">${esc(cur.tag)}</span> · Archive Ref. ${cur.id.toUpperCase()}</div>
+      <div class="body" contenteditable="true" data-apath="body">${esc(cur.body)}</div>
+      <div class="addrow"><button class="danger" id="delArticle">Destroy Record</button></div>
+    </div>` : '<p class="note">Archive is empty.</p>';
+   return `<div class="listgrid">
+     <div class="index"><div class="ihead">Central Archive — Setting Records</div>${idx}
+       <div class="ifoot"><button id="newArticle">+ New Record</button></div></div>
+     ${art}</div>
+     <p class="note" style="margin-top:14px;">► Wiki seed: each record is a freely editable article. Extend by adding records for divisions, NPCs, Geists, cases, and locations — or add new collections in the DB.</p>`;
+ },
+
+ operations(){
+   const cur = DB.operations.find(o=>o.id===UI.opsId) || DB.operations[0];
+   const idx = DB.operations.map(o=>`<div class="ientry ${cur&&o.id===cur.id?'cur':''}" data-open-ops="${o.id}">
+      <span class="tag">${esc(o.code||'CASE')} · ${esc(o.status)}</span>${esc(o.title)}</div>`).join('');
+   const rows = ['code|Case Code','date|Date','status|Status',
+     'investigation|1 · Investigation','conclusion|2 · Conclusion','preparation|3 · Preparation','clash|4 · Clash',
+     'advancementMenu|Advancement Menu','gmNotes|GM Notes'];
+   const art = cur ? `<div class="article">
+      <h2 contenteditable="true" data-opath="title">${esc(cur.title)}</h2>
+      <div class="meta">Operations file · case rhythm: Investigation → Conclusion → Preparation → Clash</div>
+      <div class="fieldgrid">${rows.map(x=>{const [k,l]=x.split('|');
+        return `<div class="field wide"><label>${l}</label>
+          <div class="val" contenteditable="true" data-opath="${k}">${esc(cur[k])}</div></div>`;}).join('')}</div>
+      <div class="addrow"><button class="danger" id="delOps">Destroy Record</button></div>
+    </div>` : '<p class="note">No operations on file.</p>';
+   return `<div class="listgrid">
+     <div class="index"><div class="ihead">Operations Log — Cases & Sessions</div>${idx}
+       <div class="ifoot"><button id="newOps">+ New Case File</button></div></div>
+     ${art}</div>
+     <p class="note" style="margin-top:14px;">► Session manager seed: one record per case or session. Escalate through deeper impossibility, not bigger monsters. Each case should quietly feed the keystone project.</p>`;
+ },
+
+ reference(){
+   const t = (cap, head, rows) => `<table class="ref"><caption>${cap}</caption>
+     ${head?`<tr>${head.map(h=>`<th>${h}</th>`).join('')}</tr>`:''}
+     ${rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</table>`;
+   return `<div class="cols"><div>
+    ${t('Core Roll', null, [['d20 + Attribute + Domain \u2265 Difficulty','Success / Partial (cost, delay, exposure) / Failure']])}
+    ${t('Difficulty Scale', ['DC','Tier'], REF.difficulty)}
+    ${t('Resonance Stages', ['Range','Stage'], REF.resonanceStages.map(s=>[s.min===100?'100%':s.min+'–'+s.max+'%', s.name]))}
+    ${t('Karma Track', ['Value','Depth'], Object.entries(REF.karmaDepth).sort((a,b)=>a[0]-b[0]).map(([k,v])=>[k>0?'+'+k:k, v]))}
+    ${t('Character Creation', ['Step','Action'], [
+      ['1','Choose Role / Occupation (domain package, gear, access)'],
+      ['2','Assign Attributes: +3, +2, +1, +0'],
+      ['3','Apply Domain package; may move 1 point; none above 2'],
+      ['4','Set Signal Max = Vontade + 2'],
+      ['5','Define Anchor'],
+      ['6','Resonance: 0% default · 10% minor exposure · 20% subject'],
+      ['7','Karma: 0'],
+      ['8','Gain Ground Yourself + 1 General Technique'],
+      ['9','Record gear and Eidolon Access'],
+      ['10','Fill Harm, Mental State, Identity, Relationships'],
+      ['11','Prepare Advancement Log']])}
+   </div><div>
+    ${t('Harm', ['Slot','Effect'], [
+      ['Minor [ ][ ]','Hurt but functioning; usually no penalty'],
+      ['Serious [ ][ ]','−2 when the wound directly interferes'],
+      ['Critical [ ]','Cannot act normally without help, Signal, or cost'],
+      ['Overflow','Minor full → Serious; Serious full → Critical'],
+      ['Armor','Mark 1 relevant Protection Slot: reduce severity by one']])}
+    ${t('Advancement Lanes', null, [
+      ['Mundane Growth','what I have learned'],
+      ['Technique Acquisition','what I can do'],
+      ['Karma Movement','what I have become']])}
+    ${t('Pact Resonance Cost', null, [
+      ['Limited pact','+10% Resonance'],['Deep pact','+15%'],['Possessive / life-altering','+20%']])}
+    ${t('Design Spine', null, [
+      ['Attributes','natural approach'],['Domains','trained competence'],
+      ['Signal','clean human frequency'],['Resonance','contamination, fuel, classification risk'],
+      ['Karma','the path the soul has walked'],['Techniques','structured progression'],
+      ['Gear','external infrastructure'],['Pacts','rare, costly bonds'],
+      ['Access','institutional permission and dependency'],
+      ['The players','begin as tools; the sheet records how they become people']])}
+   </div></div>`;
+ }
+};
+
+/* ---------------- render + router ---------------- */
+const app = document.getElementById('app');
+function render(){
+  app.innerHTML = VIEWS[UI.view] ? VIEWS[UI.view]() : VIEWS.dossier();
+  document.querySelectorAll('nav.tabs a').forEach(a=>
+    a.classList.toggle('active', a.dataset.view===UI.view));
+}
+function route(){
+  const h = location.hash.replace('#/','') || 'dossier';
+  UI.view = VIEWS[h] ? h : 'dossier';
+  render();
+}
+window.addEventListener('hashchange', route);
+
+/* ---------------- events (delegated) ---------------- */
+app.addEventListener('focusout', e=>{
+  const c = activeChar();
+  if(e.target.dataset.path){ setPath(c, e.target.dataset.path, e.target.innerText.trim());
+    if(e.target.dataset.path.startsWith('access.')) render(); }
+  if(e.target.dataset.apath){
+    const a = DB.archive.find(x=>x.id===UI.archiveId);
+    if(a){ a[e.target.dataset.apath] = e.target.innerText.trim(); }
+    if(e.target.dataset.apath!=='body') render();
+  }
+  if(e.target.dataset.opath){
+    const o = DB.operations.find(x=>x.id===UI.opsId);
+    if(o){ o[e.target.dataset.opath] = e.target.innerText.trim();
+      if(['title','code','status'].includes(e.target.dataset.opath)) render(); }
+  }
+});
+
+app.addEventListener('click', e=>{
+  const c = activeChar(); const t = e.target;
+
+  if(t.dataset.collapse){ UI.collapsed[t.dataset.collapse] = !UI.collapsed[t.dataset.collapse]; render(); return; }
+  if(t.closest('[data-collapse]') && !t.dataset.collapse){
+    const code = t.closest('[data-collapse]').dataset.collapse;
+    UI.collapsed[code] = !UI.collapsed[code]; render(); return;
+  }
+
+  if(t.dataset.step){
+    const d = +t.dataset.d, min = +t.dataset.min, max = +t.dataset.max;
+    const cur = +getPath(c, t.dataset.step) || 0;
+    setPath(c, t.dataset.step, Math.max(min, Math.min(max, cur + d)));
+    render(); return;
+  }
+  if(t.dataset.res !== undefined && t.dataset.res !== ''){
+    c.resonance.pct = Math.max(0, Math.min(100, (+c.resonance.pct||0) + +t.dataset.res));
+    render(); return;
+  }
+  if(t.dataset.pip !== undefined){
+    const i = +t.dataset.pip;
+    c.signal.current = (i < c.signal.current) ? i : i + 1;
+    render(); return;
+  }
+  if(t.dataset.karma !== undefined){
+    const k = +t.dataset.karma;
+    if(k < c.karma.edenLimit || k > c.karma.echoLimit) return; // barred by Contradiction Scar
+    if(k !== c.karma.value){
+      const act = prompt('Karma moves only through a Karma-Moving Act.\nRecord the act (telegraphed, deliberate, irreversible):', c.karma.lastAct || '');
+      if(act === null) return;
+      c.karma.value = k; if(act) c.karma.lastAct = act;
+      render();
+    } return;
+  }
+  if(t.dataset.wound){
+    const arr = c.harm[t.dataset.wound]; arr[+t.dataset.i] = !arr[+t.dataset.i]; render(); return;
+  }
+  if(t.dataset.add){
+    const kind = t.dataset.add;
+    if(kind==='techniques') c.techniques.push(blankTechnique(t.dataset.fac));
+    if(kind==='gear') c.gear.push(blankGear());
+    if(kind==='marks') c.marks.push(blankMark());
+    if(kind==='log') c.log.push(blankLog());
+    if(kind==='armor') c.armor.push(blankArmor());
+    render(); return;
+  }
+  if(t.dataset.del){
+    const list = c[t.dataset.del];
+    const i = list.findIndex(x=>x.id===t.dataset.id);
+    if(i>-1 && confirm('Destroy this record? This cannot be undone.')) { list.splice(i,1); render(); }
+    return;
+  }
+  if(t.dataset.openArchive){ UI.archiveId = t.dataset.openArchive; render(); return; }
+  if(t.dataset.openOps){ UI.opsId = t.dataset.openOps; render(); return; }
+
+  if(t.id==='newChar'){ const nc = blankCharacter(prompt('Subject name (leave blank to assign later):')||'');
+    DB.characters.push(nc); UI.charId = nc.id; render(); return; }
+  if(t.id==='dupChar'){ const copy = JSON.parse(JSON.stringify(c));
+    copy.id = uid(); copy.fileNo = c.fileNo + '-B';
+    copy.identity.name = (c.identity.name||'(unnamed asset)') + ' (copy)';
+    ['techniques','gear','marks','log','armor'].forEach(k=> copy[k].forEach(x=>x.id=uid()));
+    DB.characters.push(copy); UI.charId = copy.id; render(); return; }
+  if(t.id==='delChar'){
+    if(DB.characters.length<=1){ alert('At least one dossier must remain on file.'); return; }
+    if(confirm('Destroy this personnel file? Export first if you want a copy.')){
+      DB.characters = DB.characters.filter(x=>x.id!==c.id);
+      UI.charId = DB.characters[0].id; render(); } return; }
+  if(t.id==='newArticle'){ const a={id:uid(), tag:'Uncategorized', title:'New Record', body:''};
+    DB.archive.push(a); UI.archiveId=a.id; render(); return; }
+  if(t.id==='delArticle'){ if(confirm('Destroy this archive record?')){
+    DB.archive = DB.archive.filter(x=>x.id!==UI.archiveId);
+    UI.archiveId = DB.archive[0] ? DB.archive[0].id : null; render(); } return; }
+  if(t.id==='newOps'){ const o = blankCase(); o.code = 'CASE ' + String(DB.operations.length).padStart(2,'0');
+    DB.operations.push(o); UI.opsId=o.id; render(); return; }
+  if(t.id==='delOps'){ if(confirm('Destroy this case file?')){
+    DB.operations = DB.operations.filter(x=>x.id!==UI.opsId);
+    UI.opsId = DB.operations[0] ? DB.operations[0].id : null; render(); } return; }
+});
+
+app.addEventListener('change', e=>{
+  if(e.target.id==='charSel'){ UI.charId = e.target.value; render(); }
+  if(e.target.dataset.select){ setPath(activeChar(), e.target.dataset.select, e.target.value); render(); }
+});
+
+/* ---------------- toolbar ---------------- */
+document.getElementById('gmToggle').addEventListener('click', e=>{
+  UI.gm = !UI.gm;
+  e.target.textContent = 'GM Mode: ' + (UI.gm?'On':'Off');
+  e.target.classList.toggle('gm-on', UI.gm);
+  document.getElementById('stampbox').textContent = UI.gm ? 'Eyes Only' : 'Restricted';
+  render();
+});
+document.getElementById('exportBtn').addEventListener('click', ()=>{
+  DB.meta.exported = new Date().toISOString();
+  const blob = new Blob([JSON.stringify(DB, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'resonance_s2_campaign.json';
+  a.click(); URL.revokeObjectURL(a.href);
+});
+document.getElementById('importBtn').addEventListener('click', ()=> document.getElementById('importInput').click());
+document.getElementById('importInput').addEventListener('change', e=>{
+  const f = e.target.files[0]; if(!f) return;
+  const r = new FileReader();
+  r.onload = ()=>{
+    try{
+      const data = JSON.parse(r.result);
+      if(!data.characters || !Array.isArray(data.characters)) throw new Error('Not a campaign file');
+      DB = data;
+      UI.charId = DB.characters[0] ? DB.characters[0].id : null;
+      UI.archiveId = DB.archive && DB.archive[0] ? DB.archive[0].id : null;
+      UI.opsId = DB.operations && DB.operations[0] ? DB.operations[0].id : null;
+      render();
+    }catch(err){ alert('Import failed: ' + err.message); }
+  };
+  r.readAsText(f); e.target.value = '';
+});
+
+route();
+
+</script>
+</body>
+</html>

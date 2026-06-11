@@ -1,9 +1,3 @@
 <template>
-  <main class="home-page" aria-label="Home" />
+  <DossierAppShell />
 </template>
-
-<style scoped lang="scss">
-.home-page {
-  min-height: 100vh;
-}
-</style>

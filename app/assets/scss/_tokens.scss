@@ -1,30 +1,26 @@
-$font-family-base: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+$eid-color-paper: #EFE7D6 !default;
+$eid-color-paper-2: #E4D9C2 !default;
+$eid-color-ink: #2B2722 !default;
+$eid-color-rule: #C2B496 !default;
+$eid-color-stamp: #9E2B25 !default;
+$eid-color-eden: #5C4B73 !default;
+$eid-color-echo: #3E6259 !default;
+$eid-frame-bg: #3A352D !default;
+$eid-print-bg: #FFFFFF !default;
 
-$tokens: (
-  color-background: #f8fafc,
-  color-surface: #ffffff,
-  color-text: #111827,
-  color-muted: #6b7280,
-  color-border: #d1d5db,
-  color-accent: #2563eb,
-  space-1: 0.25rem,
-  space-2: 0.5rem,
-  space-3: 0.75rem,
-  space-4: 1rem,
-  space-6: 1.5rem,
-  space-8: 2rem,
-  radius-sm: 0.25rem,
-  radius-md: 0.5rem,
-  radius-lg: 0.75rem,
-  z-base: 0,
-  z-overlay: 10,
-  z-modal: 20
-);
+$eid-font-sans: Arial, Helvetica, ui-sans-serif, sans-serif !default;
+$eid-font-mono: "Courier Prime", "Courier New", ui-monospace, monospace !default;
 
 :root {
-  --font-family-base: #{$font-family-base};
-
-  @each $name, $value in $tokens {
-    --#{$name}: #{$value};
-  }
+  --paper: #{$eid-color-paper};
+  --paper2: #{$eid-color-paper-2};
+  --ink: #{$eid-color-ink};
+  --rule: #{$eid-color-rule};
+  --stamp: #{$eid-color-stamp};
+  --eden: #{$eid-color-eden};
+  --echo: #{$eid-color-echo};
+  --frame-bg: #{$eid-frame-bg};
+  --print-bg: #{$eid-print-bg};
+  --font-ui: #{$eid-font-sans};
+  --font-record: #{$eid-font-mono};
 }
