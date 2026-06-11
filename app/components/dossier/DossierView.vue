@@ -23,7 +23,44 @@
           :collapsed="ui.collapsed[section.code]"
           @toggle="toggleSection(section.code)"
         >
-          <div v-if="section.kind === 'fields'" class="eid-field-grid">
+          <div v-if="section.kind === 'fields' && isIdentitySection(section)" class="eid-identity-record">
+            <div class="eid-identity-record__fields eid-field-grid">
+              <DossierField
+                v-for="field in identityPrimaryFields(section)"
+                :key="field.p"
+                :label="field.l"
+                :value="fieldValue(field.p)"
+                :wide="field.wide"
+                @commit="commitCharacterPath(field.p, $event)"
+              />
+            </div>
+
+            <aside class="eid-photo-frame" :aria-label="t('ui.dossier.photoFrameLabel')">
+              <div class="eid-photo-frame__plate">
+                <span class="eid-photo-frame__label">{{ t('ui.dossier.photoFrameId') }}</span>
+                <div class="eid-photo-frame__well">
+                  <span>{{ t('ui.dossier.photoFramePrompt') }}</span>
+                </div>
+                <div class="eid-photo-frame__meta">
+                  <span>{{ character.fileNo }}</span>
+                  <span>{{ t('ui.dossier.photoFrameStamp') }}</span>
+                </div>
+              </div>
+            </aside>
+
+            <div class="eid-identity-record__notes eid-field-grid">
+              <DossierField
+                v-for="field in identityDetailFields(section)"
+                :key="field.p"
+                :label="field.l"
+                :value="fieldValue(field.p)"
+                :wide="field.wide"
+                @commit="commitCharacterPath(field.p, $event)"
+              />
+            </div>
+          </div>
+
+          <div v-else-if="section.kind === 'fields'" class="eid-field-grid">
             <DossierField
               v-for="field in section.fields"
               :key="field.p"
@@ -91,6 +128,7 @@
 
 <script setup lang="ts">
 import { GM_FIELDS, REF, SECTIONS } from '~/data/dossier'
+import type { SectionDefinition } from '~/types/dossier'
 import { getPath } from '~/utils/dossier'
 
 const {
@@ -109,6 +147,18 @@ const { t } = useDossierI18n()
 
 function fieldValue(path: string) {
   return getPath(character.value, path) as string | number | null | undefined
+}
+
+function isIdentitySection(section: SectionDefinition) {
+  return section.code === 'FORM E-1'
+}
+
+function identityPrimaryFields(section: SectionDefinition) {
+  return section.fields?.filter((field) => !field.wide) || []
+}
+
+function identityDetailFields(section: SectionDefinition) {
+  return section.fields?.filter((field) => field.wide) || []
 }
 
 function newCharacter() {

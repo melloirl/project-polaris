@@ -22,7 +22,11 @@
       "gearSupport": "Gear Support",
       "permittedAreas": "Permitted Areas",
       "restrictedAreas": "Restricted Areas",
-      "currentAccessDamage": "Current Access Damage"
+      "currentAccessDamage": "Current Access Damage",
+      "photoFrameLabel": "Subject photograph frame",
+      "photoFrameId": "Visual ID",
+      "photoFramePrompt": "Affix photo",
+      "photoFrameStamp": "S2 Registry"
     },
     "letterhead": {
       "organization": "Eidolon",

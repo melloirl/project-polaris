@@ -22,7 +22,11 @@
       "gearSupport": "Apoio de Equipamento",
       "permittedAreas": "Áreas Permitidas",
       "restrictedAreas": "Áreas Restritas",
-      "currentAccessDamage": "Dano Atual de Acesso"
+      "currentAccessDamage": "Dano Atual de Acesso",
+      "photoFrameLabel": "Moldura de fotografia do sujeito",
+      "photoFrameId": "ID Visual",
+      "photoFramePrompt": "Afixar foto",
+      "photoFrameStamp": "Registro S2"
     },
     "letterhead": {
       "organization": "Eidolon",
