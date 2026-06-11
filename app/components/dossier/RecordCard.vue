@@ -4,7 +4,7 @@
       <DossierEditableValue
         class="eid-card__name"
         :model-value="name"
-        label="Card name"
+        :label="t('ui.cards.cardName')"
         @commit="$emit('commit-name', $event)"
       />
       <DossierEditableValue
@@ -12,7 +12,7 @@
         class="eid-card__meta"
         :class="metaClass"
         :model-value="meta"
-        label="Card source"
+        :label="t('ui.cards.cardSource')"
         @commit="$emit('commit-meta', $event)"
       />
       <span v-else class="eid-card__meta" :class="metaClass">{{ meta }}</span>
@@ -29,7 +29,7 @@
       </div>
     </div>
     <footer class="eid-card__foot eid-no-print">
-      <button class="eid-button eid-button--danger" type="button" @click="$emit('remove')">Remove</button>
+      <button class="eid-button eid-button--danger" type="button" @click="$emit('remove')">{{ t('ui.cards.remove') }}</button>
     </footer>
   </article>
 </template>
@@ -50,4 +50,6 @@ defineEmits<{
   'commit-row': [key: string, value: string]
   remove: []
 }>()
+
+const { t } = useDossierI18n()
 </script>

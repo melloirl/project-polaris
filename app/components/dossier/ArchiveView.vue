@@ -1,7 +1,7 @@
 <template>
   <div class="eid-layout eid-layout--index-record">
     <aside class="eid-index">
-      <div class="eid-index__head">Central Archive - Setting Records</div>
+      <div class="eid-index__head">{{ t('ui.archive.indexHead') }}</div>
       <button
         v-for="record in db.archive"
         :key="record.id"
@@ -13,7 +13,7 @@
         <span>{{ record.tag }}</span>{{ record.title }}
       </button>
       <div class="eid-index__foot eid-no-print">
-        <button class="eid-button" type="button" @click="addArchiveRecord">+ New Record</button>
+        <button class="eid-button" type="button" @click="addArchiveRecord">{{ t('ui.archive.newRecord') }}</button>
       </div>
     </aside>
 
@@ -21,32 +21,32 @@
       <DossierEditableValue
         class="eid-article__title"
         :model-value="activeArchive.title"
-        label="Archive title"
+        :label="t('ui.archive.titleLabel')"
         @commit="commitArchive('title', $event)"
       />
       <div class="eid-article__meta">
-        Classification:
+        {{ t('ui.archive.classification') }}
         <DossierEditableValue
           class="eid-article__meta-edit"
           :model-value="activeArchive.tag"
-          label="Archive classification"
+          :label="t('ui.archive.classificationLabel')"
           @commit="commitArchive('tag', $event)"
         />
-        / Archive Ref. {{ activeArchive.id.toUpperCase() }}
+        / {{ t('ui.archive.archiveRef') }} {{ activeArchive.id.toUpperCase() }}
       </div>
       <DossierEditableValue
         class="eid-article__body"
         :model-value="activeArchive.body"
-        label="Archive body"
+        :label="t('ui.archive.bodyLabel')"
         @commit="commitArchive('body', $event)"
       />
       <div class="eid-add-row eid-no-print">
-        <button class="eid-button eid-button--danger" type="button" @click="destroyArchive">Destroy Record</button>
+        <button class="eid-button eid-button--danger" type="button" @click="destroyArchive">{{ t('ui.archive.destroy') }}</button>
       </div>
     </article>
-    <p v-else class="eid-note">Archive is empty.</p>
+    <p v-else class="eid-note">{{ t('ui.archive.empty') }}</p>
   </div>
-  <p class="eid-note eid-view-note">Wiki seed: each record is a freely editable article. Extend by adding records for divisions, NPCs, Geists, cases, and locations - or add new collections in the DB.</p>
+  <p class="eid-note eid-view-note">{{ t('ui.archive.note') }}</p>
 </template>
 
 <script setup lang="ts">
@@ -58,9 +58,10 @@ const {
   addArchiveRecord,
   removeArchiveRecord,
 } = useCampaignDossier()
+const { t } = useDossierI18n()
 
 function destroyArchive() {
-  if (confirm('Destroy this archive record?')) {
+  if (confirm(t('ui.archive.destroyConfirm'))) {
     removeArchiveRecord()
   }
 }

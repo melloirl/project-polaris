@@ -9,6 +9,7 @@ import {
   createInitialDb,
   REF,
 } from '~/data/dossier'
+import { getLocaleMessages } from '~/i18n/messages'
 import type {
   ArchiveRecord,
   CampaignDb,
@@ -22,18 +23,18 @@ const views: DossierView[] = ['dossier', 'archive', 'operations', 'reference']
 
 function normalizeDb(input: unknown): CampaignDb {
   if (!input || typeof input !== 'object') {
-    throw new Error('Not a campaign file')
+    throw new Error(getLocaleMessages().ui.common.notCampaignFile)
   }
 
   const record = input as Partial<CampaignDb>
   if (!Array.isArray(record.characters)) {
-    throw new Error('Not a campaign file')
+    throw new Error(getLocaleMessages().ui.common.notCampaignFile)
   }
 
   return {
     meta: {
-      system: record.meta?.system || 'Resonance S2',
-      formRev: record.meta?.formRev || 'v0.1',
+      system: record.meta?.system || getLocaleMessages().dossier.system,
+      formRev: record.meta?.formRev || getLocaleMessages().dossier.formRev,
       exported: record.meta?.exported || null,
       schemaVersion: record.meta?.schemaVersion || 1,
     },
@@ -58,7 +59,7 @@ export function useCampaignDossier() {
   const activeArchive = computed(() => db.value.archive.find(record => record.id === ui.value.archiveId) || db.value.archive[0] || null)
   const activeOperation = computed(() => db.value.operations.find(record => record.id === ui.value.opsId) || db.value.operations[0] || null)
   const fileRef = computed(() => activeChar.value?.fileNo || 'EID/70--')
-  const stamp = computed(() => ui.value.gm ? 'Eyes Only' : 'Restricted')
+  const stamp = computed(() => ui.value.gm ? getLocaleMessages().dossier.stamps.eyesOnly : getLocaleMessages().dossier.stamps.restricted)
 
   function syncSelections() {
     ui.value.charId = activeChar.value?.id || null
@@ -175,7 +176,7 @@ export function useCampaignDossier() {
     const copy = cloneRecord(character)
     copy.id = uid()
     copy.fileNo = `${character.fileNo}-B`
-    copy.identity.name = `${character.identity.name || '(unnamed asset)'} (copy)`
+    copy.identity.name = `${character.identity.name || getLocaleMessages().ui.character.unnamed} (${getLocaleMessages().ui.common.copySuffix})`
     for (const collection of [copy.techniques, copy.gear, copy.marks, copy.log, copy.armor]) {
       collection.forEach(item => {
         item.id = uid()
@@ -223,7 +224,8 @@ export function useCampaignDossier() {
   }
 
   function addArchiveRecord() {
-    const record: ArchiveRecord = { id: uid(), tag: 'Uncategorized', title: 'New Record', body: '' }
+    const locale = getLocaleMessages().dossier
+    const record: ArchiveRecord = { id: uid(), tag: locale.blank.archiveTag, title: locale.blank.archiveTitle, body: '' }
     db.value.archive.push(record)
     ui.value.archiveId = record.id
   }
@@ -239,7 +241,7 @@ export function useCampaignDossier() {
 
   function addOperationRecord() {
     const record = blankCase()
-    record.code = 'CASE ' + String(db.value.operations.length).padStart(2, '0')
+    record.code = getLocaleMessages().ui.operations.caseFallback + ' ' + String(db.value.operations.length).padStart(2, '0')
     db.value.operations.push(record)
     ui.value.opsId = record.id
   }

@@ -1,0 +1,631 @@
+{
+  "ui": {
+    "meta": {
+      "localeName": "Português do Brasil",
+      "longCopyFormat": "markdown"
+    },
+    "common": {
+      "empty": "-",
+      "none": "Nenhum",
+      "unknownError": "Erro desconhecido",
+      "copySuffix": "cópia",
+      "notCampaignFile": "Arquivo de campanha inválido"
+    },
+    "controls": {
+      "decrease": "Diminuir {label}",
+      "increase": "Aumentar {label}"
+    },
+    "dossier": {
+      "accessState": "Estado de Acesso",
+      "accessScope": "Escopo de Acesso",
+      "handlerSupervisor": "Handler / Supervisor",
+      "gearSupport": "Apoio de Equipamento",
+      "permittedAreas": "Áreas Permitidas",
+      "restrictedAreas": "Áreas Restritas",
+      "currentAccessDamage": "Dano Atual de Acesso"
+    },
+    "letterhead": {
+      "organization": "Eidolon",
+      "subline": "Diretoria de Pesquisa Avançada - Sistema de Dossiês de Pessoal",
+      "fileRef": "Ref. do Arquivo",
+      "eraLabel": "Era:",
+      "era": "Década de 1970 - Operações em Welderhide",
+      "formRevLabel": "Rev. do Form.",
+      "formRev": "S2 / v0.1"
+    },
+    "tabs": {
+      "aria": "Visões do dossiê",
+      "dossier": "Dossiê",
+      "archive": "Arquivo",
+      "operations": "Registro de Operações",
+      "reference": "Referência"
+    },
+    "toolbar": {
+      "gmTitle": "Revelar campos classificados do dossiê do GM",
+      "gmMode": "Modo GM: {state}",
+      "on": "Ligado",
+      "off": "Desligado",
+      "export": "Exportar Arquivo",
+      "import": "Importar Arquivo",
+      "print": "Imprimir",
+      "importFailed": "Falha na importação: {message}",
+      "exportFilename": "ressonancia_s2_campanha.json"
+    },
+    "footer": {
+      "notice": "Uso interno apenas / Divulgação não autorizada é crime federal",
+      "hint": "Os dados ficam em memória - use Exportar Arquivo para salvar a campanha como JSON."
+    },
+    "character": {
+      "subject": "Sujeito:",
+      "unnamed": "(ativo sem nome)",
+      "newDossier": "+ Novo Dossiê",
+      "duplicate": "Duplicar",
+      "destroy": "Destruir Arquivo",
+      "newPrompt": "Nome do sujeito (deixe em branco para preencher depois):",
+      "mustRemain": "Pelo menos um dossiê deve permanecer no arquivo.",
+      "destroyConfirm": "Destruir este arquivo de pessoal? Exporte antes se quiser uma cópia.",
+      "noneOnFile": "Nenhum pessoal em arquivo. Crie um dossiê para começar."
+    },
+    "archive": {
+      "indexHead": "Arquivo Central - Registros de Cenário",
+      "newRecord": "+ Novo Registro",
+      "classification": "Classificação:",
+      "archiveRef": "Ref. do Arquivo",
+      "destroy": "Destruir Registro",
+      "destroyConfirm": "Destruir este registro do arquivo?",
+      "empty": "O arquivo está vazio.",
+      "titleLabel": "Título do arquivo",
+      "classificationLabel": "Classificação do arquivo",
+      "bodyLabel": "Corpo do arquivo",
+      "note": "Base wiki: cada registro é um artigo markdown livremente editável. Expanda com divisões, NPCs, Geists, casos e localidades - ou adicione novas coleções ao banco."
+    },
+    "operations": {
+      "indexHead": "Registro de Operações - Casos e Sessões",
+      "newCase": "+ Novo Arquivo de Caso",
+      "caseFallback": "CASO",
+      "meta": "Arquivo de operações / ritmo do caso: Investigação -> Conclusão -> Preparação -> Confronto",
+      "destroy": "Destruir Registro",
+      "destroyConfirm": "Destruir este arquivo de caso?",
+      "empty": "Nenhuma operação em arquivo.",
+      "titleLabel": "Título do caso",
+      "fields": {
+        "code": "Código do Caso",
+        "date": "Data",
+        "status": "Status",
+        "investigation": "1 / Investigação",
+        "conclusion": "2 / Conclusão",
+        "preparation": "3 / Preparação",
+        "clash": "4 / Confronto",
+        "advancementMenu": "Menu de Avanço",
+        "gmNotes": "Notas do GM"
+      },
+      "note": "Base de gerenciamento de sessão: um registro por caso ou sessão. Escale por impossibilidades mais profundas, não por monstros maiores. Cada caso deve alimentar discretamente o projeto-chave."
+    },
+    "status": {
+      "signal": "Sinal",
+      "signalMini": "Máx = Vontade + 2",
+      "cleanFrequency": "frequência limpa",
+      "signalPip": "Definir Sinal como {value}",
+      "signalNote": "Clique nos marcadores para gastar ou recuperar. Modificador temporário do máximo:",
+      "signalMaxModifier": "Modificador máximo de Sinal",
+      "resonance": "Ressonância",
+      "contamination": "contaminação",
+      "nextThreshold": "Próximo limiar: {threshold}",
+      "karma": "Karma",
+      "karmaMini": "-5 Eden / +5 Echologist",
+      "stage": "Estágio: {stage}",
+      "karmaLeft": "Occult Eden / Acumular",
+      "karmaRight": "Echologist / Purgar",
+      "limitsEden": "Limites - Eden:",
+      "edenLimit": "Limite de Eden",
+      "echologist": "Echologist:",
+      "echologistLimit": "Limite Echologist",
+      "karmaPrompt": "Karma só se move por meio de um Ato que Move Karma.\nRegistre o ato (sinalizado, deliberado, irreversível):",
+      "harm": "Ferimentos",
+      "woundSlots": "espaços de ferimento",
+      "minor": "Leve",
+      "serious": "Grave",
+      "critical": "Crítico",
+      "whenRelevant": "-2 quando relevante",
+      "toggleWound": "Alternar ferimento {kind} {index}",
+      "harmNote": "Excesso: Leve cheio -> Grave; Grave cheio -> Crítico. Não há teste de morte - a consequência segue da ficção.",
+      "access": "Acesso",
+      "institutionalLeash": "coleira institucional",
+      "scopeUnrecorded": "Escopo não registrado.",
+      "damage": "Dano: {damage}"
+    },
+    "gm": {
+      "title": "Dossiê Classificado do GM",
+      "code": "SOMENTE OLHOS",
+      "redactedNotice": "CONTEÚDO REDIGIDO - ative o Modo GM para ler ou editar. Informação oculta cria contexto e consequência; ela nunca contradiz a ficha visível."
+    },
+    "cards": {
+      "remove": "Remover",
+      "destroyConfirm": "Destruir este registro? Isto não pode ser desfeito.",
+      "cardName": "Nome do cartão",
+      "cardSource": "Fonte do cartão",
+      "entry": "Entrada {number}",
+      "empty": {
+        "armor": "Nenhuma proteção registrada.",
+        "techniques": "Nenhuma técnica registrada.",
+        "gear": "Nenhum dispositivo registrado.",
+        "marks": "Nenhuma marca ou assombração em arquivo.",
+        "log": "O registro está vazio. Entradas são adicionadas após casos concluídos."
+      },
+      "add": {
+        "armor": "+ Adicionar Proteção",
+        "techniques": "+ Geral",
+        "gear": "+ Registrar Dispositivo",
+        "marks": "+ Registrar Marca / Assombração",
+        "log": "+ Registrar Avanço"
+      },
+      "factions": {
+        "general": "Geral",
+        "eidolon": "Eidolon",
+        "occultEden": "Occult Eden",
+        "echologist": "Echologist",
+        "geistPact": "Pacto Geist"
+      },
+      "pactAbility": "Habilidade de Pacto",
+      "meta": {
+        "armor": "Proteção",
+        "gear": "Dispositivo",
+        "marks": "Marca Geist",
+        "log": "Avanço"
+      },
+      "rows": {
+        "armor": {
+          "slots": "Espaços de Proteção",
+          "applies": "Aplica-se Contra",
+          "notApplies": "Não se Aplica",
+          "notes": "Notas"
+        },
+        "techniques": {
+          "tags": "Marcadores",
+          "type": "Tipo",
+          "effect": "Efeito",
+          "cost": "Custo",
+          "hardReq": "Requisitos Rígidos",
+          "softReq": "Requisitos Flexíveis",
+          "karma": "Karma",
+          "gear": "Equipamento",
+          "risk": "Risco / Limitação"
+        },
+        "gear": {
+          "type": "Tipo",
+          "capacity": "Capacidade",
+          "charge": "Carga Atual",
+          "func": "Função",
+          "compat": "Técnicas Compatíveis",
+          "requirements": "Requisitos",
+          "risk": "Risco",
+          "maintenance": "Manutenção",
+          "tracking": "Rastreamento / Acesso",
+          "notes": "Notas"
+        },
+        "marks": {
+          "source": "Fonte",
+          "symptom": "Sintoma",
+          "effect": "Efeito Mecânico",
+          "duration": "Duração",
+          "notes": "Notas"
+        },
+        "log": {
+          "caseName": "Caso",
+          "advancement": "Avanço Escolhido",
+          "domains": "Mudanças de Domínio",
+          "techniques": "Técnicas Aprendidas",
+          "karmaActs": "Atos que Movem Karma",
+          "access": "Mudanças de Acesso",
+          "gear": "Mudanças de Equipamento",
+          "wounds": "Ferimentos / Cicatrizes",
+          "notes": "Notas"
+        }
+      }
+    },
+    "reference": {
+      "coreRoll": {
+        "caption": "Rolagem Central",
+        "rows": [["d20 + Atributo + Domínio >= Dificuldade", "Sucesso / Parcial (custo, atraso, exposição) / Falha"]]
+      },
+      "difficulty": { "caption": "Escala de Dificuldade", "head": ["CD", "Grau"] },
+      "resonanceStages": { "caption": "Estágios de Ressonância", "head": ["Faixa", "Estágio"] },
+      "karmaTrack": { "caption": "Trilha de Karma", "head": ["Valor", "Profundidade"] },
+      "characterCreation": {
+        "caption": "Criação de Personagem",
+        "head": ["Etapa", "Ação"],
+        "rows": [
+          ["1", "Escolha Função / Ocupação (pacote de domínio, equipamento, acesso)"],
+          ["2", "Distribua Atributos: +3, +2, +1, +0"],
+          ["3", "Aplique pacote de Domínios; pode mover 1 ponto; nenhum acima de 2"],
+          ["4", "Defina Sinal Máx = Vontade + 2"],
+          ["5", "Defina Âncora"],
+          ["6", "Ressonância: 0% padrão / 10% exposição menor / 20% sujeito"],
+          ["7", "Karma: 0"],
+          ["8", "Receba Ground Yourself + 1 Técnica Geral"],
+          ["9", "Registre equipamento e Acesso Eidolon"],
+          ["10", "Preencha Ferimentos, Estado Mental, Identidade, Relações"],
+          ["11", "Prepare o Registro de Avanço"]
+        ]
+      },
+      "harm": {
+        "caption": "Ferimentos",
+        "head": ["Espaço", "Efeito"],
+        "rows": [
+          ["Leve [ ][ ]", "Machucado, mas funcional; geralmente sem penalidade"],
+          ["Grave [ ][ ]", "-2 quando o ferimento interfere diretamente"],
+          ["Crítico [ ]", "Não pode agir normalmente sem ajuda, Sinal ou custo"],
+          ["Excesso", "Leve cheio -> Grave; Grave cheio -> Crítico"],
+          ["Proteção", "Marque 1 Espaço de Proteção relevante: reduza a gravidade em um nível"]
+        ]
+      },
+      "advancement": {
+        "caption": "Linhas de Avanço",
+        "rows": [["Crescimento Mundano", "o que aprendi"], ["Aquisição de Técnica", "o que posso fazer"], ["Movimento de Karma", "o que me tornei"]]
+      },
+      "pactCost": {
+        "caption": "Custo de Ressonância do Pacto",
+        "rows": [["Pacto limitado", "+10% Ressonância"], ["Pacto profundo", "+15%"], ["Possessivo / transformador", "+20%"]]
+      },
+      "designSpine": {
+        "caption": "Espinha do Design",
+        "rows": [
+          ["Atributos", "abordagem natural"],
+          ["Domínios", "competência treinada"],
+          ["Sinal", "frequência humana limpa"],
+          ["Ressonância", "contaminação, combustível, risco de classificação"],
+          ["Karma", "o caminho que a alma percorreu"],
+          ["Técnicas", "progressão estruturada"],
+          ["Equipamento", "infraestrutura externa"],
+          ["Pactos", "vínculos raros e custosos"],
+          ["Acesso", "permissão e dependência institucional"],
+          ["Os jogadores", "começam como ferramentas; a ficha registra como viram pessoas"]
+        ]
+      }
+    }
+  },
+  "dossier": {
+    "system": "Ressonância S2",
+    "formRev": "v0.1",
+    "fileNoPrefix": "EID/70-",
+    "stamps": {
+      "restricted": "Restrito",
+      "eyesOnly": "Somente Olhos"
+    },
+    "resonanceStages": [
+      { "min": 0, "max": 19, "name": "Limpo" },
+      { "min": 20, "max": 39, "name": "Tocado" },
+      { "min": 40, "max": 59, "name": "Atravessado" },
+      { "min": 60, "max": 79, "name": "Marcado" },
+      { "min": 80, "max": 99, "name": "Consumido" },
+      { "min": 100, "max": 100, "name": "Eco / Perdido" }
+    ],
+    "karmaPath": {
+      "eden": "Occult Eden",
+      "echologist": "Echologist",
+      "neutral": "Eidolon / Neutro"
+    },
+    "karmaDepth": {
+      "-5": "ápice de Occult Eden",
+      "-4": "compromisso profundo com Occult Eden",
+      "-3": "iniciação verdadeira em Occult Eden",
+      "-2": "iniciado de Occult Eden",
+      "-1": "tocado por Occult Eden",
+      "0": "instrumento neutro / Eidolon",
+      "1": "tocado por Echologist",
+      "2": "iniciado Echologist",
+      "3": "iniciação verdadeira Echologist",
+      "4": "compromisso profundo Echologist",
+      "5": "ápice Echologist"
+    },
+    "karmaStageNames": {
+      "-1": "Tocado-pelo-Sussurro",
+      "0": "Instrumento Calibrado",
+      "1": "Limpo-de-Estática"
+    },
+    "attributes": [
+      { "key": "corpo", "name": "Corpo", "desc": "Força física, resistência, coordenação e resiliência corporal." },
+      { "key": "mente", "name": "Mente", "desc": "Raciocínio, memória, análise, compreensão técnica e padrões." },
+      { "key": "carisma", "name": "Carisma", "desc": "Presença, persuasão, empatia, intuição social e performance." },
+      { "key": "vontade", "name": "Vontade", "desc": "Compostura, identidade, foco, resistência e estabilidade interior." }
+    ],
+    "domains": [
+      { "key": "physical", "name": "Físico", "desc": "Correr, escalar, forçar, carregar e resistir a esforço." },
+      { "key": "fieldwork", "name": "Campo", "desc": "Furtividade, percepção, rastreamento e busca em espaços perigosos." },
+      { "key": "research", "name": "Pesquisa", "desc": "Arquivos, documentos, teoria de caso e reconstrução de padrões." },
+      { "key": "technical", "name": "Técnico", "desc": "Máquinas, eletrônicos, procedimento médico e reparo de dispositivos." },
+      { "key": "social", "name": "Social", "desc": "Persuasão, engano, contatos e leitura de pessoas." },
+      { "key": "occult", "name": "Oculto", "desc": "Lógica ritual, saber Geist, teoria de Ressonância e textos proibidos." },
+      { "key": "combat", "name": "Combate", "desc": "Violência tática, contenção e luta sob pressão." }
+    ],
+    "difficulty": [[8, "Fácil"], [12, "Rotineiro"], [15, "Desafiador"], [18, "Difícil"], ["20+", "Extremo"]],
+    "accessStates": ["Restrito", "Provisório", "Vigiado", "Contido", "Acesso Total", "Comprometido", "Lista Negra", "Caçado / Queimado"],
+    "blank": {
+      "technique": "Nova Técnica",
+      "gear": "Novo Dispositivo",
+      "mark": "Nova Marca",
+      "armor": "Nova Proteção",
+      "case": "Novo Caso",
+      "archiveTag": "Sem Categoria",
+      "archiveTitle": "Novo Registro",
+      "caseStatus": "Aberto"
+    },
+    "sections": [
+      {
+        "code": "FORM E-1",
+        "title": "Identidade",
+        "kind": "fields",
+        "fields": [
+          { "l": "Nome", "p": "identity.name" },
+          { "l": "Idade", "p": "identity.age" },
+          { "l": "Gênero", "p": "identity.gender" },
+          { "l": "Aparência", "p": "identity.appearance" },
+          { "l": "Personalidade", "p": "identity.personality" },
+          { "l": "Motivação", "p": "identity.motivation" },
+          { "l": "Medo", "p": "identity.fear" },
+          { "l": "Histórico / Resumo do Arquivo", "p": "identity.background", "wide": true },
+          { "l": "Relações Importantes", "p": "identity.relationships", "wide": true },
+          { "l": "Por que a Eidolon se Importa", "p": "identity.whyEidolonCares", "wide": true }
+        ],
+        "note": "Mantenha o personagem humano. O sobrenatural complica a identidade - ele não a substitui."
+      },
+      {
+        "code": "FORM E-2",
+        "title": "Ocupação / Função",
+        "kind": "fields",
+        "fields": [
+          { "l": "Função", "p": "occupation.role" },
+          { "l": "Handler / Supervisor", "p": "occupation.handler" },
+          { "l": "Descrição", "p": "occupation.description", "wide": true },
+          { "l": "Equipamento Inicial", "p": "occupation.startingGear", "wide": true },
+          { "l": "Notas", "p": "occupation.notes", "wide": true }
+        ],
+        "note": "Ocupação é como a Eidolon rotula o personagem. Pode não coincidir com como ele se enxerga."
+      },
+      { "code": "FORM E-3", "title": "Atributos", "kind": "custom", "render": "attributes", "note": "Distribua +3, +2, +1, +0 na criação. Atributos definem a abordagem natural; Domínios definem competência treinada. Rolagem central: d20 + Atributo + Domínio >= Dificuldade." },
+      { "code": "FORM E-4", "title": "Domínios", "kind": "custom", "render": "domains", "note": "Distribuição padrão: um em 2, três em 1, três em 0; o jogador pode mover um ponto. Nenhum domínio inicial acima de 2. Escala: 0 destreinado, 1 treinado, 2 especialista, 3 excepcional." },
+      {
+        "code": "FORM E-5",
+        "title": "Sinal e Âncora",
+        "kind": "fields",
+        "fields": [
+          { "l": "Âncora", "p": "signal.anchor", "wide": true },
+          { "l": "Notas de Recuperação", "p": "signal.recoveryNotes", "wide": true },
+          { "l": "Modificadores Permanentes", "p": "signal.permanentMods", "wide": true }
+        ],
+        "note": "Sinal Máx = Vontade + 2 (calculado no painel de estado). Sinal é frequência humana limpa - gaste para continuar sendo você, não como combustível genérico. Recupera por aterramento, não apenas por sono."
+      },
+      {
+        "code": "FORM E-6",
+        "title": "Ressonância",
+        "kind": "fields",
+        "fields": [
+          { "l": "Sintomas / Manifestações", "p": "resonance.symptoms", "wide": true },
+          { "l": "Mudanças Permanentes", "p": "resonance.permanentChanges", "wide": true }
+        ],
+        "note": "A % atual e o estágio ficam no painel de estado. Estágios são chaves de desbloqueio e pressão narrativa, não penalidades automáticas. Início: 0% padrão, 10% exposição menor (aprovada pelo GM), 20% Sujeito Ressonante."
+      },
+      {
+        "code": "FORM E-7",
+        "title": "Karma",
+        "kind": "fields",
+        "fields": [
+          { "l": "Último Ato que Moveu Karma", "p": "karma.lastAct", "wide": true },
+          { "l": "Técnicas de Investimento Usadas", "p": "karma.investments", "wide": true },
+          { "l": "Cicatrizes de Contradição", "p": "karma.scars", "wide": true }
+        ],
+        "note": "Karma só se move por Atos que Movem Karma transparentes - sempre sinalizados. Cruzar o zero é um evento de história, não uma opção de build. Limites de caminho ficam na régua do painel de estado."
+      },
+      { "code": "FORM E-8", "title": "Acesso Eidolon", "kind": "custom", "render": "access", "note": "Acesso é permissão e dependência institucional - não Karma. Ele deve ser útil antes de ser ameaçador." },
+      {
+        "code": "FORM E-9",
+        "title": "Ferimentos e Recuperação",
+        "kind": "fields",
+        "fields": [
+          { "l": "Notas de Recuperação", "p": "harm.recoveryNotes", "wide": true },
+          { "l": "Cicatrizes / Consequências Duradouras", "p": "harm.scars", "wide": true }
+        ],
+        "note": "Espaços de ferimento ficam no painel de estado. Excesso: Leve cheio -> o próximo vira Grave; Grave cheio -> o próximo vira Crítico. Ferimentos graves: -2 quando interferem diretamente. Ajuda médica da Eidolon funciona - e cria registros, monitoramento, dívida e dependência."
+      },
+      { "code": "FORM E-10", "title": "Armadura / Proteção", "kind": "custom", "render": "armor", "note": "Marque um Espaço de Proteção relevante para reduzir um ferimento em uma gravidade (Crítico->Grave, Grave->Leve, Leve->ignorado)." },
+      {
+        "code": "FORM E-11",
+        "title": "Estado Mental",
+        "kind": "fields",
+        "fields": [
+          { "l": "Estado Atual", "p": "mental.state" },
+          { "l": "Condições Mentais Ativas", "p": "mental.conditions" },
+          { "l": "Notas", "p": "mental.notes", "wide": true }
+        ],
+        "note": "Leve e narrativo - não há trilha de sanidade. Pressão aparece por perda de Sinal, estresse na Âncora, sintomas e consequências."
+      },
+      { "code": "FORM E-12", "title": "Técnicas e Cartões de Habilidade", "kind": "custom", "render": "techniques", "note": "Técnicas de posição exigem condições visíveis e não movem Karma. Técnicas de investimento movem Karma quando desbloqueadas ou usadas - raras e definidoras. Requisitos flexíveis nunca escondem números secretos." },
+      { "code": "FORM E-13", "title": "Registro de Equipamento", "kind": "custom", "render": "gear", "note": "Equipamento é infraestrutura externa; técnicas são uso treinado. Carregar um dispositivo não concede suas técnicas. O poder Eidolon é procedural - e rastreável." },
+      {
+        "code": "FORM E-14",
+        "title": "Adendo de Pacto",
+        "kind": "fields",
+        "fields": [
+          { "l": "Nome / Título do Geist", "p": "pact.geistName" },
+          { "l": "Grau do Geist", "p": "pact.tier" },
+          { "l": "Domínio", "p": "pact.domain" },
+          { "l": "Assinatura", "p": "pact.signature" },
+          { "l": "Como o Pacto Foi Formado", "p": "pact.formed", "wide": true },
+          { "l": "Ressonância Ganha", "p": "pact.resonanceGained" },
+          { "l": "Relação Atual", "p": "pact.relationship" },
+          { "l": "Termos do Pacto", "p": "pact.terms", "wide": true },
+          { "l": "Habilidades Concedidas", "p": "pact.abilities", "wide": true },
+          { "l": "Restrições", "p": "pact.restrictions" },
+          { "l": "Exigências", "p": "pact.demands" },
+          { "l": "Riscos", "p": "pact.risks" },
+          { "l": "Termos Quebrados / Dívida", "p": "pact.debt" }
+        ],
+        "note": "Um pacto maior por vez. Formar um custa Ressonância (+10% limitado, +15% profundo, +20% possessivo). Aparições não concedem pactos; Geists Menores deixam marcas e dívidas. Um pacto é uma relação, não uma magia equipada."
+      },
+      { "code": "FORM E-15", "title": "Adendo de Exposição / Assombração", "kind": "custom", "render": "marks", "note": "Marcas Geist são consequências sobrenaturais menores - pequenas, mas memoráveis. Uma marca pode virar pista, requisito flexível, semente de pacto ou vulnerabilidade sob observação." },
+      { "code": "FORM E-16", "title": "Registro de Incidente / Avanço", "kind": "custom", "render": "log", "note": "Três linhas - Crescimento Mundano (o que aprendi), Aquisição de Técnica (o que posso fazer), Movimento de Karma (o que me tornei). Uma oportunidade de avanço por caso concluído; o GM oferece 2-3 opções fundamentadas." }
+    ],
+    "gmFields": [
+      { "l": "Verdadeiro Motivo do Interesse Eidolon", "p": "gm.trueReason" },
+      { "l": "Classificação Médica Oculta", "p": "gm.classification" },
+      { "l": "Agenda do Handler", "p": "gm.handlerAgenda" },
+      { "l": "Consequências de Tratamento Não Reveladas", "p": "gm.treatmentConsequences" },
+      { "l": "Interesse Secreto de Facção", "p": "gm.factionInterest" },
+      { "l": "Agenda de Longo Prazo do Geist", "p": "gm.geistAgenda" },
+      { "l": "Confiança e Suspeita de NPCs", "p": "gm.npcTrust" },
+      { "l": "Posição com Facções", "p": "gm.factionStanding" },
+      { "l": "Consequência nos Anos 1990", "p": "gm.futureConsequence" },
+      { "l": "Relevância Oculta para Casos", "p": "gm.caseRelevance" }
+    ],
+    "seeds": {
+      "sampleCharacter": {
+        "name": "Irene Vasquez",
+        "identity": {
+          "age": "29",
+          "gender": "F",
+          "appearance": "Roupas práticas sob um casaco de manutenção; queimaduras permanentes de solda nas duas mãos.",
+          "personality": "Metódica, seca, discretamente teimosa.",
+          "motivation": "Quitar a dívida do irmão antes que a Eidolon decida que ele também pertence à instituição.",
+          "fear": "Tornar-se útil o bastante para que nunca a deixem sair.",
+          "background": "Reparo eletrônico civil, recrutada depois de consertar um dispositivo que ela jamais deveria ter visto funcionando.",
+          "relationships": "Tomas Vasquez (irmão, endividado); Supervisor Hale (handler, Engenharia).",
+          "whyEidolonCares": "Mão de obra técnica útil; sem confiança para receber teoria completa."
+        },
+        "occupation": {
+          "role": "Técnica de Campo da Eidolon",
+          "description": "Funcionária técnica de baixa autorização designada para manter, calibrar e solucionar falhas de equipamento de campo instável.",
+          "handler": "Supervisor Hale - Divisão de Engenharia",
+          "startingGear": "Medidor diagnóstico, kit de ferramentas isoladas, crachá restrito de manutenção, caderno de calibração.",
+          "notes": "Permitido: áreas de manutenção, dispositivos designados, apoio básico de campo."
+        },
+        "signal": {
+          "anchor": "Toda manhã: café preto e uma agenda escrita.",
+          "recoveryNotes": "Recupera quando mantém a rotina matinal, ou quando Tomas liga."
+        },
+        "access": {
+          "state": "Restrito",
+          "scope": "Áreas de manutenção, dispositivos designados, apoio básico de campo",
+          "handler": "Supervisor Hale",
+          "permitted": "Oficinas, garagem, preparação de campo",
+          "restricted": "Ala de Harmônicos Teóricos, Gestão de Sujeitos, Arquivos nível B",
+          "gearSupport": "Reparo e substituição padrão via requisição de Engenharia",
+          "damage": "Nenhum"
+        },
+        "techniques": {
+          "groundYourself": {
+            "name": "Aterre-se",
+            "faction": "Geral",
+            "tags": "Sinal, Estabilização, Eu",
+            "type": "Posicional",
+            "effect": "Gaste 1 Sinal para manter a identidade estável durante um surto breve de ressonância, memória falsa, pressão Geist, espiral de pânico ou vazamento emocional.",
+            "cost": "1 Sinal.",
+            "hardReq": "Sinal atual 1+.",
+            "softReq": "Você deve ser capaz de dizer seu nome, acessar sua Âncora ou ser aterrado por outro personagem."
+          },
+          "readStatic": {
+            "name": "Ler a Estática",
+            "faction": "Geral",
+            "tags": "Detecção, Ressonância, Investigação",
+            "type": "Posicional",
+            "effect": "Ao examinar um local, objeto ou pessoa ressonante, pergunte ao GM uma questão básica sobre resíduo emocional, sentimento dominante ou distúrbio espectral recente.",
+            "cost": "Ganhe 1-5% de Ressonância ou aceite um sintoma menor.",
+            "hardReq": "Ressonância Tocado ou acesso a equipamento básico de detecção Eidolon.",
+            "softReq": "A cena deve conter resíduo ressonante significativo.",
+            "risk": "A resposta pode vir por sensação, não por informação limpa."
+          }
+        },
+        "gear": {
+          "resonantCell": {
+            "name": "Célula Ressonante Mk.I",
+            "type": "Bateria ressonante portátil",
+            "capacity": "20% de Ressonância armazenada",
+            "charge": "8%",
+            "func": "Armazena Ressonância externamente e alimenta técnicas Eidolon compatíveis.",
+            "compat": "Descarga Harmônica, Calibração de Emergência",
+            "risk": "Sobrecarga, vazamento, rastreamento, mau funcionamento, confisco",
+            "maintenance": "Exige apoio de calibração Eidolon",
+            "tracking": "Serial registrado; uso não autorizado é registrado."
+          }
+        },
+        "gm": {
+          "trueReason": "Amostra de sangue sinalizada como compatível com testes de contenção de bateria (Lote 7).",
+          "classification": "MED-7c - suscetibilidade ressonante latente, não confirmada.",
+          "handlerAgenda": "Hale reporta as taxas de erro dela a Harmônicos Teóricos, não à Engenharia.",
+          "factionInterest": "Uma célula Echologist notou as assinaturas de reparo dela em locais purgados.",
+          "npcTrust": "A equipe da garagem confia nela; o pessoal do laboratório a trata como descartável.",
+          "futureConsequence": "Um protocolo pode levar o nome dela para arquivos dos anos 1990."
+        }
+      },
+      "archive": [
+        {
+          "id": "arc-eidolon-1970s",
+          "tag": "Instituição",
+          "title": "Eidolon (anos 1970)",
+          "body": "Um projeto de pesquisa classificado, ligado ao governo - ainda não o gigante tecnológico público dos anos 1990. Sua ciência é promissora, seus métodos são secretos e suas ambições são muito maiores do que a maioria dos funcionários entende.\n\nO conhecimento é compartimentalizado em camadas: pessoal de base vê trabalho classificado, mas banal; equipe intermediária baixa sabe que coisas impossíveis acontecem; equipe intermediária alta sabe que Ressonância toca consciência e identidade; só o círculo interno entende o projeto-chave e o Grande Transcendente.\n\nRegra de design: a Eidolon precisa ser tentadora. Ela produz bem real, progresso real e proteção real - caso contrário, recusá-la seria fácil demais."
+        },
+        {
+          "id": "arc-welderhide",
+          "tag": "Localidade",
+          "title": "Welderhide",
+          "body": "Uma cidade mineradora de alta altitude cercada por montanhas. Ela importa por três razões sobrepostas:\n\n**GEOLÓGICA** - as montanhas, minas e formações minerais agem como uma câmara ressonante natural, amplificando e estabilizando Ressonância e produzindo mais indivíduos naturalmente ressonantes.\n\n**ECONÔMICA** - as minas estão falhando. A cidade está desesperada para se diversificar, o que a torna política e financeiramente receptiva ao investimento da Eidolon. Conquista por dependência: deve parecer salvação.\n\n**HISTÓRICA** - foi onde Adrian Voss tocou o Grande Transcendente pela primeira vez nos anos 1920. Para ele, Welderhide é sagrada. O ponto de origem."
+        },
+        {
+          "id": "arc-adrian-voss",
+          "tag": "Pessoa",
+          "title": "Adrian Voss",
+          "body": "Fundador da Eidolon. Não era originalmente um supergênio - sua transformação começou nas minas de Welderhide nos anos 1920, quando sua consciência fez contato com o Grande Transcendente.\n\nEle quer resolver a mortalidade. Vê morte, envelhecimento, luto e perda como falhas a corrigir. O horror é que sua cura não preserva a humanidade - ela a congela: sem morte, mas também sem crescimento, mudança ou futuro.\n\nSeu erro não é identificar o sofrimento como problema. É acreditar que tem o direito de responder por todos."
+        },
+        {
+          "id": "arc-great-transcendent",
+          "tag": "Entidade",
+          "title": "O Grande Transcendente",
+          "body": "Um Geist de nível soberano ligado ao horizonte mais perigoso do trabalho da Eidolon. Nos anos 1970, deve permanecer como uma presença gravitacional profunda, não como antagonista revelado - fragmentos, linguagem teológica enterrada em notas científicas, dados impossíveis, comportamento executivo estranho.\n\nOs jogadores só precisam entender o bastante para perceber: seja o que for que a Eidolon esteja construindo, não é realmente para nós."
+        },
+        {
+          "id": "arc-geists",
+          "tag": "Lore",
+          "title": "Geists",
+          "body": "Nascidos da emoção humana, moldados por seres humanos - mas extradimensionais e alienígenas porque são puros demais. Um Geist é uma emoção humana extrapolada além de limites humanos.\n\nUm Geist de luto não segue em frente. Um Geist de esperança não desiste. Um Geist de amor não solta. Um Geist de medo não se acalma.\n\nTese: eles são tão humanos que se tornam alienígenas.\n\nGraus: Aparição (sem pacto) -> Menor (marcas, dívidas, assombrações) -> Maior (pacto verdadeiro) -> Soberano (pacto que molda identidade)."
+        },
+        {
+          "id": "arc-resonance-signal",
+          "tag": "Sistema",
+          "title": "Ressonância e Sinal",
+          "body": "Ressonância é o quanto o impossível entrou em você. Sinal é quão claramente você ainda consegue responder de volta como você mesmo.\n\nRessonância (0-100%) é contaminação, combustível e risco de classificação. Estágios são chaves de desbloqueio e tom narrativo, não penalidades automáticas: Limpo -> Tocado -> Atravessado -> Marcado -> Consumido -> Eco/Perdido.\n\nSinal (Máx = Vontade + 2) é gasto para resistir influência Geist, estabilizar identidade, alimentar técnicas Echologist e puxar outros de volta. Recupera por aterramento - Âncora, escolhas humanas, recusa de tentação, tempo seguro - não apenas por sono.\n\nRegra central: Ressonância pode ser boa para a humanidade, mas nunca de graça."
+        },
+        {
+          "id": "arc-karma-paths",
+          "tag": "Sistema",
+          "title": "Karma e os Três Caminhos",
+          "body": "Karma é um inteiro com sinal (-5 a +5): o quanto a alma percorreu um caminho metafísico. Não é XP, moralidade nem reputação. Só se move por Atos que Movem Karma transparentes, sempre sinalizados pelo GM.\n\n**OCCULT EDEN (-1 a -5)** - Acumular. Consome Ressonância como combustível. Comunhão, intimidade com os mortos. Modo de falha: poderoso, mas cada vez mais distante da humanidade comum.\n\n**EIDOLON (0)** - Canalizar. Roteia Ressonância por equipamento: armazenar, guardar, descarregar. Modo de falha: dependência de acesso, calibração e da instituição.\n\n**ECHOLOGIST (+1 a +5)** - Purgar. Usa Sinal e frequência limpa para reduzir ou armar a ausência de Ressonância. Modo de falha: os purificadores mais profundos precisam tocar aquilo que odeiam para destruí-lo.\n\nReversões difíceis após compromisso real deixam Cicatrizes de Contradição que reduzem o teto do caminho oposto."
+        },
+        {
+          "id": "arc-factions",
+          "tag": "Facção",
+          "title": "Facções como Alinhamentos Filosóficos",
+          "body": "Facções são alinhamentos, não equipes de aventura - o esquadrão continua operacionalmente junto enquanto discorda sobre o significado do trabalho.\n\nAlinhados à Eidolon: a humanidade sobrevive por CONTROLE. Eficaz, organizada, moralmente comprometida.\nAlinhados aos Echologists: a humanidade sobrevive por ADAPTAÇÃO. Principiada, fragmentada, talvez imprudente.\nAlinhados a Occult Eden: a humanidade sobrevive por COMPREENSÃO. Perspicaz, empática, perigosa.\n\nOpor-se à Eidolon não deveria significar automaticamente encontrar a resposta correta."
+        },
+        {
+          "id": "arc-campaign-spine",
+          "tag": "Campanha",
+          "title": "Espinha da Campanha dos Anos 1970",
+          "body": "Pitch: um esquadrão de ativos Eidolon de baixa patente ou coagidos investiga casos de Ressonância cada vez mais impossíveis, apenas para perceber que está ajudando a construir a infraestrutura que permitirá à Eidolon decidir o futuro da humanidade sem consentimento.\n\nGancho emocional: \"Eu não me inscrevi para isso, mas não tenho escolha.\"\nArco central: Ativo -> Testemunha -> Cúmplice -> Questionador -> Agente.\n\nTrês revelações: (1) O sobrenatural é real - e a Eidolon tem formulários para ele. (2) Os casos nunca foram separados. (3) Nós podemos escolher.\n\nMentira central: \"Estamos desenvolvendo tecnologias que salvarão a humanidade.\"\nVerdade oculta: \"Estamos construindo infraestrutura que permitirá à Eidolon decidir o futuro da humanidade sem o consentimento da humanidade.\"\n\nPonto final: não \"a rede está pronta\" - mas \"Meu Deus. Funciona.\""
+        }
+      ],
+      "operations": [
+        {
+          "id": "case-template-first-assignment",
+          "code": "CASO 01",
+          "title": "(Modelo) Primeira Designação",
+          "status": "Modelo",
+          "investigation": "O que está acontecendo? Relatos estranhos, equipamentos falhando, testemunhas contraditórias - ambiguidade é permitida antes do primeiro limiar.",
+          "conclusion": "O que achamos que isto é?",
+          "preparation": "Ferramentas, táticas, rituais, permissões ou sacrifícios necessários.",
+          "clash": "O confronto direto, contenção, escolha ou consequência que resolve o caso. Após o primeiro limiar, o sobrenatural é inegável.",
+          "advancementMenu": "Ofereça 2-3 opções fundamentadas: uma técnica de árvore, um crescimento mundano, uma recompensa específica do caso.",
+          "gmNotes": "Semeie uma pista apontando para o projeto-chave."
+        }
+      ]
+    }
+  }
+}

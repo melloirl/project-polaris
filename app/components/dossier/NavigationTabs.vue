@@ -1,5 +1,5 @@
 <template>
-  <nav class="eid-tabs" aria-label="Dossier views">
+  <nav class="eid-tabs" :aria-label="t('ui.tabs.aria')">
     <a
       v-for="tab in tabs"
       :key="tab.view"
@@ -11,12 +11,12 @@
     </a>
     <span class="eid-tabs__spacer" />
     <span class="eid-tool-buttons">
-      <button class="eid-button" :class="{ 'eid-button--active-gm': ui.gm }" type="button" title="Reveal GM classified dossier fields" @click="toggleGm">
-        GM Mode: {{ ui.gm ? 'On' : 'Off' }}
+      <button class="eid-button" :class="{ 'eid-button--active-gm': ui.gm }" type="button" :title="t('ui.toolbar.gmTitle')" @click="toggleGm">
+        {{ t('ui.toolbar.gmMode', { state: ui.gm ? t('ui.toolbar.on') : t('ui.toolbar.off') }) }}
       </button>
-      <button class="eid-button" type="button" @click="download">Export File</button>
-      <button class="eid-button" type="button" @click="importInput?.click()">Import File</button>
-      <button class="eid-button" type="button" @click="print">Print</button>
+      <button class="eid-button" type="button" @click="download">{{ t('ui.toolbar.export') }}</button>
+      <button class="eid-button" type="button" @click="importInput?.click()">{{ t('ui.toolbar.import') }}</button>
+      <button class="eid-button" type="button" @click="print">{{ t('ui.toolbar.print') }}</button>
       <input ref="importInput" class="eid-hidden-input" type="file" accept="application/json" @change="importFile">
     </span>
   </nav>
@@ -32,14 +32,15 @@ const {
   exportJson,
   importJson,
 } = useCampaignDossier()
+const { t } = useDossierI18n()
 
 const importInput = ref<HTMLInputElement | null>(null)
 
 const tabs: Array<{ label: string, view: DossierView }> = [
-  { label: 'Dossier', view: 'dossier' },
-  { label: 'Archive', view: 'archive' },
-  { label: 'Operations Log', view: 'operations' },
-  { label: 'Reference', view: 'reference' },
+  { label: t('ui.tabs.dossier'), view: 'dossier' },
+  { label: t('ui.tabs.archive'), view: 'archive' },
+  { label: t('ui.tabs.operations'), view: 'operations' },
+  { label: t('ui.tabs.reference'), view: 'reference' },
 ]
 
 function go(view: DossierView) {
@@ -57,7 +58,7 @@ function download() {
   const blob = new Blob([exportJson()], { type: 'application/json' })
   const link = document.createElement('a')
   link.href = URL.createObjectURL(blob)
-  link.download = 'resonance_s2_campaign.json'
+  link.download = t('ui.toolbar.exportFilename')
   link.click()
   URL.revokeObjectURL(link.href)
 }
@@ -74,7 +75,7 @@ function importFile(event: Event) {
       importJson(String(reader.result || ''))
     }
     catch (error) {
-      alert('Import failed: ' + (error instanceof Error ? error.message : 'Unknown error'))
+      alert(t('ui.toolbar.importFailed', { message: error instanceof Error ? error.message : t('ui.common.unknownError') }))
     }
   }
   reader.readAsText(file)

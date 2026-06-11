@@ -1,15 +1,15 @@
 <template>
   <div v-if="character">
     <div class="eid-character-picker eid-no-print">
-      <span class="eid-character-picker__label">Subject:</span>
+      <span class="eid-character-picker__label">{{ t('ui.character.subject') }}</span>
       <select :value="character.id" @change="selectCharacter(($event.target as HTMLSelectElement).value)">
         <option v-for="record in db.characters" :key="record.id" :value="record.id">
-          {{ record.identity.name || '(unnamed asset)' }} - {{ record.fileNo }}
+          {{ record.identity.name || t('ui.character.unnamed') }} - {{ record.fileNo }}
         </option>
       </select>
-      <button class="eid-button" type="button" @click="newCharacter">+ New Dossier</button>
-      <button class="eid-button" type="button" @click="duplicateCharacter">Duplicate</button>
-      <button class="eid-button eid-button--danger" type="button" @click="destroyCharacter">Destroy File</button>
+      <button class="eid-button" type="button" @click="newCharacter">{{ t('ui.character.newDossier') }}</button>
+      <button class="eid-button" type="button" @click="duplicateCharacter">{{ t('ui.character.duplicate') }}</button>
+      <button class="eid-button eid-button--danger" type="button" @click="destroyCharacter">{{ t('ui.character.destroy') }}</button>
     </div>
 
     <div class="eid-layout eid-layout--dossier">
@@ -45,17 +45,17 @@
           <template v-else-if="section.render === 'access'">
             <div class="eid-field-grid">
               <div class="eid-field">
-                <label>Access State</label>
+                <label>{{ t('ui.dossier.accessState') }}</label>
                 <select class="eid-select" :value="character.access.state" @change="setSelect('access.state', ($event.target as HTMLSelectElement).value)">
                   <option v-for="state in REF.accessStates" :key="state">{{ state }}</option>
                 </select>
               </div>
-              <DossierField label="Access Scope" :value="character.access.scope" @commit="commitCharacterPath('access.scope', $event)" />
-              <DossierField label="Handler / Supervisor" :value="character.access.handler" @commit="commitCharacterPath('access.handler', $event)" />
-              <DossierField label="Gear Support" :value="character.access.gearSupport" @commit="commitCharacterPath('access.gearSupport', $event)" />
-              <DossierField label="Permitted Areas" :value="character.access.permitted" wide @commit="commitCharacterPath('access.permitted', $event)" />
-              <DossierField label="Restricted Areas" :value="character.access.restricted" wide @commit="commitCharacterPath('access.restricted', $event)" />
-              <DossierField label="Current Access Damage" :value="character.access.damage" wide @commit="commitCharacterPath('access.damage', $event)" />
+              <DossierField :label="t('ui.dossier.accessScope')" :value="character.access.scope" @commit="commitCharacterPath('access.scope', $event)" />
+              <DossierField :label="t('ui.dossier.handlerSupervisor')" :value="character.access.handler" @commit="commitCharacterPath('access.handler', $event)" />
+              <DossierField :label="t('ui.dossier.gearSupport')" :value="character.access.gearSupport" @commit="commitCharacterPath('access.gearSupport', $event)" />
+              <DossierField :label="t('ui.dossier.permittedAreas')" :value="character.access.permitted" wide @commit="commitCharacterPath('access.permitted', $event)" />
+              <DossierField :label="t('ui.dossier.restrictedAreas')" :value="character.access.restricted" wide @commit="commitCharacterPath('access.restricted', $event)" />
+              <DossierField :label="t('ui.dossier.currentAccessDamage')" :value="character.access.damage" wide @commit="commitCharacterPath('access.damage', $event)" />
             </div>
           </template>
 
@@ -63,8 +63,8 @@
         </DossierFormSection>
 
         <DossierFormSection
-          title="GM Classified Dossier"
-          code="EYES ONLY"
+          :title="t('ui.gm.title')"
+          :code="t('ui.gm.code')"
           :collapsed="ui.collapsed.GM"
           gm
           @toggle="toggleSection('GM')"
@@ -78,7 +78,7 @@
               @commit="commitCharacterPath(field.p, $event)"
             />
           </div>
-          <p v-if="!ui.gm" class="eid-gmnotice">CONTENTS REDACTED - enable GM Mode to read or edit. Hidden information creates context and consequence; it never contradicts the visible sheet.</p>
+          <p v-if="!ui.gm" class="eid-gmnotice">{{ t('ui.gm.redactedNotice') }}</p>
         </DossierFormSection>
       </div>
 
@@ -86,7 +86,7 @@
     </div>
   </div>
 
-  <p v-else class="eid-note">No personnel on file. Create one to begin.</p>
+  <p v-else class="eid-note">{{ t('ui.character.noneOnFile') }}</p>
 </template>
 
 <script setup lang="ts">
@@ -105,23 +105,24 @@ const {
   commitCharacterPath,
   setSelect,
 } = useCampaignDossier()
+const { t } = useDossierI18n()
 
 function fieldValue(path: string) {
   return getPath(character.value, path) as string | number | null | undefined
 }
 
 function newCharacter() {
-  const name = prompt('Subject name (leave blank to assign later):') || ''
+  const name = prompt(t('ui.character.newPrompt')) || ''
   addCharacter(name)
 }
 
 function destroyCharacter() {
   if (db.value.characters.length <= 1) {
-    alert('At least one dossier must remain on file.')
+    alert(t('ui.character.mustRemain'))
     return
   }
 
-  if (confirm('Destroy this personnel file? Export first if you want a copy.')) {
+  if (confirm(t('ui.character.destroyConfirm'))) {
     removeCharacter()
   }
 }

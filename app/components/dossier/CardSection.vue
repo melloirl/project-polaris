@@ -15,7 +15,7 @@
         @commit-row="(key, value) => commitRow(index, key, value)"
         @remove="remove(item.id)"
       />
-      <p v-if="!list.length" class="eid-note">{{ emptyLabels[kind] }}</p>
+      <p v-if="!list.length" class="eid-note">{{ t(`ui.cards.empty.${kind}`) }}</p>
     </div>
 
     <div v-if="kind === 'techniques'" class="eid-add-row eid-no-print">
@@ -26,11 +26,11 @@
         type="button"
         @click="addCard('techniques', faction)"
       >
-        + {{ faction === 'Geist Pact' ? 'Pact Ability' : faction }}
+        + {{ faction === tm<string>('ui.cards.factions.geistPact') ? t('ui.cards.pactAbility') : faction }}
       </button>
     </div>
     <div v-else class="eid-add-row eid-no-print">
-      <button class="eid-button" type="button" @click="addCard(kind)">{{ addLabels[kind] }}</button>
+      <button class="eid-button" type="button" @click="addCard(kind)">{{ t(`ui.cards.add.${kind}`) }}</button>
     </div>
   </template>
 </template>
@@ -46,6 +46,7 @@ const props = defineProps<{
 type CardKind = 'armor' | 'techniques' | 'gear' | 'marks' | 'log'
 
 const { activeChar: character, commitCharacterPath, addCard, removeCard } = useCampaignDossier()
+const { t, tm } = useDossierI18n()
 
 const validKind = computed(() => ['armor', 'techniques', 'gear', 'marks', 'log'].includes(props.kind))
 const kind = computed(() => props.kind as CardKind)
@@ -53,94 +54,84 @@ const list = computed(() => validKind.value && character.value ? character.value
 
 const cardRows: Record<CardKind, Array<{ key: string, label: string }>> = {
   armor: [
-    { key: 'slots', label: 'Protection Slots' },
-    { key: 'applies', label: 'Applies Against' },
-    { key: 'notApplies', label: 'Does Not Apply' },
-    { key: 'notes', label: 'Notes' },
+    { key: 'slots', label: tm<string>('ui.cards.rows.armor.slots') },
+    { key: 'applies', label: tm<string>('ui.cards.rows.armor.applies') },
+    { key: 'notApplies', label: tm<string>('ui.cards.rows.armor.notApplies') },
+    { key: 'notes', label: tm<string>('ui.cards.rows.armor.notes') },
   ],
   techniques: [
-    { key: 'tags', label: 'Tags' },
-    { key: 'type', label: 'Type' },
-    { key: 'effect', label: 'Effect' },
-    { key: 'cost', label: 'Cost' },
-    { key: 'hardReq', label: 'Hard Requirements' },
-    { key: 'softReq', label: 'Soft Requirements' },
-    { key: 'karma', label: 'Karma' },
-    { key: 'gear', label: 'Gear' },
-    { key: 'risk', label: 'Risk / Limitation' },
+    { key: 'tags', label: tm<string>('ui.cards.rows.techniques.tags') },
+    { key: 'type', label: tm<string>('ui.cards.rows.techniques.type') },
+    { key: 'effect', label: tm<string>('ui.cards.rows.techniques.effect') },
+    { key: 'cost', label: tm<string>('ui.cards.rows.techniques.cost') },
+    { key: 'hardReq', label: tm<string>('ui.cards.rows.techniques.hardReq') },
+    { key: 'softReq', label: tm<string>('ui.cards.rows.techniques.softReq') },
+    { key: 'karma', label: tm<string>('ui.cards.rows.techniques.karma') },
+    { key: 'gear', label: tm<string>('ui.cards.rows.techniques.gear') },
+    { key: 'risk', label: tm<string>('ui.cards.rows.techniques.risk') },
   ],
   gear: [
-    { key: 'type', label: 'Type' },
-    { key: 'capacity', label: 'Capacity' },
-    { key: 'charge', label: 'Current Charge' },
-    { key: 'func', label: 'Function' },
-    { key: 'compat', label: 'Compatible Techniques' },
-    { key: 'requirements', label: 'Requirements' },
-    { key: 'risk', label: 'Risk' },
-    { key: 'maintenance', label: 'Maintenance' },
-    { key: 'tracking', label: 'Tracking / Access' },
-    { key: 'notes', label: 'Notes' },
+    { key: 'type', label: tm<string>('ui.cards.rows.gear.type') },
+    { key: 'capacity', label: tm<string>('ui.cards.rows.gear.capacity') },
+    { key: 'charge', label: tm<string>('ui.cards.rows.gear.charge') },
+    { key: 'func', label: tm<string>('ui.cards.rows.gear.func') },
+    { key: 'compat', label: tm<string>('ui.cards.rows.gear.compat') },
+    { key: 'requirements', label: tm<string>('ui.cards.rows.gear.requirements') },
+    { key: 'risk', label: tm<string>('ui.cards.rows.gear.risk') },
+    { key: 'maintenance', label: tm<string>('ui.cards.rows.gear.maintenance') },
+    { key: 'tracking', label: tm<string>('ui.cards.rows.gear.tracking') },
+    { key: 'notes', label: tm<string>('ui.cards.rows.gear.notes') },
   ],
   marks: [
-    { key: 'source', label: 'Source' },
-    { key: 'symptom', label: 'Symptom' },
-    { key: 'effect', label: 'Mechanical Effect' },
-    { key: 'duration', label: 'Duration' },
-    { key: 'notes', label: 'Notes' },
+    { key: 'source', label: tm<string>('ui.cards.rows.marks.source') },
+    { key: 'symptom', label: tm<string>('ui.cards.rows.marks.symptom') },
+    { key: 'effect', label: tm<string>('ui.cards.rows.marks.effect') },
+    { key: 'duration', label: tm<string>('ui.cards.rows.marks.duration') },
+    { key: 'notes', label: tm<string>('ui.cards.rows.marks.notes') },
   ],
   log: [
-    { key: 'caseName', label: 'Case' },
-    { key: 'advancement', label: 'Advancement Chosen' },
-    { key: 'domains', label: 'Domain Changes' },
-    { key: 'techniques', label: 'Techniques Learned' },
-    { key: 'karmaActs', label: 'Karma-Moving Acts' },
-    { key: 'access', label: 'Access Changes' },
-    { key: 'gear', label: 'Gear Changes' },
-    { key: 'wounds', label: 'Wounds / Scars' },
-    { key: 'notes', label: 'Notes' },
+    { key: 'caseName', label: tm<string>('ui.cards.rows.log.caseName') },
+    { key: 'advancement', label: tm<string>('ui.cards.rows.log.advancement') },
+    { key: 'domains', label: tm<string>('ui.cards.rows.log.domains') },
+    { key: 'techniques', label: tm<string>('ui.cards.rows.log.techniques') },
+    { key: 'karmaActs', label: tm<string>('ui.cards.rows.log.karmaActs') },
+    { key: 'access', label: tm<string>('ui.cards.rows.log.access') },
+    { key: 'gear', label: tm<string>('ui.cards.rows.log.gear') },
+    { key: 'wounds', label: tm<string>('ui.cards.rows.log.wounds') },
+    { key: 'notes', label: tm<string>('ui.cards.rows.log.notes') },
   ],
 }
 
-const addLabels: Record<CardKind, string> = {
-  armor: '+ Add Protection',
-  techniques: '+ General',
-  gear: '+ Register Device',
-  marks: '+ Record Mark / Haunting',
-  log: '+ Log Advancement',
-}
-
-const emptyLabels: Record<CardKind, string> = {
-  armor: 'No protection registered.',
-  techniques: 'No techniques registered.',
-  gear: 'No devices registered.',
-  marks: 'No marks or hauntings on file.',
-  log: 'Log is empty. Entries are added after completed cases.',
-}
-
-const techniqueFactions = ['General', 'Eidolon', 'Occult Eden', 'Echologist', 'Geist Pact']
+const techniqueFactions = [
+  tm<string>('ui.cards.factions.general'),
+  tm<string>('ui.cards.factions.eidolon'),
+  tm<string>('ui.cards.factions.occultEden'),
+  tm<string>('ui.cards.factions.echologist'),
+  tm<string>('ui.cards.factions.geistPact'),
+]
 
 function facClass(faction: string) {
-  if (faction === 'Occult Eden') return 'fac-eden'
-  if (faction === 'Echologist') return 'fac-echologist'
-  if (faction === 'Geist Pact') return 'fac-pact'
+  if (faction === tm<string>('ui.cards.factions.occultEden')) return 'fac-eden'
+  if (faction === tm<string>('ui.cards.factions.echologist')) return 'fac-echologist'
+  if (faction === tm<string>('ui.cards.factions.geistPact')) return 'fac-pact'
   return 'fac-general'
 }
 
 function cardName(item: { id: string }, index: number) {
-  return kind.value === 'log' ? `Entry ${String(index + 1).padStart(2, '0')}` : String(getPath(item, 'name') || '')
+  return kind.value === 'log' ? t('ui.cards.entry', { number: String(index + 1).padStart(2, '0') }) : String(getPath(item, 'name') || '')
 }
 
 function cardMeta(item: { id: string }, _index: number) {
-  if (kind.value === 'armor') return 'Protection'
-  if (kind.value === 'gear') return 'Device'
-  if (kind.value === 'marks') return 'Geist Mark'
-  if (kind.value === 'log') return 'Advancement'
-  return String(getPath(item, 'faction') || 'General')
+  if (kind.value === 'armor') return t('ui.cards.meta.armor')
+  if (kind.value === 'gear') return t('ui.cards.meta.gear')
+  if (kind.value === 'marks') return t('ui.cards.meta.marks')
+  if (kind.value === 'log') return t('ui.cards.meta.log')
+  return String(getPath(item, 'faction') || tm<string>('ui.cards.factions.general'))
 }
 
 function cardMetaClass(item: { id: string }) {
   if (kind.value === 'marks') return 'fac-eden'
-  if (kind.value === 'techniques') return facClass(String(getPath(item, 'faction') || 'General'))
+  if (kind.value === 'techniques') return facClass(String(getPath(item, 'faction') || tm<string>('ui.cards.factions.general')))
   return ''
 }
 
@@ -165,7 +156,7 @@ function commitRow(index: number, key: string, value: string) {
 }
 
 function remove(id: string) {
-  if (confirm('Destroy this record? This cannot be undone.')) {
+  if (confirm(t('ui.cards.destroyConfirm'))) {
     removeCard(kind.value, id)
   }
 }

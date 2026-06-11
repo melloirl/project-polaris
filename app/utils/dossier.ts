@@ -4,7 +4,7 @@ export const uid = () => 'id' + Math.random().toString(36).slice(2, 9)
 
 export function stageFor(stages: ResonanceStage[], pct: number): ResonanceStage {
   const bounded = Math.max(0, Math.min(100, pct | 0))
-  return stages.find(stage => bounded >= stage.min && bounded <= stage.max) || stages[0] || { min: 0, max: 100, name: 'Clear' }
+  return stages.find(stage => bounded >= stage.min && bounded <= stage.max) || stages[0] || { min: 0, max: 100, name: '-' }
 }
 
 export function nextThreshold(stages: ResonanceStage[], pct: number): string {
@@ -14,8 +14,8 @@ export function nextThreshold(stages: ResonanceStage[], pct: number): string {
   return next ? `${next.min}% - ${next.name}` : '-'
 }
 
-export function karmaPath(value: number): string {
-  return value < 0 ? 'Occult Eden' : value > 0 ? 'Echologist' : 'Eidolon / Neutral'
+export function karmaPath(value: number, labels: { eden: string, echologist: string, neutral: string }): string {
+  return value < 0 ? labels.eden : value > 0 ? labels.echologist : labels.neutral
 }
 
 export function karmaStage(depth: Record<string, string>, names: Record<string, string>, value: number): string {

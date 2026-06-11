@@ -9,8 +9,8 @@
       <ReferenceRecordView v-else />
     </main>
     <footer class="eid-footer">
-      <span>Internal use only / Unauthorized disclosure is a federal offense</span>
-      <span class="eid-footer__hint">Data lives in memory - use Export File to save your campaign as JSON.</span>
+      <span>{{ t('ui.footer.notice') }}</span>
+      <span class="eid-footer__hint">{{ t('ui.footer.hint') }}</span>
     </footer>
   </div>
 </template>
@@ -22,6 +22,7 @@ import OperationsRecordView from './OperationsView.vue'
 import ReferenceRecordView from './ReferenceView.vue'
 
 const { ui, setView } = useCampaignDossier()
+const { t } = useDossierI18n()
 
 function syncHash() {
   const view = window.location.hash.replace('#/', '') || 'dossier'
