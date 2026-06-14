@@ -1,26 +1,134 @@
-$eid-color-paper: #EFE7D6 !default;
-$eid-color-paper-2: #E4D9C2 !default;
-$eid-color-ink: #2B2722 !default;
-$eid-color-rule: #C2B496 !default;
-$eid-color-stamp: #9E2B25 !default;
-$eid-color-eden: #5C4B73 !default;
-$eid-color-echo: #3E6259 !default;
-$eid-frame-bg: #3A352D !default;
-$eid-print-bg: #FFFFFF !default;
-
-$eid-font-sans: Arial, Helvetica, ui-sans-serif, sans-serif !default;
-$eid-font-mono: "Courier Prime", "Courier New", ui-monospace, monospace !default;
-
 :root {
-  --paper: #{$eid-color-paper};
-  --paper2: #{$eid-color-paper-2};
-  --ink: #{$eid-color-ink};
-  --rule: #{$eid-color-rule};
-  --stamp: #{$eid-color-stamp};
-  --eden: #{$eid-color-eden};
-  --echo: #{$eid-color-echo};
-  --frame-bg: #{$eid-frame-bg};
-  --print-bg: #{$eid-print-bg};
-  --font-ui: #{$eid-font-sans};
-  --font-record: #{$eid-font-mono};
+  --eid-paper: #EFE7D6;
+  --eid-paper-2: #E4D9C2;
+  --eid-ink: #2B2722; 
+  --eid-rule: #C2B496;
+  --eid-stamp: #9E2B25;
+  --eid-eden: #5C4B73;
+  --eid-echo: #3E6259;
+  --eid-frame-bg: #3A352D;
+  --eid-print-bg: #FFFFFF;
+
+  --surface-page: var(--eid-paper);
+  --surface-panel: var(--eid-paper);
+  --surface-inset: var(--eid-paper-2);
+  --surface-active: var(--eid-paper);
+  --surface-inverse: var(--eid-ink);
+
+  --text-primary: var(--eid-ink);
+  --text-inverse: var(--eid-paper);
+  --text-danger: var(--eid-stamp);
+  --text-eden: var(--eid-eden);
+  --text-echo: var(--eid-echo);
+
+  --rule-soft: var(--eid-rule);
+  --rule-hard: var(--eid-ink);
+  --rule-danger: var(--eid-stamp);
+  --rule-eden: var(--eid-eden);
+  --rule-echo: var(--eid-echo);
+
+  --status-authority: var(--eid-stamp);
+  --status-resonance: var(--eid-eden);
+  --status-signal: var(--eid-echo);
+  --status-confirmed: var(--eid-ink);
+  --status-unknown: var(--eid-rule);
+
+  --faction-eidolon: var(--eid-ink);
+  --faction-eden: var(--eid-eden);
+  --faction-echologist: var(--eid-echo);
+  --faction-geist: var(--eid-eden);
+  --faction-welderhide: var(--eid-rule);
+
+  --tint-eden: color-mix(in srgb, var(--eid-eden) 16%, var(--eid-paper));
+  --tint-echo: color-mix(in srgb, var(--eid-echo) 16%, var(--eid-paper));
+  --tint-stamp: color-mix(in srgb, var(--eid-stamp) 14%, var(--eid-paper));
+  --tint-ink: color-mix(in srgb, var(--eid-ink) 10%, var(--eid-paper));
+
+  --file-federal: #3C5A78;
+  --file-amber: #9A6A1C;
+  --file-olive: #5E6A37;
+  --file-slate: #4A4F58;
+  --file-oxblood: #6E3A33;
+  --file-rose: #8B5A6A;
+  --subject-accent: var(--eid-ink);
+  --subject-accent-tint: color-mix(in srgb, var(--subject-accent) 14%, var(--eid-paper));
+
+  --font-sans: Arial, Helvetica, ui-sans-serif, sans-serif;
+  --font-mono: "Courier Prime", "Courier New", ui-monospace, monospace;
+  --font-ui: var(--font-sans);
+  --font-record: var(--font-mono);
+  --font-stamp: var(--font-mono);
+  --font-serial: var(--font-mono);
+
+  --type-0: 0.625rem;
+  --type-1: 0.6875rem;
+  --type-2: 0.75rem;
+  --type-3: 0.875rem;
+  --type-4: 1rem;
+  --type-5: 1.25rem;
+  --type-6: 1.625rem;
+
+  --leading-tight: 1.2;
+  --leading-normal: 1.5;
+  --leading-reading: 1.6;
+
+  --track-tight: 0.08em;
+  --track-meta: 0.14em;
+  --track-wide: 0.22em;
+  --track-stamp: 0.30em;
+
+  --space-1: 0.25rem;
+  --space-2: 0.375rem;
+  --space-3: 0.5rem;
+  --space-4: 0.75rem;
+  --space-5: 0.875rem;
+  --space-6: 1rem;
+  --space-7: 1.125rem;
+  --space-8: 1.375rem;
+  --space-9: 1.5rem;
+  --space-10: 1.75rem;
+  --space-11: 2.25rem;
+  --space-12: 3.75rem;
+
+  --border-hairline: 1px solid var(--rule-soft);
+  --border-hard: 1px solid var(--rule-hard);
+  --border-double: 3px double var(--rule-hard);
+  --border-panel: 1px solid var(--rule-hard);
+  --border-status: 2px solid var(--rule-hard);
+  --border-stamp: 3px solid var(--rule-danger);
+  --border-dotted: 1px dotted var(--rule-soft);
+  --border-field: 1px dotted var(--rule-hard);
+
+  --radius-none: 0;
+  --radius-circle: 50%;
+
+  --page-max-width: 1180px;
+  --sidebar-width: 330px;
+  --index-width: 250px;
+  --break-mobile: 700px;
+  --break-tablet: 820px;
+  --break-sidebar: 900px;
+  --grid-gap: var(--space-9);
+  --card-gap: var(--space-4);
+
+  --motion-fast: 120ms;
+  --motion-normal: 180ms;
+  --motion-ease: steps(2, end);
+
+  --z-base: 0;
+  --z-header: 10;
+  --z-stamp: 20;
+  --z-popover: 40;
+  --z-modal: 80;
+  --z-print-only: 100;
+
+  --paper: var(--surface-page);
+  --paper-2: var(--surface-inset);
+  --ink: var(--text-primary);
+  --rule: var(--rule-soft);
+  --stamp: var(--status-authority);
+  --eden: var(--status-resonance);
+  --echo: var(--status-signal);
+  --frame-bg: var(--eid-frame-bg);
+  --print-bg: var(--eid-print-bg);
 }
