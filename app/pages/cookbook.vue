@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { UI_INSTRUMENT_GLYPHS } from '~/types/ui'
+import type { UiClassificationKind, UiRecordRow, UiTabItem, UiWoundRow } from '~/types/ui'
+
 const paletteGroups = [
   {
     label: 'Core',
@@ -9,70 +12,18 @@ const paletteGroups = [
       { token: '--eid-rule', alias: 'rule' },
       { token: '--eid-stamp', alias: 'stamp' },
       { token: '--eid-eden', alias: 'eden' },
-      { token: '--eid-echo', alias: 'echo' }
-    ]
-  },
-  {
-    label: 'Surfaces',
-    colors: [
-      { token: '--surface-page', alias: '--paper' },
-      { token: '--surface-panel', alias: '--paper' },
-      { token: '--surface-inset', alias: '--paper-2' },
-      { token: '--surface-active', alias: '--paper' },
-      { token: '--surface-inverse', alias: '--ink' },
-      { token: '--eid-frame-bg', alias: '--frame-bg' },
-      { token: '--eid-print-bg', alias: '--print-bg' }
-    ]
-  },
-  {
-    label: 'Text',
-    colors: [
-      { token: '--text-primary', alias: '--ink' },
-      { token: '--text-inverse', alias: '--paper' },
-      { token: '--text-danger', alias: '--stamp' },
-      { token: '--text-eden', alias: '--eden' },
-      { token: '--text-echo', alias: '--echo' }
-    ]
+      { token: '--eid-echo', alias: 'echo' },
+    ],
   },
   {
     label: 'Status',
     colors: [
-      { token: '--status-authority', alias: '--stamp' },
-      { token: '--status-resonance', alias: '--eden' },
-      { token: '--status-signal', alias: '--echo' },
-      { token: '--status-confirmed', alias: '--ink' },
-      { token: '--status-unknown', alias: '--rule' }
-    ]
-  },
-  {
-    label: 'Rules',
-    colors: [
-      { token: '--rule-soft', alias: '--rule' },
-      { token: '--rule-hard', alias: '--ink' },
-      { token: '--rule-danger', alias: '--stamp' },
-      { token: '--rule-eden', alias: '--eden' },
-      { token: '--rule-echo', alias: '--echo' }
-    ]
-  },
-  {
-    label: 'Factions',
-    colors: [
-      { token: '--faction-eidolon', alias: 'eidolon' },
-      { token: '--faction-eden', alias: 'eden' },
-      { token: '--faction-echologist', alias: 'echologist' },
-      { token: '--faction-geist', alias: 'geist' },
-      { token: '--faction-welderhide', alias: 'welderhide' }
-    ]
-  },
-  {
-    label: 'Tints',
-    colors: [
-      { token: '--tint-eden', alias: 'eden tint' },
-      { token: '--tint-echo', alias: 'echo tint' },
-      { token: '--tint-stamp', alias: 'stamp tint' },
-      { token: '--tint-ink', alias: 'ink tint' },
-      { token: '--subject-accent-tint', alias: 'subject tint' }
-    ]
+      { token: '--status-authority', alias: 'authority' },
+      { token: '--status-resonance', alias: 'resonance' },
+      { token: '--status-signal', alias: 'signal' },
+      { token: '--status-confirmed', alias: 'confirmed' },
+      { token: '--status-unknown', alias: 'unknown' },
+    ],
   },
   {
     label: 'Files',
@@ -83,208 +34,243 @@ const paletteGroups = [
       { token: '--file-slate', alias: 'slate' },
       { token: '--file-oxblood', alias: 'oxblood' },
       { token: '--file-rose', alias: 'rose' },
-      { token: '--subject-accent', alias: 'subject' }
-    ]
+    ],
+  },
+]
+
+const tabs: UiTabItem[] = [
+  { label: 'Dossier', value: 'dossier' },
+  { label: 'Archive', value: 'archive' },
+  { label: 'Operations', value: 'operations' },
+  { label: 'Reference', value: 'reference' },
+]
+
+const activeTab = ref('dossier')
+const sectionCollapsed = ref(false)
+const fieldValue = ref('Irene Vasquez')
+const stepValue = ref(3)
+const signalValue = ref(3)
+const resonancePct = ref(42)
+const karmaValue = ref(-1)
+const redactionOpen = ref(false)
+
+const woundRows = ref<UiWoundRow[]>([
+  { key: 'minor', label: 'Minor', values: [true, false] },
+  { key: 'serious', label: 'Serious', values: [false, false], note: 'when relevant' },
+  { key: 'critical', label: 'Critical', values: [false] },
+])
+
+const recordRows: UiRecordRow[] = [
+  { label: 'Source', value: 'OPS-CASE-01' },
+  { label: 'Confidence', value: 'Field-Reported' },
+]
+
+const classificationKinds: Array<{ kind: UiClassificationKind, label: string }> = [
+  { kind: 'confirmed', label: 'Confirmed' },
+  { kind: 'contradicted', label: 'Contradicted' },
+  { kind: 'eyes-only', label: 'Eyes Only' },
+  { kind: 'field-reported', label: 'Field-Reported' },
+  { kind: 'purged-copy', label: 'Purged Copy' },
+  { kind: 'unreconciled', label: 'Unreconciled' },
+]
+
+function toggleWound(key: string, index: number) {
+  const row = woundRows.value.find(item => item.key === key)
+  if (row) {
+    row.values[index] = !row.values[index]
   }
-];
-
-const sealVariants = [
-  {
-    name: 'Complete',
-    meta: 'sigil + label',
-    props: {}
-  },
-  {
-    name: 'Stamp',
-    meta: 'sigil only',
-    props: { mode: 'stamp' as const }
-  },
-  {
-    name: 'Label',
-    meta: 'wordmark only',
-    props: { mode: 'label' as const }
-  }
-];
-
-const buttonSizes = [
-  { label: 'SM', value: 'sm' as const },
-  { label: 'MD', value: 'md' as const },
-  { label: 'LG', value: 'lg' as const }
-];
-
-const stampSizes = buttonSizes;
-
-const buttonRows = [
-  {
-    name: 'Primary',
-    meta: 'outline',
-    props: { variant: 'primary' as const }
-  },
-  {
-    name: 'Primary',
-    meta: 'fill',
-    props: { variant: 'primary' as const, fill: true }
-  },
-  {
-    name: 'Danger',
-    meta: 'outline',
-    props: { variant: 'danger' as const }
-  },
-  {
-    name: 'Danger',
-    meta: 'fill',
-    props: { variant: 'danger' as const, fill: true }
-  },
-  {
-    name: 'Disabled',
-    meta: 'primary',
-    props: { variant: 'primary' as const, disabled: true }
-  }
-];
-
-const stampVariants = [
-  {
-    name: 'Restricted',
-    meta: 'authority',
-    props: { angle: -3 }
-  },
-  {
-    name: 'Eyes Only',
-    meta: 'authority',
-    props: { angle: 2 }
-  },
-  {
-    name: 'Field Copy',
-    meta: 'ink copy',
-    props: { angle: -1 },
-    style: '--color-stamp: var(--ink)'
-  }
-];
+}
 </script>
 
 <template>
-<main class="cookbook">
-  <header class="cookbook__masthead">
-    <div>
-      <p class="cookbook__eyebrow">
-        Interface Reference
-      </p>
-      <h1>Polaris Cookbook</h1>
-    </div>
-    <UiSealLockup mode="stamp" />
-  </header>
+  <main class="cookbook">
+    <header class="cookbook__masthead">
+      <div>
+        <p class="cookbook__eyebrow">Interface Reference</p>
+        <h1>Polaris Cookbook</h1>
+      </div>
+      <UiSeal :show-wordmark="false" />
+    </header>
 
-  <section class="cookbook__grid" aria-label="Component cookbook">
-    <article class="cookbook-card cookbook-card--wide">
-      <header class="cookbook-card__header">
-        <div>
-          <p class="cookbook__eyebrow">
-            Foundation
-          </p>
-          <h2>Color Palette</h2>
-        </div>
-      </header>
-
-      <div class="palette">
-        <section v-for="group in paletteGroups" :key="group.label" class="palette__group">
-          <h3>{{ group.label }}</h3>
-          <div class="palette__items">
-            <div v-for="color in group.colors" :key="color.token" class="palette__item">
-              <span class="palette__pip" :style="{ backgroundColor: `var(${color.token})` }" />
-              <span class="palette__token">{{ color.token }}</span>
-              <span class="palette__alias">{{ color.alias }}</span>
+    <section class="cookbook__grid" aria-label="Component cookbook">
+      <article class="cookbook-card cookbook-card--wide">
+        <header class="cookbook-card__header">
+          <div>
+            <p class="cookbook__eyebrow">Foundation</p>
+            <h2>Color Palette</h2>
+          </div>
+        </header>
+        <div class="palette">
+          <section v-for="group in paletteGroups" :key="group.label" class="palette__group">
+            <h3>{{ group.label }}</h3>
+            <div class="palette__items">
+              <div v-for="color in group.colors" :key="color.token" class="palette__item">
+                <span class="palette__pip" :style="{ backgroundColor: `var(${color.token})` }" />
+                <span class="palette__token">{{ color.token }}</span>
+                <span class="palette__alias">{{ color.alias }}</span>
+              </div>
             </div>
-          </div>
-        </section>
-      </div>
-    </article>
-
-    <article class="cookbook-card cookbook-card--wide">
-      <header class="cookbook-card__header">
-        <div>
-          <p class="cookbook__eyebrow">
-            Brand
-          </p>
-          <h2>Seal Lockup</h2>
+          </section>
         </div>
-        <span class="cookbook-card__meta">3 variants</span>
-      </header>
+      </article>
 
-      <div class="variant-grid variant-grid--seal">
-        <section v-for="variant in sealVariants" :key="variant.name" class="variant">
-          <header class="variant__header">
-            <h3>{{ variant.name }}</h3>
-            <span>{{ variant.meta }}</span>
-          </header>
-          <div class="variant__preview variant__preview--brand">
-            <UiSealLockup v-bind="variant.props" />
+      <article class="cookbook-card cookbook-card--wide">
+        <header class="cookbook-card__header">
+          <div>
+            <p class="cookbook__eyebrow">Core</p>
+            <h2>Seal, Stamp, Button, Tabs</h2>
           </div>
-        </section>
-      </div>
-    </article>
-
-    <article class="cookbook-card cookbook-card--wide">
-      <header class="cookbook-card__header">
-        <div>
-          <p class="cookbook__eyebrow">
-            Controls
-          </p>
-          <h2>Button</h2>
+        </header>
+        <div class="variant-grid variant-grid--core">
+          <section class="variant">
+            <header class="variant__header"><h3>Seal</h3><span>wordmark / stamp</span></header>
+            <div class="variant__preview variant__preview--stack">
+              <UiSeal />
+              <UiSeal tone="stamp" :show-wordmark="false" />
+            </div>
+          </section>
+          <section class="variant">
+            <header class="variant__header"><h3>Stamp</h3><span>tones</span></header>
+            <div class="variant__preview variant__preview--stack">
+              <UiStamp>Restricted</UiStamp>
+              <UiStamp tone="ink" size="sm" :rotate="-1">Field Copy</UiStamp>
+              <UiStamp tone="eden" :rotate="1">Unreconciled</UiStamp>
+            </div>
+          </section>
+          <section class="variant">
+            <header class="variant__header"><h3>Button</h3><span>states</span></header>
+            <div class="variant__preview variant__preview--stack">
+              <UiButton>Export File</UiButton>
+              <UiButton variant="active-gm">GM Mode: On</UiButton>
+              <UiButton variant="danger" size="sm">Withdraw</UiButton>
+              <UiButton disabled>Unavailable</UiButton>
+            </div>
+          </section>
+          <section class="variant variant--wide">
+            <header class="variant__header"><h3>Tabs</h3><span>{{ activeTab }}</span></header>
+            <div class="variant__preview variant__preview--wide">
+              <UiTabs :items="tabs" :model-value="activeTab" @update:model-value="activeTab = $event">
+                <template #tools>
+                  <UiButton size="sm">Tool</UiButton>
+                </template>
+              </UiTabs>
+            </div>
+          </section>
         </div>
-        <span class="cookbook-card__meta">tone / fill / size</span>
-      </header>
+      </article>
 
-      <div class="button-matrix">
-        <div class="button-matrix__head" aria-hidden="true" />
-        <div v-for="size in buttonSizes" :key="size.value" class="button-matrix__size">
-          {{ size.label }}
+      <article class="cookbook-card cookbook-card--wide">
+        <header class="cookbook-card__header">
+          <div>
+            <p class="cookbook__eyebrow">Forms</p>
+            <h2>Section, Field, Stepper, Photo Plate</h2>
+          </div>
+        </header>
+        <div class="variant-grid variant-grid--forms">
+          <UiFormSection
+            title="Identity Record"
+            code="FORM E-1 / S2/v0.1"
+            note="Filed copy pending handler countersign."
+            :collapsed="sectionCollapsed"
+            @toggle="sectionCollapsed = !sectionCollapsed"
+          >
+            <div class="field-pair">
+              <UiField label="Subject" :model-value="fieldValue" @commit="fieldValue = $event" />
+              <UiField label="Immutable" model-value="Read-only field" :editable="false" />
+            </div>
+          </UiFormSection>
+          <section class="variant">
+            <header class="variant__header"><h3>Stepper</h3><span>{{ stepValue }}</span></header>
+            <div class="variant__preview">
+              <UiStepper :model-value="stepValue" :min="-1" :max="5" signed @change="stepValue = $event" />
+            </div>
+          </section>
+          <section class="variant photo-sample">
+            <header class="variant__header"><h3>Photo Plate</h3><span>coded</span></header>
+            <div class="variant__preview">
+              <UiPhotoPlate codename="Wren" title="Field Technician" code-no="SUBJ-114" />
+            </div>
+          </section>
         </div>
+      </article>
 
-        <template v-for="row in buttonRows" :key="`${row.name}-${row.meta}`">
-          <div class="button-matrix__label">
-            <strong>{{ row.name }}</strong>
-            <span>{{ row.meta }}</span>
+      <article class="cookbook-card cookbook-card--wide">
+        <header class="cookbook-card__header">
+          <div>
+            <p class="cookbook__eyebrow">Instruments</p>
+            <h2>Status Controls</h2>
           </div>
-          <div v-for="size in buttonSizes" :key="`${row.name}-${row.meta}-${size.value}`" class="button-matrix__cell">
-            <UiButton v-bind="row.props" :size="size.value">
-              Button
-            </UiButton>
-          </div>
-        </template>
-      </div>
-    </article>
-
-    <article class="cookbook-card cookbook-card--wide">
-      <header class="cookbook-card__header">
-        <div>
-          <p class="cookbook__eyebrow">
-            Brand
-          </p>
-          <h2>Stamp</h2>
+        </header>
+        <div class="instrument-grid">
+          <UiStatusPanel title="Signal" mini="Clean frequency" accent="echo" glyph="signal">
+            <UiBigRead :value="`${signalValue} / 4`" label="available" tone="echo" />
+            <UiSignalPips :max="4" :current="signalValue" @change="signalValue = $event" />
+          </UiStatusPanel>
+          <UiStatusPanel title="Resonance" mini="contamination" accent="eden" glyph="resonance">
+            <UiBigRead :value="`${resonancePct}%`" label="Atravessado" tone="eden" />
+            <UiResonanceGauge :pct="resonancePct" />
+            <div class="cookbook-row">
+              <UiButton size="sm" @click="resonancePct = clampRange(resonancePct - 5, 0, 100)">-5</UiButton>
+              <UiButton size="sm" @click="resonancePct = clampRange(resonancePct + 5, 0, 100)">+5</UiButton>
+            </div>
+          </UiStatusPanel>
+          <UiStatusPanel title="Karma" mini="path depth" glyph="karma">
+            <UiBigRead :value="formatSignedValue(karmaValue, karmaValue > 0)" label="Occult Eden" />
+            <UiKarmaRuler :value="karmaValue" :echo-limit="3" @change="karmaValue = $event" />
+          </UiStatusPanel>
+          <UiStatusPanel title="Harm" mini="wound slots" accent="stamp" glyph="harm">
+            <UiWoundBoxes :rows="woundRows" @toggle="toggleWound" />
+          </UiStatusPanel>
         </div>
-        <span class="cookbook-card__meta">restricted / eyes-only / field copy</span>
-      </header>
-      <div class="button-matrix stamp-matrix">
-        <div class="button-matrix__head" aria-hidden="true" />
-        <div v-for="size in stampSizes" :key="size.value" class="button-matrix__size">
-          {{ size.label }}
+        <div class="glyph-grid" aria-label="Instrument glyphs">
+          <span v-for="glyph in UI_INSTRUMENT_GLYPHS" :key="glyph" class="glyph-grid__item">
+            <UiInstrumentGlyph :name="glyph" :size="24" />
+            {{ glyph }}
+          </span>
         </div>
+      </article>
 
-        <template v-for="variant in stampVariants" :key="variant.name">
-          <div class="button-matrix__label">
-            <strong>{{ variant.name }}</strong>
-            <span>{{ variant.meta }}</span>
+      <article class="cookbook-card cookbook-card--wide">
+        <header class="cookbook-card__header">
+          <div>
+            <p class="cookbook__eyebrow">Records</p>
+            <h2>Cards</h2>
           </div>
-          <div v-for="size in stampSizes" :key="`${variant.name}-${size.value}`" class="button-matrix__cell">
-            <UiStamp v-bind="variant.props" :size="size.value" :style="variant.style">
-              {{ variant.name }}
-            </UiStamp>
+        </header>
+        <div class="record-grid">
+          <UiRecordCard name="Photograph, Pumping Stn." tag="Evidence" glyph="mark" :rows="recordRows" />
+          <UiRecordCard name="Read the Static" tag="Occult Eden" tone="eden" glyph="technique" :rows="[{ label: 'Effect', value: 'Ask one question about emotional residue.' }]" />
+          <UiTechniqueCard name="Ground Yourself" faction="Eidolon" tags="reaction" cost="signal:1" effect="Clear one unstable sensory detail." />
+          <UiTechniqueCard name="Borrowed Door" faction="Occult Eden" tone="eden" cost="resonance:5" effect="Open a route where no route was recorded." risk="Leaves an unreconciled mark." />
+          <UiGearCard name="Resonant Cell Mk I" type="Containment Device" :charge="8" :capacity="20" store="eden" serial="SERIAL-LOGGED" fn="Stores unstable resonance for later purge." />
+          <UiGearCard name="Signal Tap" type="Field Receiver" :charge="14" :capacity="16" store="echo" serial="FIELD COPY" tracking="Checked out to Handler D-4." />
+        </div>
+      </article>
+
+      <article class="cookbook-card cookbook-card--wide">
+        <header class="cookbook-card__header">
+          <div>
+            <p class="cookbook__eyebrow">Feedback</p>
+            <h2>Redaction and Classification</h2>
           </div>
-        </template>
-      </div>
-    </article>
-  </section>
-</main>
+          <UiButton size="sm" :variant="redactionOpen ? 'active-gm' : 'default'" @click="redactionOpen = !redactionOpen">
+            GM Mode: {{ redactionOpen ? 'On' : 'Off' }}
+          </UiButton>
+        </header>
+        <p class="redaction-line">
+          Witness identified as
+          <UiRedaction reason="Source Protected" :open="redactionOpen">Tomas Vasquez, motor pool</UiRedaction>.
+          Subject recalls a room that
+          <UiRedaction reason="Withheld" :open="redactionOpen">does not appear on facility plan B-2</UiRedaction>.
+        </p>
+        <div class="chip-grid">
+          <UiClassificationChip v-for="item in classificationKinds" :key="item.kind" :kind="item.kind">
+            {{ item.label }}
+          </UiClassificationChip>
+        </div>
+      </article>
+    </section>
+  </main>
 </template>
 
 <style scoped lang="scss">
@@ -334,9 +320,7 @@ const stampVariants = [
 .cookbook__eyebrow,
 .cookbook-card__meta,
 .variant__header span,
-.palette__alias,
-.button-matrix__size,
-.button-matrix__label span {
+.palette__alias {
   font-size: var(--type-1);
   letter-spacing: var(--track-meta);
   text-transform: uppercase;
@@ -358,7 +342,6 @@ const stampVariants = [
   min-width: 0;
   padding: var(--space-6);
   border: var(--border-panel);
-  border-radius: 4px;
   background: color-mix(in srgb, var(--surface-page) 88%, var(--surface-inset));
 }
 
@@ -381,15 +364,20 @@ const stampVariants = [
 
 .cookbook-card__meta,
 .variant__header span,
-.palette__alias,
-.button-matrix__label span {
+.palette__alias {
   opacity: 0.68;
 }
 
-.palette {
+.palette,
+.variant-grid,
+.instrument-grid,
+.record-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: var(--space-5);
+}
+
+.palette {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
 .palette__group {
@@ -434,13 +422,14 @@ const stampVariants = [
   white-space: nowrap;
 }
 
-.variant-grid {
-  display: grid;
-  gap: var(--space-5);
+.variant-grid--core {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.variant-grid--seal {
-  grid-template-columns: 1.45fr .8fr 1fr;
+.variant-grid--forms,
+.instrument-grid,
+.record-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .variant {
@@ -449,6 +438,10 @@ const stampVariants = [
   min-width: 0;
   border: var(--border-hairline);
   background: var(--surface-page);
+}
+
+.variant--wide {
+  grid-column: 1 / -1;
 }
 
 .variant__header {
@@ -472,68 +465,51 @@ const stampVariants = [
   overflow: hidden;
 }
 
-.variant__preview--brand {
-  justify-content: flex-start;
-}
-
-.button-matrix {
-  display: grid;
-  grid-template-columns: minmax(116px, .8fr) repeat(3, minmax(150px, 1fr));
-  overflow-x: auto;
-  border: var(--border-hard);
-  background: var(--surface-page);
-}
-
-.button-matrix__head,
-.button-matrix__size,
-.button-matrix__label,
-.button-matrix__cell {
-  min-width: 0;
-  border-right: var(--border-dotted);
-  border-bottom: var(--border-dotted);
-}
-
-.button-matrix__size {
-  display: flex;
-  min-height: 36px;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  background: var(--surface-inset);
-}
-
-.button-matrix__label {
+.variant__preview--stack,
+.field-pair {
   display: grid;
   align-content: center;
-  gap: 2px;
-  min-height: 66px;
-  padding: var(--space-3) var(--space-4);
-  background: color-mix(in srgb, var(--surface-inset) 58%, transparent);
-
-  strong {
-    font-size: var(--type-2);
-    letter-spacing: var(--track-meta);
-    text-transform: uppercase;
-  }
+  gap: var(--space-4);
 }
 
-.button-matrix__cell {
-  display: flex;
-  min-height: 66px;
-  align-items: center;
-  justify-content: center;
+.variant__preview--wide {
+  display: block;
+  min-height: auto;
   padding: var(--space-4);
 }
 
-.button-matrix__head,
-.button-matrix__size:nth-child(4),
-.button-matrix__cell:nth-child(4n) {
-  border-right: 0;
+.photo-sample {
+  max-width: 240px;
 }
 
-.button-matrix__label:nth-last-child(-n + 4),
-.button-matrix__cell:nth-last-child(-n + 3) {
-  border-bottom: 0;
+.cookbook-row,
+.chip-grid,
+.glyph-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.glyph-grid {
+  padding-top: var(--space-4);
+  border-top: var(--border-dotted);
+}
+
+.glyph-grid__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  border: var(--border-hairline);
+  background: var(--surface-page);
+  font-size: var(--type-1);
+  letter-spacing: var(--track-meta);
+  padding: var(--space-2) var(--space-3);
+  text-transform: uppercase;
+}
+
+.redaction-line {
+  font-size: var(--type-3);
+  line-height: var(--leading-reading);
 }
 
 @media (max-width: 820px) {
@@ -541,18 +517,13 @@ const stampVariants = [
     padding: var(--space-6);
   }
 
-  .cookbook__masthead {
-    align-items: center;
-  }
-
   .cookbook__grid,
   .palette,
-  .variant-grid--seal {
+  .variant-grid--core,
+  .variant-grid--forms,
+  .instrument-grid,
+  .record-grid {
     grid-template-columns: 1fr;
-  }
-
-  .button-matrix {
-    grid-template-columns: minmax(104px, .8fr) repeat(3, minmax(132px, 1fr));
   }
 }
 

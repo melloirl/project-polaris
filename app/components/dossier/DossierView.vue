@@ -7,9 +7,9 @@
           {{ record.identity.name || t('ui.character.unnamed') }} - {{ record.fileNo }}
         </option>
       </select>
-      <button class="eid-button" type="button" @click="newCharacter">{{ t('ui.character.newDossier') }}</button>
-      <button class="eid-button" type="button" @click="duplicateCharacter">{{ t('ui.character.duplicate') }}</button>
-      <button class="eid-button eid-button--danger" type="button" @click="destroyCharacter">{{ t('ui.character.destroy') }}</button>
+      <UiButton size="sm" @click="newCharacter">{{ t('ui.character.newDossier') }}</UiButton>
+      <UiButton size="sm" @click="duplicateCharacter">{{ t('ui.character.duplicate') }}</UiButton>
+      <UiButton variant="danger" size="sm" @click="destroyCharacter">{{ t('ui.character.destroy') }}</UiButton>
     </div>
 
     <div class="eid-layout eid-layout--dossier">
@@ -36,16 +36,16 @@
             </div>
 
             <aside class="eid-photo-frame" :aria-label="t('ui.dossier.photoFrameLabel')">
-              <div class="eid-photo-frame__plate">
-                <span class="eid-photo-frame__label">{{ t('ui.dossier.photoFrameId') }}</span>
-                <div class="eid-photo-frame__well">
+              <UiPhotoPlate
+                :label="t('ui.dossier.photoFrameId')"
+                :meta="t('ui.dossier.photoFrameStamp')"
+                :codename="character.identity.name || t('ui.dossier.photoFramePrompt')"
+                :code-no="character.fileNo"
+              >
+                <template #well>
                   <span>{{ t('ui.dossier.photoFramePrompt') }}</span>
-                </div>
-                <div class="eid-photo-frame__meta">
-                  <span>{{ character.fileNo }}</span>
-                  <span>{{ t('ui.dossier.photoFrameStamp') }}</span>
-                </div>
-              </div>
+                </template>
+              </UiPhotoPlate>
             </aside>
 
             <div class="eid-identity-record__notes eid-field-grid">
@@ -81,8 +81,8 @@
 
           <template v-else-if="section.render === 'access'">
             <div class="eid-field-grid">
-              <div class="eid-field">
-                <label>{{ t('ui.dossier.accessState') }}</label>
+              <div class="dossier-select-field">
+                <label class="dossier-select-field__label">{{ t('ui.dossier.accessState') }}</label>
                 <select class="eid-select" :value="character.access.state" @change="setSelect('access.state', ($event.target as HTMLSelectElement).value)">
                   <option v-for="state in REF.accessStates" :key="state">{{ state }}</option>
                 </select>
@@ -106,14 +106,21 @@
           gm
           @toggle="toggleSection('GM')"
         >
-          <div class="eid-field-grid" :class="{ 'eid-redacted-grid': !ui.gm }">
-            <DossierField
+          <div class="eid-field-grid">
+            <UiRedaction
               v-for="field in GM_FIELDS"
               :key="field.p"
-              :label="field.l"
-              :value="fieldValue(field.p)"
-              @commit="commitCharacterPath(field.p, $event)"
-            />
+              :reason="field.l"
+              :open="ui.gm"
+              block
+            >
+              <DossierField
+                :label="field.l"
+                :value="fieldValue(field.p)"
+                :editable="ui.gm"
+                @commit="commitCharacterPath(field.p, $event)"
+              />
+            </UiRedaction>
           </div>
           <p v-if="!ui.gm" class="eid-gmnotice">{{ t('ui.gm.redactedNotice') }}</p>
         </DossierFormSection>
@@ -178,3 +185,21 @@ function destroyCharacter() {
 }
 
 </script>
+
+<style scoped lang="scss">
+.dossier-select-field {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.dossier-select-field__label {
+  color: var(--text-primary);
+  font-family: var(--font-ui);
+  font-size: var(--type-0);
+  letter-spacing: var(--track-meta);
+  opacity: 0.75;
+  text-transform: uppercase;
+}
+</style>

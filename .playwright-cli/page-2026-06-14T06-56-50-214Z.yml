@@ -1,0 +1,80 @@
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e6]:
+        - generic [ref=e7]: E
+        - generic [ref=e8]:
+          - generic [ref=e9]: Eidolon
+          - generic [ref=e10]: Diretoria de Pesquisa Avançada - Sistema de Dossiês de Pessoal
+      - generic [ref=e11]: Restrito
+      - generic [ref=e12]:
+        - text: Ref. do Arquivo EID/70-114
+        - text: "Era: Década de 1970 - Operações em Welderhide"
+        - text: Rev. do Form. S2 / v0.1
+    - navigation "Visões do dossiê" [ref=e13]:
+      - link "Dossiê" [ref=e14] [cursor=pointer]:
+        - /url: "#/dossier"
+      - link "Arquivo" [ref=e15] [cursor=pointer]:
+        - /url: "#/archive"
+      - link "Registro de Operações" [active] [ref=e16] [cursor=pointer]:
+        - /url: "#/operations"
+      - link "Referência" [ref=e17] [cursor=pointer]:
+        - /url: "#/reference"
+      - generic [ref=e19]:
+        - 'button "Modo GM: Desligado" [ref=e20] [cursor=pointer]'
+        - button "Exportar Arquivo" [ref=e21] [cursor=pointer]
+        - button "Importar Arquivo" [ref=e22] [cursor=pointer]
+        - button "Imprimir" [ref=e23] [cursor=pointer]
+    - main [ref=e24]:
+      - generic [ref=e682]:
+        - complementary [ref=e683]:
+          - generic [ref=e684]: Registro de Operações - Casos e Sessões
+          - button "CASO 01 / Modelo (Modelo) Primeira Designação" [ref=e685] [cursor=pointer]:
+            - generic [ref=e686]: CASO 01 / Modelo
+            - text: (Modelo) Primeira Designação
+          - button "+ Novo Arquivo de Caso" [ref=e688] [cursor=pointer]
+        - article [ref=e689]:
+          - textbox "Título do caso" [ref=e690]
+          - generic [ref=e691]: "Arquivo de operações / ritmo do caso: Investigação -> Conclusão -> Preparação -> Confronto"
+          - generic [ref=e692]:
+            - generic [ref=e693]:
+              - generic [ref=e694]: Código do Caso
+              - generic: CASO 01
+            - generic [ref=e695]:
+              - generic [ref=e696]: Data
+              - generic: "-"
+            - generic [ref=e697]:
+              - generic [ref=e698]: Status
+              - generic: Modelo
+            - generic [ref=e699]:
+              - generic [ref=e700]: 1 / Investigação
+              - generic: O que está acontecendo? Relatos estranhos, equipamentos falhando, testemunhas contraditórias - ambiguidade é permitida antes do primeiro limiar.
+            - generic [ref=e701]:
+              - generic [ref=e702]: 2 / Conclusão
+              - generic: O que achamos que isto é?
+            - generic [ref=e703]:
+              - generic [ref=e704]: 3 / Preparação
+              - generic: Ferramentas, táticas, rituais, permissões ou sacrifícios necessários.
+            - generic [ref=e705]:
+              - generic [ref=e706]: 4 / Confronto
+              - generic: O confronto direto, contenção, escolha ou consequência que resolve o caso. Após o primeiro limiar, o sobrenatural é inegável.
+            - generic [ref=e707]:
+              - generic [ref=e708]: Menu de Avanço
+              - generic: "Ofereça 2-3 opções fundamentadas: uma técnica de árvore, um crescimento mundano, uma recompensa específica do caso."
+            - generic [ref=e709]:
+              - generic [ref=e710]: Notas do GM
+              - generic: Semeie uma pista apontando para o projeto-chave.
+          - button "Destruir Registro" [ref=e712] [cursor=pointer]
+      - paragraph [ref=e713]: "Base de gerenciamento de sessão: um registro por caso ou sessão. Escale por impossibilidades mais profundas, não por monstros maiores. Cada caso deve alimentar discretamente o projeto-chave."
+    - contentinfo [ref=e634]:
+      - generic [ref=e635]: Uso interno apenas / Divulgação não autorizada é crime federal
+      - generic [ref=e636]: Os dados ficam em memória - use Exportar Arquivo para salvar a campanha como JSON.
+  - generic:
+    - img
+  - generic [ref=e637]:
+    - button "Toggle Nuxt DevTools" [ref=e638] [cursor=pointer]:
+      - img [ref=e639]
+    - generic "Page load time" [ref=e642]:
+      - generic [ref=e644]: "-"
+    - button "Toggle Component Inspector" [ref=e646] [cursor=pointer]:
+      - img [ref=e647]

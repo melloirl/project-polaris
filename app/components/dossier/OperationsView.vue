@@ -13,7 +13,7 @@
         <span>{{ record.code || t('ui.operations.caseFallback') }} / {{ record.status }}</span>{{ record.title }}
       </button>
       <div class="eid-index__foot eid-no-print">
-        <button class="eid-button" type="button" @click="addOperationRecord">{{ t('ui.operations.newCase') }}</button>
+        <UiButton size="sm" @click="addOperationRecord">{{ t('ui.operations.newCase') }}</UiButton>
       </div>
     </aside>
 
@@ -36,7 +36,7 @@
         />
       </div>
       <div class="eid-add-row eid-no-print">
-        <button class="eid-button eid-button--danger" type="button" @click="destroyOperation">{{ t('ui.operations.destroy') }}</button>
+        <UiButton variant="danger" size="sm" @click="destroyOperation">{{ t('ui.operations.destroy') }}</UiButton>
       </div>
     </article>
     <p v-else class="eid-note">{{ t('ui.operations.empty') }}</p>

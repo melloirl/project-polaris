@@ -1,0 +1,649 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e6]:
+      - generic [ref=e7]: E
+      - generic [ref=e8]:
+        - generic [ref=e9]: Eidolon
+        - generic [ref=e10]: Diretoria de Pesquisa Avançada - Sistema de Dossiês de Pessoal
+    - generic [ref=e11]: Restrito
+    - generic [ref=e12]:
+      - text: Ref. do Arquivo EID/70-114
+      - text: "Era: Década de 1970 - Operações em Welderhide"
+      - text: Rev. do Form. S2 / v0.1
+  - navigation "Visões do dossiê" [ref=e13]:
+    - link "Dossiê" [ref=e14] [cursor=pointer]:
+      - /url: "#/dossier"
+    - link "Arquivo" [ref=e15] [cursor=pointer]:
+      - /url: "#/archive"
+    - link "Registro de Operações" [ref=e16] [cursor=pointer]:
+      - /url: "#/operations"
+    - link "Referência" [ref=e17] [cursor=pointer]:
+      - /url: "#/reference"
+    - generic [ref=e19]:
+      - 'button "Modo GM: Desligado" [ref=e20] [cursor=pointer]'
+      - button "Exportar Arquivo" [ref=e21] [cursor=pointer]
+      - button "Importar Arquivo" [ref=e22] [cursor=pointer]
+      - button "Imprimir" [ref=e23] [cursor=pointer]
+  - main [ref=e24]:
+    - generic [ref=e25]:
+      - generic [ref=e26]:
+        - generic [ref=e27]: "Sujeito:"
+        - combobox [ref=e28]:
+          - option "Irene Vasquez - EID/70-114" [selected]
+        - button "+ Novo Dossiê" [ref=e29] [cursor=pointer]
+        - button "Duplicar" [ref=e30] [cursor=pointer]
+        - button "Destruir Arquivo" [ref=e31] [cursor=pointer]
+      - generic [ref=e32]:
+        - generic [ref=e33]:
+          - generic [ref=e34]:
+            - button "Identidade FORM E-1 / S2/v0.1" [expanded] [ref=e35] [cursor=pointer]:
+              - heading "Identidade" [level=2] [ref=e36]
+              - generic [ref=e37]: FORM E-1 / S2/v0.1
+            - generic [ref=e38]:
+              - generic [ref=e39]:
+                - generic [ref=e40]:
+                  - generic [ref=e41]:
+                    - generic [ref=e42]: Nome
+                    - generic: Irene Vasquez
+                  - generic [ref=e43]:
+                    - generic [ref=e44]: Idade
+                    - generic: "29"
+                  - generic [ref=e45]:
+                    - generic [ref=e46]: Gênero
+                    - generic: F
+                  - generic [ref=e47]:
+                    - generic [ref=e48]: Aparência
+                    - generic: Roupas práticas sob um casaco de manutenção; queimaduras permanentes de solda nas duas mãos.
+                  - generic [ref=e49]:
+                    - generic [ref=e50]: Personalidade
+                    - generic: Metódica, seca, discretamente teimosa.
+                  - generic [ref=e51]:
+                    - generic [ref=e52]: Motivação
+                    - generic: Quitar a dívida do irmão antes que a Eidolon decida que ele também pertence à instituição.
+                  - generic [ref=e53]:
+                    - generic [ref=e54]: Medo
+                    - generic: Tornar-se útil o bastante para que nunca a deixem sair.
+                - complementary "Moldura de fotografia do sujeito" [ref=e55]:
+                  - figure [ref=e56]:
+                    - generic [ref=e57]:
+                      - generic [ref=e58]:
+                        - generic [ref=e59]: ID Visual
+                        - generic [ref=e60]: Registro S2
+                      - generic [ref=e62]: Afixar foto
+                      - generic [ref=e63]:
+                        - generic [ref=e64]: Irene Vasquez
+                        - generic [ref=e65]: EID/70-114
+                - generic [ref=e66]:
+                  - generic [ref=e67]:
+                    - generic [ref=e68]: Histórico / Resumo do Arquivo
+                    - generic: Reparo eletrônico civil, recrutada depois de consertar um dispositivo que ela jamais deveria ter visto funcionando.
+                  - generic [ref=e69]:
+                    - generic [ref=e70]: Relações Importantes
+                    - generic: Tomas Vasquez (irmão, endividado); Supervisor Hale (handler, Engenharia).
+                  - generic [ref=e71]:
+                    - generic [ref=e72]: Por que a Eidolon se Importa
+                    - generic: Mão de obra técnica útil; sem confiança para receber teoria completa.
+              - paragraph [ref=e73]: Mantenha o personagem humano. O sobrenatural complica a identidade - ele não a substitui.
+          - generic [ref=e74]:
+            - button "Ocupação / Função FORM E-2 / S2/v0.1" [expanded] [ref=e75] [cursor=pointer]:
+              - heading "Ocupação / Função" [level=2] [ref=e76]
+              - generic [ref=e77]: FORM E-2 / S2/v0.1
+            - generic [ref=e78]:
+              - generic [ref=e79]:
+                - generic [ref=e80]:
+                  - generic [ref=e81]: Função
+                  - generic: Técnica de Campo da Eidolon
+                - generic [ref=e82]:
+                  - generic [ref=e83]: Handler / Supervisor
+                  - generic: Supervisor Hale - Divisão de Engenharia
+                - generic [ref=e84]:
+                  - generic [ref=e85]: Descrição
+                  - generic: Funcionária técnica de baixa autorização designada para manter, calibrar e solucionar falhas de equipamento de campo instável.
+                - generic [ref=e86]:
+                  - generic [ref=e87]: Equipamento Inicial
+                  - generic: Medidor diagnóstico, kit de ferramentas isoladas, crachá restrito de manutenção, caderno de calibração.
+                - generic [ref=e88]:
+                  - generic [ref=e89]: Notas
+                  - generic: "Permitido: áreas de manutenção, dispositivos designados, apoio básico de campo."
+              - paragraph [ref=e90]: Ocupação é como a Eidolon rotula o personagem. Pode não coincidir com como ele se enxerga.
+          - generic [ref=e91]:
+            - button "Atributos FORM E-3 / S2/v0.1" [expanded] [ref=e92] [cursor=pointer]:
+              - heading "Atributos" [level=2] [ref=e93]
+              - generic [ref=e94]: FORM E-3 / S2/v0.1
+            - generic [ref=e95]:
+              - table [ref=e96]:
+                - rowgroup [ref=e97]:
+                  - row "Corpo Força física, resistência, coordenação e resiliência corporal. Decrease Corpo +1 Increase Corpo" [ref=e98]:
+                    - cell "Corpo" [ref=e99]
+                    - cell "Força física, resistência, coordenação e resiliência corporal." [ref=e100]
+                    - cell "Decrease Corpo +1 Increase Corpo" [ref=e101]:
+                      - generic [ref=e102]:
+                        - button "Decrease Corpo" [ref=e103] [cursor=pointer]: "-"
+                        - generic [ref=e104]: "+1"
+                        - button "Increase Corpo" [ref=e105] [cursor=pointer]: +
+                  - row "Mente Raciocínio, memória, análise, compreensão técnica e padrões. Decrease Mente +3 Increase Mente" [ref=e106]:
+                    - cell "Mente" [ref=e107]
+                    - cell "Raciocínio, memória, análise, compreensão técnica e padrões." [ref=e108]
+                    - cell "Decrease Mente +3 Increase Mente" [ref=e109]:
+                      - generic [ref=e110]:
+                        - button "Decrease Mente" [ref=e111] [cursor=pointer]: "-"
+                        - generic [ref=e112]: "+3"
+                        - button "Increase Mente" [ref=e113] [cursor=pointer]: +
+                  - row "Carisma Presença, persuasão, empatia, intuição social e performance. Decrease Carisma +0 Increase Carisma" [ref=e114]:
+                    - cell "Carisma" [ref=e115]
+                    - cell "Presença, persuasão, empatia, intuição social e performance." [ref=e116]
+                    - cell "Decrease Carisma +0 Increase Carisma" [ref=e117]:
+                      - generic [ref=e118]:
+                        - button "Decrease Carisma" [ref=e119] [cursor=pointer]: "-"
+                        - generic [ref=e120]: "+0"
+                        - button "Increase Carisma" [ref=e121] [cursor=pointer]: +
+                  - row "Vontade Compostura, identidade, foco, resistência e estabilidade interior. Decrease Vontade +2 Increase Vontade" [ref=e122]:
+                    - cell "Vontade" [ref=e123]
+                    - cell "Compostura, identidade, foco, resistência e estabilidade interior." [ref=e124]
+                    - cell "Decrease Vontade +2 Increase Vontade" [ref=e125]:
+                      - generic [ref=e126]:
+                        - button "Decrease Vontade" [ref=e127] [cursor=pointer]: "-"
+                        - generic [ref=e128]: "+2"
+                        - button "Increase Vontade" [ref=e129] [cursor=pointer]: +
+              - paragraph [ref=e130]: "Distribua +3, +2, +1, +0 na criação. Atributos definem a abordagem natural; Domínios definem competência treinada. Rolagem central: d20 + Atributo + Domínio >= Dificuldade."
+          - generic [ref=e131]:
+            - button "Domínios FORM E-4 / S2/v0.1" [expanded] [ref=e132] [cursor=pointer]:
+              - heading "Domínios" [level=2] [ref=e133]
+              - generic [ref=e134]: FORM E-4 / S2/v0.1
+            - generic [ref=e135]:
+              - table [ref=e136]:
+                - rowgroup [ref=e137]:
+                  - row "Físico Correr, escalar, forçar, carregar e resistir a esforço. Decrease Físico 1 Increase Físico" [ref=e138]:
+                    - cell "Físico" [ref=e139]
+                    - cell "Correr, escalar, forçar, carregar e resistir a esforço." [ref=e140]
+                    - cell "Decrease Físico 1 Increase Físico" [ref=e141]:
+                      - generic [ref=e142]:
+                        - button "Decrease Físico" [ref=e143] [cursor=pointer]: "-"
+                        - generic [ref=e144]: "1"
+                        - button "Increase Físico" [ref=e145] [cursor=pointer]: +
+                  - row "Campo Furtividade, percepção, rastreamento e busca em espaços perigosos. Decrease Campo 1 Increase Campo" [ref=e146]:
+                    - cell "Campo" [ref=e147]
+                    - cell "Furtividade, percepção, rastreamento e busca em espaços perigosos." [ref=e148]
+                    - cell "Decrease Campo 1 Increase Campo" [ref=e149]:
+                      - generic [ref=e150]:
+                        - button "Decrease Campo" [ref=e151] [cursor=pointer]: "-"
+                        - generic [ref=e152]: "1"
+                        - button "Increase Campo" [ref=e153] [cursor=pointer]: +
+                  - row "Pesquisa Arquivos, documentos, teoria de caso e reconstrução de padrões. Decrease Pesquisa 1 Increase Pesquisa" [ref=e154]:
+                    - cell "Pesquisa" [ref=e155]
+                    - cell "Arquivos, documentos, teoria de caso e reconstrução de padrões." [ref=e156]
+                    - cell "Decrease Pesquisa 1 Increase Pesquisa" [ref=e157]:
+                      - generic [ref=e158]:
+                        - button "Decrease Pesquisa" [ref=e159] [cursor=pointer]: "-"
+                        - generic [ref=e160]: "1"
+                        - button "Increase Pesquisa" [ref=e161] [cursor=pointer]: +
+                  - row "Técnico Máquinas, eletrônicos, procedimento médico e reparo de dispositivos. Decrease Técnico 2 Increase Técnico" [ref=e162]:
+                    - cell "Técnico" [ref=e163]
+                    - cell "Máquinas, eletrônicos, procedimento médico e reparo de dispositivos." [ref=e164]
+                    - cell "Decrease Técnico 2 Increase Técnico" [ref=e165]:
+                      - generic [ref=e166]:
+                        - button "Decrease Técnico" [ref=e167] [cursor=pointer]: "-"
+                        - generic [ref=e168]: "2"
+                        - button "Increase Técnico" [ref=e169] [cursor=pointer]: +
+                  - row "Social Persuasão, engano, contatos e leitura de pessoas. Decrease Social 0 Increase Social" [ref=e170]:
+                    - cell "Social" [ref=e171]
+                    - cell "Persuasão, engano, contatos e leitura de pessoas." [ref=e172]
+                    - cell "Decrease Social 0 Increase Social" [ref=e173]:
+                      - generic [ref=e174]:
+                        - button "Decrease Social" [disabled] [ref=e175]: "-"
+                        - generic [ref=e176]: "0"
+                        - button "Increase Social" [ref=e177] [cursor=pointer]: +
+                  - row "Oculto Lógica ritual, saber Geist, teoria de Ressonância e textos proibidos. Decrease Oculto 0 Increase Oculto" [ref=e178]:
+                    - cell "Oculto" [ref=e179]
+                    - cell "Lógica ritual, saber Geist, teoria de Ressonância e textos proibidos." [ref=e180]
+                    - cell "Decrease Oculto 0 Increase Oculto" [ref=e181]:
+                      - generic [ref=e182]:
+                        - button "Decrease Oculto" [disabled] [ref=e183]: "-"
+                        - generic [ref=e184]: "0"
+                        - button "Increase Oculto" [ref=e185] [cursor=pointer]: +
+                  - row "Combate Violência tática, contenção e luta sob pressão. Decrease Combate 0 Increase Combate" [ref=e186]:
+                    - cell "Combate" [ref=e187]
+                    - cell "Violência tática, contenção e luta sob pressão." [ref=e188]
+                    - cell "Decrease Combate 0 Increase Combate" [ref=e189]:
+                      - generic [ref=e190]:
+                        - button "Decrease Combate" [disabled] [ref=e191]: "-"
+                        - generic [ref=e192]: "0"
+                        - button "Increase Combate" [ref=e193] [cursor=pointer]: +
+              - paragraph [ref=e194]: "Distribuição padrão: um em 2, três em 1, três em 0; o jogador pode mover um ponto. Nenhum domínio inicial acima de 2. Escala: 0 destreinado, 1 treinado, 2 especialista, 3 excepcional."
+          - generic [ref=e195]:
+            - button "Sinal e Âncora FORM E-5 / S2/v0.1" [expanded] [ref=e196] [cursor=pointer]:
+              - heading "Sinal e Âncora" [level=2] [ref=e197]
+              - generic [ref=e198]: FORM E-5 / S2/v0.1
+            - generic [ref=e199]:
+              - generic [ref=e200]:
+                - generic [ref=e201]:
+                  - generic [ref=e202]: Âncora
+                  - generic: "Toda manhã: café preto e uma agenda escrita."
+                - generic [ref=e203]:
+                  - generic [ref=e204]: Notas de Recuperação
+                  - generic: Recupera quando mantém a rotina matinal, ou quando Tomas liga.
+                - generic [ref=e205]:
+                  - generic [ref=e206]: Modificadores Permanentes
+                  - generic: "-"
+              - paragraph [ref=e207]: Sinal Máx = Vontade + 2 (calculado no painel de estado). Sinal é frequência humana limpa - gaste para continuar sendo você, não como combustível genérico. Recupera por aterramento, não apenas por sono.
+          - generic [ref=e208]:
+            - button "Ressonância FORM E-6 / S2/v0.1" [expanded] [ref=e209] [cursor=pointer]:
+              - heading "Ressonância" [level=2] [ref=e210]
+              - generic [ref=e211]: FORM E-6 / S2/v0.1
+            - generic [ref=e212]:
+              - generic [ref=e213]:
+                - generic [ref=e214]:
+                  - generic [ref=e215]: Sintomas / Manifestações
+                  - generic: "-"
+                - generic [ref=e216]:
+                  - generic [ref=e217]: Mudanças Permanentes
+                  - generic: "-"
+              - paragraph [ref=e218]: "A % atual e o estágio ficam no painel de estado. Estágios são chaves de desbloqueio e pressão narrativa, não penalidades automáticas. Início: 0% padrão, 10% exposição menor (aprovada pelo GM), 20% Sujeito Ressonante."
+          - generic [ref=e219]:
+            - button "Karma FORM E-7 / S2/v0.1" [expanded] [ref=e220] [cursor=pointer]:
+              - heading "Karma" [level=2] [ref=e221]
+              - generic [ref=e222]: FORM E-7 / S2/v0.1
+            - generic [ref=e223]:
+              - generic [ref=e224]:
+                - generic [ref=e225]:
+                  - generic [ref=e226]: Último Ato que Moveu Karma
+                  - generic: "-"
+                - generic [ref=e227]:
+                  - generic [ref=e228]: Técnicas de Investimento Usadas
+                  - generic: "-"
+                - generic [ref=e229]:
+                  - generic [ref=e230]: Cicatrizes de Contradição
+                  - generic: "-"
+              - paragraph [ref=e231]: Karma só se move por Atos que Movem Karma transparentes - sempre sinalizados. Cruzar o zero é um evento de história, não uma opção de build. Limites de caminho ficam na régua do painel de estado.
+          - generic [ref=e232]:
+            - button "Acesso Eidolon FORM E-8 / S2/v0.1" [expanded] [ref=e233] [cursor=pointer]:
+              - heading "Acesso Eidolon" [level=2] [ref=e234]
+              - generic [ref=e235]: FORM E-8 / S2/v0.1
+            - generic [ref=e236]:
+              - generic [ref=e237]:
+                - generic [ref=e238]:
+                  - generic [ref=e239]: Estado de Acesso
+                  - combobox [ref=e240]:
+                    - option "Restrito" [selected]
+                    - option "Provisório"
+                    - option "Vigiado"
+                    - option "Contido"
+                    - option "Acesso Total"
+                    - option "Comprometido"
+                    - option "Lista Negra"
+                    - option "Caçado / Queimado"
+                - generic [ref=e241]:
+                  - generic [ref=e242]: Escopo de Acesso
+                  - generic: Áreas de manutenção, dispositivos designados, apoio básico de campo
+                - generic [ref=e243]:
+                  - generic [ref=e244]: Handler / Supervisor
+                  - generic: Supervisor Hale
+                - generic [ref=e245]:
+                  - generic [ref=e246]: Apoio de Equipamento
+                  - generic: Reparo e substituição padrão via requisição de Engenharia
+                - generic [ref=e247]:
+                  - generic [ref=e248]: Áreas Permitidas
+                  - generic: Oficinas, garagem, preparação de campo
+                - generic [ref=e249]:
+                  - generic [ref=e250]: Áreas Restritas
+                  - generic: Ala de Harmônicos Teóricos, Gestão de Sujeitos, Arquivos nível B
+                - generic [ref=e251]:
+                  - generic [ref=e252]: Dano Atual de Acesso
+                  - generic: Nenhum
+              - paragraph [ref=e253]: Acesso é permissão e dependência institucional - não Karma. Ele deve ser útil antes de ser ameaçador.
+          - generic [ref=e254]:
+            - button "Ferimentos e Recuperação FORM E-9 / S2/v0.1" [expanded] [ref=e255] [cursor=pointer]:
+              - heading "Ferimentos e Recuperação" [level=2] [ref=e256]
+              - generic [ref=e257]: FORM E-9 / S2/v0.1
+            - generic [ref=e258]:
+              - generic [ref=e259]:
+                - generic [ref=e260]:
+                  - generic [ref=e261]: Notas de Recuperação
+                  - generic: "-"
+                - generic [ref=e262]:
+                  - generic [ref=e263]: Cicatrizes / Consequências Duradouras
+                  - generic: "-"
+              - paragraph [ref=e264]: "Espaços de ferimento ficam no painel de estado. Excesso: Leve cheio -> o próximo vira Grave; Grave cheio -> o próximo vira Crítico. Ferimentos graves: -2 quando interferem diretamente. Ajuda médica da Eidolon funciona - e cria registros, monitoramento, dívida e dependência."
+          - generic [ref=e265]:
+            - button "Armadura / Proteção FORM E-10 / S2/v0.1" [expanded] [ref=e266] [cursor=pointer]:
+              - heading "Armadura / Proteção" [level=2] [ref=e267]
+              - generic [ref=e268]: FORM E-10 / S2/v0.1
+            - generic [ref=e269]:
+              - paragraph [ref=e271]: Nenhuma proteção registrada.
+              - button "+ Adicionar Proteção" [ref=e273] [cursor=pointer]
+              - paragraph [ref=e274]: Marque um Espaço de Proteção relevante para reduzir um ferimento em uma gravidade (Crítico->Grave, Grave->Leve, Leve->ignorado).
+          - generic [ref=e275]:
+            - button "Estado Mental FORM E-11 / S2/v0.1" [expanded] [ref=e276] [cursor=pointer]:
+              - heading "Estado Mental" [level=2] [ref=e277]
+              - generic [ref=e278]: FORM E-11 / S2/v0.1
+            - generic [ref=e279]:
+              - generic [ref=e280]:
+                - generic [ref=e281]:
+                  - generic [ref=e282]: Estado Atual
+                  - generic: "-"
+                - generic [ref=e283]:
+                  - generic [ref=e284]: Condições Mentais Ativas
+                  - generic: "-"
+                - generic [ref=e285]:
+                  - generic [ref=e286]: Notas
+                  - generic: "-"
+              - paragraph [ref=e287]: Leve e narrativo - não há trilha de sanidade. Pressão aparece por perda de Sinal, estresse na Âncora, sintomas e consequências.
+          - generic [ref=e288]:
+            - button "Técnicas e Cartões de Habilidade FORM E-12 / S2/v0.1" [expanded] [ref=e289] [cursor=pointer]:
+              - heading "Técnicas e Cartões de Habilidade" [level=2] [ref=e290]
+              - generic [ref=e291]: FORM E-12 / S2/v0.1
+            - generic [ref=e292]:
+              - generic [ref=e293]:
+                - article [ref=e294]:
+                  - generic [ref=e295]:
+                    - generic [ref=e296]:
+                      - img [ref=e297]
+                      - textbox "Nome do cartão" [ref=e300]
+                    - textbox "Fonte do cartão" [ref=e301]
+                  - generic [ref=e302]:
+                    - generic [ref=e303]:
+                      - generic [ref=e304]: Marcadores
+                      - textbox "Marcadores" [ref=e305]
+                    - generic [ref=e306]:
+                      - generic [ref=e307]: Tipo
+                      - textbox "Tipo" [ref=e308]
+                    - generic [ref=e309]:
+                      - generic [ref=e310]: Efeito
+                      - textbox "Efeito" [ref=e311]
+                    - generic [ref=e312]:
+                      - generic [ref=e313]: Custo
+                      - textbox "Custo" [ref=e314]
+                    - generic [ref=e315]:
+                      - generic [ref=e316]: Requisitos Rígidos
+                      - textbox "Requisitos Rígidos" [ref=e317]
+                    - generic [ref=e318]:
+                      - generic [ref=e319]: Requisitos Flexíveis
+                      - textbox "Requisitos Flexíveis" [ref=e320]
+                    - generic [ref=e321]:
+                      - generic [ref=e322]: Karma
+                      - textbox "Karma" [ref=e323]: "-"
+                    - generic [ref=e324]:
+                      - generic [ref=e325]: Equipamento
+                      - textbox "Equipamento" [ref=e326]: "-"
+                    - generic [ref=e327]:
+                      - generic [ref=e328]: Risco / Limitação
+                      - textbox "Risco / Limitação" [ref=e329]: "-"
+                  - button "Remover" [ref=e331] [cursor=pointer]
+                - article [ref=e332]:
+                  - generic [ref=e333]:
+                    - generic [ref=e334]:
+                      - img [ref=e335]
+                      - textbox "Nome do cartão" [ref=e338]
+                    - textbox "Fonte do cartão" [ref=e339]
+                  - generic [ref=e340]:
+                    - generic [ref=e341]:
+                      - generic [ref=e342]: Marcadores
+                      - textbox "Marcadores" [ref=e343]
+                    - generic [ref=e344]:
+                      - generic [ref=e345]: Tipo
+                      - textbox "Tipo" [ref=e346]
+                    - generic [ref=e347]:
+                      - generic [ref=e348]: Efeito
+                      - textbox "Efeito" [ref=e349]
+                    - generic [ref=e350]:
+                      - generic [ref=e351]: Custo
+                      - textbox "Custo" [ref=e352]
+                    - generic [ref=e353]:
+                      - generic [ref=e354]: Requisitos Rígidos
+                      - textbox "Requisitos Rígidos" [ref=e355]
+                    - generic [ref=e356]:
+                      - generic [ref=e357]: Requisitos Flexíveis
+                      - textbox "Requisitos Flexíveis" [ref=e358]
+                    - generic [ref=e359]:
+                      - generic [ref=e360]: Karma
+                      - textbox "Karma" [ref=e361]: "-"
+                    - generic [ref=e362]:
+                      - generic [ref=e363]: Equipamento
+                      - textbox "Equipamento" [ref=e364]: "-"
+                    - generic [ref=e365]:
+                      - generic [ref=e366]: Risco / Limitação
+                      - textbox "Risco / Limitação" [ref=e367]
+                  - button "Remover" [ref=e369] [cursor=pointer]
+              - generic [ref=e370]:
+                - button "+ Geral" [ref=e371] [cursor=pointer]
+                - button "+ Eidolon" [ref=e372] [cursor=pointer]
+                - button "+ Occult Eden" [ref=e373] [cursor=pointer]
+                - button "+ Echologist" [ref=e374] [cursor=pointer]
+                - button "+ Habilidade de Pacto" [ref=e375] [cursor=pointer]
+              - paragraph [ref=e376]: Técnicas de posição exigem condições visíveis e não movem Karma. Técnicas de investimento movem Karma quando desbloqueadas ou usadas - raras e definidoras. Requisitos flexíveis nunca escondem números secretos.
+          - generic [ref=e377]:
+            - button "Registro de Equipamento FORM E-13 / S2/v0.1" [expanded] [ref=e378] [cursor=pointer]:
+              - heading "Registro de Equipamento" [level=2] [ref=e379]
+              - generic [ref=e380]: FORM E-13 / S2/v0.1
+            - generic [ref=e381]:
+              - article [ref=e383]:
+                - generic [ref=e384]:
+                  - generic [ref=e385]:
+                    - img [ref=e386]
+                    - textbox "Nome do cartão" [ref=e389]
+                  - generic [ref=e390]: Dispositivo
+                - generic [ref=e391]:
+                  - generic [ref=e392]:
+                    - generic [ref=e393]: Tipo
+                    - textbox "Tipo" [ref=e394]
+                  - generic [ref=e395]:
+                    - generic [ref=e396]: Capacidade
+                    - textbox "Capacidade" [ref=e397]
+                  - generic [ref=e398]:
+                    - generic [ref=e399]: Carga Atual
+                    - textbox "Carga Atual" [ref=e400]
+                  - generic [ref=e401]:
+                    - generic [ref=e402]: Função
+                    - textbox "Função" [ref=e403]
+                  - generic [ref=e404]:
+                    - generic [ref=e405]: Técnicas Compatíveis
+                    - textbox "Técnicas Compatíveis" [ref=e406]
+                  - generic [ref=e407]:
+                    - generic [ref=e408]: Requisitos
+                    - textbox "Requisitos" [ref=e409]: "-"
+                  - generic [ref=e410]:
+                    - generic [ref=e411]: Risco
+                    - textbox "Risco" [ref=e412]
+                  - generic [ref=e413]:
+                    - generic [ref=e414]: Manutenção
+                    - textbox "Manutenção" [ref=e415]
+                  - generic [ref=e416]:
+                    - generic [ref=e417]: Rastreamento / Acesso
+                    - textbox "Rastreamento / Acesso" [ref=e418]
+                  - generic [ref=e419]:
+                    - generic [ref=e420]: Notas
+                    - textbox "Notas" [ref=e421]: "-"
+                - button "Remover" [ref=e423] [cursor=pointer]
+              - button "+ Registrar Dispositivo" [ref=e425] [cursor=pointer]
+              - paragraph [ref=e426]: Equipamento é infraestrutura externa; técnicas são uso treinado. Carregar um dispositivo não concede suas técnicas. O poder Eidolon é procedural - e rastreável.
+          - generic [ref=e427]:
+            - button "Adendo de Pacto FORM E-14 / S2/v0.1" [expanded] [ref=e428] [cursor=pointer]:
+              - heading "Adendo de Pacto" [level=2] [ref=e429]
+              - generic [ref=e430]: FORM E-14 / S2/v0.1
+            - generic [ref=e431]:
+              - generic [ref=e432]:
+                - generic [ref=e433]:
+                  - generic [ref=e434]: Nome / Título do Geist
+                  - generic: "-"
+                - generic [ref=e435]:
+                  - generic [ref=e436]: Grau do Geist
+                  - generic: "-"
+                - generic [ref=e437]:
+                  - generic [ref=e438]: Domínio
+                  - generic: "-"
+                - generic [ref=e439]:
+                  - generic [ref=e440]: Assinatura
+                  - generic: "-"
+                - generic [ref=e441]:
+                  - generic [ref=e442]: Como o Pacto Foi Formado
+                  - generic: "-"
+                - generic [ref=e443]:
+                  - generic [ref=e444]: Ressonância Ganha
+                  - generic: "-"
+                - generic [ref=e445]:
+                  - generic [ref=e446]: Relação Atual
+                  - generic: "-"
+                - generic [ref=e447]:
+                  - generic [ref=e448]: Termos do Pacto
+                  - generic: "-"
+                - generic [ref=e449]:
+                  - generic [ref=e450]: Habilidades Concedidas
+                  - generic: "-"
+                - generic [ref=e451]:
+                  - generic [ref=e452]: Restrições
+                  - generic: "-"
+                - generic [ref=e453]:
+                  - generic [ref=e454]: Exigências
+                  - generic: "-"
+                - generic [ref=e455]:
+                  - generic [ref=e456]: Riscos
+                  - generic: "-"
+                - generic [ref=e457]:
+                  - generic [ref=e458]: Termos Quebrados / Dívida
+                  - generic: "-"
+              - paragraph [ref=e459]: Um pacto maior por vez. Formar um custa Ressonância (+10% limitado, +15% profundo, +20% possessivo). Aparições não concedem pactos; Geists Menores deixam marcas e dívidas. Um pacto é uma relação, não uma magia equipada.
+          - generic [ref=e460]:
+            - button "Adendo de Exposição / Assombração FORM E-15 / S2/v0.1" [expanded] [ref=e461] [cursor=pointer]:
+              - heading "Adendo de Exposição / Assombração" [level=2] [ref=e462]
+              - generic [ref=e463]: FORM E-15 / S2/v0.1
+            - generic [ref=e464]:
+              - paragraph [ref=e466]: Nenhuma marca ou assombração em arquivo.
+              - button "+ Registrar Marca / Assombração" [ref=e468] [cursor=pointer]
+              - paragraph [ref=e469]: Marcas Geist são consequências sobrenaturais menores - pequenas, mas memoráveis. Uma marca pode virar pista, requisito flexível, semente de pacto ou vulnerabilidade sob observação.
+          - generic [ref=e470]:
+            - button "Registro de Incidente / Avanço FORM E-16 / S2/v0.1" [expanded] [ref=e471] [cursor=pointer]:
+              - heading "Registro de Incidente / Avanço" [level=2] [ref=e472]
+              - generic [ref=e473]: FORM E-16 / S2/v0.1
+            - generic [ref=e474]:
+              - paragraph [ref=e476]: O registro está vazio. Entradas são adicionadas após casos concluídos.
+              - button "+ Registrar Avanço" [ref=e478] [cursor=pointer]
+              - paragraph [ref=e479]: Três linhas - Crescimento Mundano (o que aprendi), Aquisição de Técnica (o que posso fazer), Movimento de Karma (o que me tornei). Uma oportunidade de avanço por caso concluído; o GM oferece 2-3 opções fundamentadas.
+          - generic [ref=e480]:
+            - button "Dossiê Classificado do GM SOMENTE OLHOS" [expanded] [ref=e481] [cursor=pointer]:
+              - heading "Dossiê Classificado do GM" [level=2] [ref=e482]
+              - generic [ref=e483]: SOMENTE OLHOS
+            - generic [ref=e484]:
+              - generic [ref=e485]:
+                - generic [ref=e487]: Verdadeiro Motivo do Interesse Eidolon
+                - generic [ref=e489]: Classificação Médica Oculta
+                - generic [ref=e491]: Agenda do Handler
+                - generic [ref=e493]: Consequências de Tratamento Não Reveladas
+                - generic [ref=e495]: Interesse Secreto de Facção
+                - generic [ref=e497]: Agenda de Longo Prazo do Geist
+                - generic [ref=e499]: Confiança e Suspeita de NPCs
+                - generic [ref=e501]: Posição com Facções
+                - generic [ref=e503]: Consequência nos Anos 1990
+                - generic [ref=e505]: Relevância Oculta para Casos
+              - paragraph [ref=e506]: CONTEÚDO REDIGIDO - ative o Modo GM para ler ou editar. Informação oculta cria contexto e consequência; ela nunca contradiz a ficha visível.
+        - complementary [ref=e507]:
+          - generic [ref=e508]:
+            - generic [ref=e509]:
+              - generic [ref=e510]:
+                - img [ref=e511]
+                - text: Sinal
+              - generic [ref=e514]: Máx = Vontade + 2
+            - generic [ref=e515]:
+              - generic [ref=e516]: 4 / 4 frequência limpa
+              - generic [ref=e517]:
+                - button "Sinal 1" [ref=e518] [cursor=pointer]
+                - button "Sinal 2" [ref=e519] [cursor=pointer]
+                - button "Sinal 3" [ref=e520] [cursor=pointer]
+                - button "Sinal 4" [ref=e521] [cursor=pointer]
+              - paragraph [ref=e522]:
+                - text: "Clique nos marcadores para gastar ou recuperar. Modificador temporário do máximo:"
+                - generic [ref=e523]:
+                  - button "Decrease Modificador máximo de Sinal" [ref=e524] [cursor=pointer]: "-"
+                  - generic [ref=e525]: "0"
+                  - button "Increase Modificador máximo de Sinal" [ref=e526] [cursor=pointer]: +
+          - generic [ref=e527]:
+            - generic [ref=e528]:
+              - generic [ref=e529]:
+                - img [ref=e530]
+                - text: Ressonância
+              - generic [ref=e535]: contaminação
+            - generic [ref=e536]:
+              - generic [ref=e537]: 0% Limpo
+              - generic [ref=e548]:
+                - generic [ref=e549]: Limpo
+                - generic [ref=e550]: Tocado
+                - generic [ref=e551]: Atravessado
+                - generic [ref=e552]: Marcado
+                - generic [ref=e553]: Consumido
+              - paragraph [ref=e554]: "Próximo limiar: 20% - Tocado"
+              - generic [ref=e555]:
+                - button "-5" [ref=e556] [cursor=pointer]
+                - button "-1" [ref=e557] [cursor=pointer]
+                - button "+1" [ref=e558] [cursor=pointer]
+                - button "+5" [ref=e559] [cursor=pointer]
+          - generic [ref=e560]:
+            - generic [ref=e561]:
+              - generic [ref=e562]:
+                - img [ref=e563]
+                - text: Karma
+              - generic [ref=e567]: "-5 Eden / +5 Echologist"
+            - generic [ref=e568]:
+              - generic [ref=e569]: 0 Eidolon / Neutro
+              - paragraph [ref=e570]: "Estágio: Instrumento Calibrado"
+              - generic [ref=e571]:
+                - generic [ref=e572]:
+                  - button "-5" [ref=e573] [cursor=pointer]
+                  - button "-4" [ref=e574] [cursor=pointer]
+                  - button "-3" [ref=e575] [cursor=pointer]
+                  - button "-2" [ref=e576] [cursor=pointer]
+                  - button "-1" [ref=e577] [cursor=pointer]
+                  - button "0" [ref=e578] [cursor=pointer]
+                  - button "+1" [ref=e579] [cursor=pointer]
+                  - button "+2" [ref=e580] [cursor=pointer]
+                  - button "+3" [ref=e581] [cursor=pointer]
+                  - button "+4" [ref=e582] [cursor=pointer]
+                  - button "+5" [ref=e583] [cursor=pointer]
+                - generic [ref=e584]:
+                  - generic [ref=e585]: Occult Eden / Acumular
+                  - generic [ref=e586]: Echologist / Purgar
+              - paragraph [ref=e587]:
+                - text: "Limites - Eden:"
+                - generic [ref=e588]:
+                  - button "Decrease Limite de Eden" [disabled] [ref=e589]: "-"
+                  - generic [ref=e590]: "-5"
+                  - button "Increase Limite de Eden" [ref=e591] [cursor=pointer]: +
+                - text: "Echologist:"
+                - generic [ref=e592]:
+                  - button "Decrease Limite Echologist" [ref=e593] [cursor=pointer]: "-"
+                  - generic [ref=e594]: "5"
+                  - button "Increase Limite Echologist" [disabled] [ref=e595]: +
+          - generic [ref=e596]:
+            - generic [ref=e597]:
+              - generic [ref=e598]:
+                - img [ref=e599]
+                - text: Ferimentos
+              - generic [ref=e603]: espaços de ferimento
+            - generic [ref=e604]:
+              - generic [ref=e605]:
+                - generic [ref=e606]:
+                  - generic [ref=e607]: Leve
+                  - generic [ref=e608]:
+                    - button "Leve 1" [ref=e609] [cursor=pointer]
+                    - button "Leve 2" [ref=e610] [cursor=pointer]
+                - generic [ref=e611]:
+                  - generic [ref=e612]: Grave
+                  - generic [ref=e613]:
+                    - button "Grave 1" [ref=e614] [cursor=pointer]
+                    - button "Grave 2" [ref=e615] [cursor=pointer]
+                  - emphasis [ref=e616]: "-2 quando relevante"
+                - generic [ref=e617]:
+                  - generic [ref=e618]: Crítico
+                  - button "Crítico 1" [ref=e620] [cursor=pointer]
+              - paragraph [ref=e621]: "Excesso: Leve cheio -> Grave; Grave cheio -> Crítico. Não há teste de morte - a consequência segue da ficção."
+          - generic [ref=e622]:
+            - generic [ref=e623]:
+              - generic [ref=e624]:
+                - img [ref=e625]
+                - text: Acesso
+              - generic [ref=e629]: coleira institucional
+            - generic [ref=e630]:
+              - generic [ref=e631]: Restrito
+              - paragraph [ref=e632]: Áreas de manutenção, dispositivos designados, apoio básico de campo
+              - paragraph [ref=e633]: "Dano: Nenhum"
+  - contentinfo [ref=e634]:
+    - generic [ref=e635]: Uso interno apenas / Divulgação não autorizada é crime federal
+    - generic [ref=e636]: Os dados ficam em memória - use Exportar Arquivo para salvar a campanha como JSON.

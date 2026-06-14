@@ -1,32 +1,39 @@
 <script setup lang="ts">
-export type ButtonVariant = 'primary' | 'danger';
-export type ButtonSize = 'sm' | 'md' | 'lg';
+import type { UiButtonSize, UiButtonVariant } from '~/types/ui'
+
+defineOptions({
+  inheritAttrs: false,
+})
 
 withDefaults(defineProps<{
-  variant?: ButtonVariant;
-  size?: ButtonSize;
-  fill?: boolean;
-  disabled?: boolean;
-  stretch?: boolean;
+  variant?: UiButtonVariant
+  size?: UiButtonSize
+  type?: 'button' | 'submit' | 'reset'
+  disabled?: boolean
+  stretch?: boolean
 }>(), {
-  variant: 'primary',
+  variant: 'default',
   size: 'md',
-  fill: false,
+  type: 'button',
   disabled: false,
-  stretch: false
-});
-
+  stretch: false,
+})
 </script>
 
 <template>
   <button
+    v-bind="$attrs"
     :class="[
-      'button',
-      `button--${variant}`,
-      `button--${size}`,
-      fill ? 'button--fill' : '',
-      stretch ? 'button--stretch' : ''
+      'eid-btn',
+      'ui-button',
+      `eid-btn--${variant}`,
+      `ui-button--${variant}`,
+      `eid-btn--${size}`,
+      `ui-button--${size}`,
+      stretch ? 'eid-btn--stretch' : '',
+      stretch ? 'ui-button--stretch' : ''
     ]"
+    :type
     :disabled
   >
     <slot />
@@ -34,109 +41,75 @@ withDefaults(defineProps<{
 </template>
 
 <style scoped lang="scss">
-.button {
-  --button-font-size: var(--type-1);
-  --button-padding-block: var(--space-1);
-  --button-padding-inline: var(--space-4);
-  --button-min-height: 28px;
-
+.eid-btn,
+.ui-button {
   display: inline-flex;
-  min-height: var(--button-min-height);
   align-items: center;
   justify-content: center;
-  font-family: var(--font-record);
-  font-size: var(--button-font-size);
-  line-height: var(--leading-tight);
-  text-transform: uppercase;
-  letter-spacing: var(--track-meta);
+  justify-self: center;
+  min-height: 28px;
   border: var(--border-hard);
-  border-color: var(--button-border, var(--button-fg, currentColor));
-  background-color: var(--button-bg, transparent);
-  color: var(--button-fg, currentColor);
-  padding: var(--button-padding-block) var(--button-padding-inline);
+  border-radius: var(--radius-none);
+  background: var(--surface-page);
+  color: var(--text-primary);
   cursor: pointer;
+  font-family: var(--font-record);
+  font-size: var(--type-1);
+  letter-spacing: var(--track-meta);
+  line-height: var(--leading-tight);
+  padding: var(--space-1) var(--space-4);
+  text-transform: uppercase;
   transition:
     background var(--motion-fast),
-    border-color var(--motion-fast),
-    color var(--motion-fast),
-    outline-color var(--motion-fast);
+    color var(--motion-fast);
 
-  &:hover:not(:disabled) {
-    border-color: var(--button-hover-border, var(--button-hover-fg, var(--button-border, var(--button-fg, currentColor))));
-    background-color: var(--button-hover-bg, var(--button-bg, transparent));
-    color: var(--button-hover-fg, var(--button-fg, currentColor));
+  &:hover:not(:disabled),
+  &:focus-visible:not(:disabled) {
+    background: var(--surface-inverse);
+    color: var(--text-inverse);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
   }
 }
 
-.button:focus {
-  outline: none;
+.eid-btn--sm,
+.ui-button--sm {
+  min-height: 24px;
+  padding: 2px var(--space-3);
+  font-size: var(--type-0);
 }
 
-.button:focus-visible:not(:disabled) {
-  outline: 1px solid var(--button-focus, var(--rule-hard));
-  outline-offset: 3px;
+.eid-btn--danger,
+.ui-button--danger {
+  border-color: var(--rule-danger);
+  color: var(--text-danger);
+
+  &:hover:not(:disabled),
+  &:focus-visible:not(:disabled) {
+    background: var(--status-authority);
+    color: var(--text-inverse);
+  }
 }
 
-.button:disabled {
-  opacity: .5;
-  cursor: not-allowed;
+.eid-btn--active-gm,
+.ui-button--active-gm {
+  border-color: var(--status-authority);
+  background: var(--status-authority);
+  color: var(--text-inverse);
+
+  &:hover:not(:disabled),
+  &:focus-visible:not(:disabled) {
+    background: var(--surface-inverse);
+    border-color: var(--rule-hard);
+  }
 }
 
-.button--sm {
-  --button-font-size: var(--type-1);
-  --button-padding-block: var(--space-1);
-  --button-padding-inline: var(--space-3);
-  --button-min-height: 26px;
-}
-
-.button--md {
-  --button-font-size: var(--type-1);
-  --button-padding-block: var(--space-2);
-  --button-padding-inline: var(--space-4);
-  --button-min-height: 32px;
-}
-
-.button--lg {
-  --button-font-size: var(--type-2);
-  --button-padding-block: var(--space-3);
-  --button-padding-inline: var(--space-6);
-  --button-min-height: 38px;
-}
-
-.button--stretch {
+.eid-btn--stretch,
+.ui-button--stretch {
   width: 100%;
-}
-
-.button--primary {
-  --button-bg: var(--surface-page);
-  --button-fg: var(--text-primary);
-  --button-focus: var(--rule-hard);
-  --button-hover-bg: var(--surface-inverse);
-  --button-hover-fg: var(--text-inverse);
-}
-
-.button--danger {
-  --button-bg: var(--surface-page);
-  --button-fg: var(--text-danger);
-  --button-border: var(--rule-danger);
-  --button-focus: var(--rule-danger);
-  --button-hover-bg: var(--status-authority);
-  --button-hover-fg: var(--text-inverse);
-}
-
-.button--primary.button--fill {
-  --button-bg: var(--surface-inverse);
-  --button-fg: var(--text-inverse);
-  --button-hover-bg: var(--status-authority);
-  --button-hover-fg: var(--text-inverse);
-}
-
-.button--danger.button--fill {
-  --button-bg: var(--status-authority);
-  --button-fg: var(--text-inverse);
-  --button-border: var(--rule-danger);
-  --button-hover-bg: var(--surface-inverse);
-  --button-hover-fg: var(--text-inverse);
-  --button-hover-border: var(--rule-hard);
+  justify-self: stretch;
 }
 </style>

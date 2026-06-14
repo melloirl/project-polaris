@@ -1,0 +1,80 @@
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e6]:
+        - generic [ref=e7]: E
+        - generic [ref=e8]:
+          - generic [ref=e9]: Eidolon
+          - generic [ref=e10]: Diretoria de Pesquisa Avançada - Sistema de Dossiês de Pessoal
+      - generic [ref=e11]: Restrito
+      - generic [ref=e12]:
+        - text: Ref. do Arquivo EID/70-114
+        - text: "Era: Década de 1970 - Operações em Welderhide"
+        - text: Rev. do Form. S2 / v0.1
+    - navigation "Visões do dossiê" [ref=e13]:
+      - link "Dossiê" [ref=e14] [cursor=pointer]:
+        - /url: "#/dossier"
+      - link "Arquivo" [active] [ref=e15] [cursor=pointer]:
+        - /url: "#/archive"
+      - link "Registro de Operações" [ref=e16] [cursor=pointer]:
+        - /url: "#/operations"
+      - link "Referência" [ref=e17] [cursor=pointer]:
+        - /url: "#/reference"
+      - generic [ref=e19]:
+        - 'button "Modo GM: Desligado" [ref=e20] [cursor=pointer]'
+        - button "Exportar Arquivo" [ref=e21] [cursor=pointer]
+        - button "Importar Arquivo" [ref=e22] [cursor=pointer]
+        - button "Imprimir" [ref=e23] [cursor=pointer]
+    - main [ref=e24]:
+      - generic [ref=e651]:
+        - complementary [ref=e652]:
+          - generic [ref=e653]: Arquivo Central - Registros de Cenário
+          - button "Instituição Eidolon (anos 1970)" [ref=e654] [cursor=pointer]:
+            - generic [ref=e655]: Instituição
+            - text: Eidolon (anos 1970)
+          - button "Localidade Welderhide" [ref=e656] [cursor=pointer]:
+            - generic [ref=e657]: Localidade
+            - text: Welderhide
+          - button "Pessoa Adrian Voss" [ref=e658] [cursor=pointer]:
+            - generic [ref=e659]: Pessoa
+            - text: Adrian Voss
+          - button "Entidade O Grande Transcendente" [ref=e660] [cursor=pointer]:
+            - generic [ref=e661]: Entidade
+            - text: O Grande Transcendente
+          - button "Lore Geists" [ref=e662] [cursor=pointer]:
+            - generic [ref=e663]: Lore
+            - text: Geists
+          - button "Sistema Ressonância e Sinal" [ref=e664] [cursor=pointer]:
+            - generic [ref=e665]: Sistema
+            - text: Ressonância e Sinal
+          - button "Sistema Karma e os Três Caminhos" [ref=e666] [cursor=pointer]:
+            - generic [ref=e667]: Sistema
+            - text: Karma e os Três Caminhos
+          - button "Facção Facções como Alinhamentos Filosóficos" [ref=e668] [cursor=pointer]:
+            - generic [ref=e669]: Facção
+            - text: Facções como Alinhamentos Filosóficos
+          - button "Campanha Espinha da Campanha dos Anos 1970" [ref=e670] [cursor=pointer]:
+            - generic [ref=e671]: Campanha
+            - text: Espinha da Campanha dos Anos 1970
+          - button "+ Novo Registro" [ref=e673] [cursor=pointer]
+        - article [ref=e674]:
+          - textbox "Título do arquivo" [ref=e675]
+          - generic [ref=e676]:
+            - text: "Classificação:"
+            - textbox "Classificação do arquivo" [ref=e677]
+            - text: / Ref. do Arquivo ARC-EIDOLON-1970S
+          - textbox "Corpo do arquivo" [ref=e678]
+          - button "Destruir Registro" [ref=e680] [cursor=pointer]
+      - paragraph [ref=e681]: "Base wiki: cada registro é um artigo markdown livremente editável. Expanda com divisões, NPCs, Geists, casos e localidades - ou adicione novas coleções ao banco."
+    - contentinfo [ref=e634]:
+      - generic [ref=e635]: Uso interno apenas / Divulgação não autorizada é crime federal
+      - generic [ref=e636]: Os dados ficam em memória - use Exportar Arquivo para salvar a campanha como JSON.
+  - generic:
+    - img
+  - generic [ref=e637]:
+    - button "Toggle Nuxt DevTools" [ref=e638] [cursor=pointer]:
+      - img [ref=e639]
+    - generic "Page load time" [ref=e642]:
+      - generic [ref=e644]: "-"
+    - button "Toggle Component Inspector" [ref=e646] [cursor=pointer]:
+      - img [ref=e647]

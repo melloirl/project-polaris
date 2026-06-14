@@ -1,0 +1,95 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]: Components · Core
+    - heading "Buttons" [level=1] [ref=e6]
+    - paragraph [ref=e7]: "The institutional form-control button — a rectangular, uppercase, mono control, never an app pill. The press feedback is inversion, not glow: hover/focus flips ink-on-paper to paper-on-ink. Red is reserved for destructive, GM, or sealed actions."
+  - generic [ref=e8]:
+    - generic [ref=e9]:
+      - generic [ref=e10]: Button
+      - generic [ref=e11]: components/core/Button.jsx
+    - paragraph [ref=e12]: One control, four expressions. Variant carries authority; size carries density; disabled and hover/focus are the only states.
+    - generic [ref=e13]: "Button({ children, variant, size, type, disabled, onClick })"
+    - generic [ref=e14]:
+      - generic [ref=e15]:
+        - text: Variations · live
+        - generic [ref=e16]: variants
+      - generic [ref=e17]:
+        - generic [ref=e18]:
+          - button "Export File" [ref=e20] [cursor=pointer]
+          - generic [ref=e21]: <Button>Export File</Button>
+        - generic [ref=e22]:
+          - 'button "GM Mode: On" [ref=e24] [cursor=pointer]'
+          - generic [ref=e25]: variant="active-gm"
+        - generic [ref=e26]:
+          - button "Withdraw Record" [ref=e28] [cursor=pointer]
+          - generic [ref=e29]: variant="danger"
+        - generic [ref=e30]:
+          - button "Unavailable" [disabled] [ref=e32]
+          - generic [ref=e33]: disabled
+    - generic [ref=e34]:
+      - generic [ref=e35]:
+        - text: Sizes · md / sm
+        - generic [ref=e36]: "2"
+      - generic [ref=e37]:
+        - generic [ref=e38]:
+          - button "Register Device" [ref=e40] [cursor=pointer]
+          - generic [ref=e41]: size="md" (default)
+        - generic [ref=e42]:
+          - button "Remove" [ref=e44] [cursor=pointer]
+          - generic [ref=e45]: size="sm"
+        - generic [ref=e46]:
+          - button "Remove" [ref=e48] [cursor=pointer]
+          - generic [ref=e49]: size="sm" variant="danger"
+        - generic [ref=e50]:
+          - button "Focused" [active] [ref=e52] [cursor=pointer]
+          - generic [ref=e53]: hover / focus → inversion
+    - generic [ref=e54]:
+      - generic [ref=e55]:
+        - generic [ref=e56]: Props · API
+        - table [ref=e57]:
+          - rowgroup [ref=e58]:
+            - row "Prop Type Default Description" [ref=e59]:
+              - columnheader "Prop" [ref=e60]
+              - columnheader "Type" [ref=e61]
+              - columnheader "Default" [ref=e62]
+              - columnheader "Description" [ref=e63]
+          - rowgroup [ref=e64]:
+            - row "children ReactNode — Button label." [ref=e65]:
+              - cell "children" [ref=e66]
+              - cell "ReactNode" [ref=e67]
+              - cell "—" [ref=e68]
+              - cell "Button label." [ref=e69]
+            - row "variant \"default\" | \"danger\" | \"active-gm\" \"default\" Visual role. danger = destructive/sealed; active-gm = engaged GM toggle." [ref=e70]:
+              - cell "variant" [ref=e71]
+              - cell "\"default\" | \"danger\" | \"active-gm\"" [ref=e72]
+              - cell "\"default\"" [ref=e73]
+              - cell "Visual role. danger = destructive/sealed; active-gm = engaged GM toggle." [ref=e74]
+            - row "size \"md\" | \"sm\" \"md\" sm for dense toolbars and steppers." [ref=e75]:
+              - cell "size" [ref=e76]
+              - cell "\"md\" | \"sm\"" [ref=e77]
+              - cell "\"md\"" [ref=e78]
+              - cell "sm for dense toolbars and steppers." [ref=e79]
+            - row "type \"button\" | \"submit\" | \"reset\" \"button\" Native button type." [ref=e80]:
+              - cell "type" [ref=e81]
+              - cell "\"button\" | \"submit\" | \"reset\"" [ref=e82]
+              - cell "\"button\"" [ref=e83]
+              - cell "Native button type." [ref=e84]
+            - row "disabled boolean false Disables and dims to 40%." [ref=e85]:
+              - cell "disabled" [ref=e86]
+              - cell "boolean" [ref=e87]
+              - cell "false" [ref=e88]
+              - cell "Disables and dims to 40%." [ref=e89]
+            - row "onClick (e) => void — Click handler." [ref=e90]:
+              - cell "onClick" [ref=e91]
+              - cell "(e) => void" [ref=e92]
+              - cell "—" [ref=e93]
+              - cell "Click handler." [ref=e94]
+            - row "className string \"\" Extra classes." [ref=e95]:
+              - cell "className" [ref=e96]
+              - cell "string" [ref=e97]
+              - cell "\"\"" [ref=e98]
+              - cell "Extra classes." [ref=e99]
+      - generic [ref=e100]:
+        - generic [ref=e101]: Applied styles
+        - generic [ref=e102]: ".eid-btn{ font-family: var(--font-record); font-size: var(--type-1); letter-spacing: var(--track-meta); text-transform: uppercase; background: var(--surface-page); color: var(--text-primary); border: var(--border-hard); border-radius: var(--radius-none); padding: var(--space-1) var(--space-4); transition: background var(--motion-fast), color var(--motion-fast); } .eid-btn:hover, .eid-btn:focus-visible{ background: var(--surface-inverse); color: var(--text-inverse); } .eid-btn--sm{ font-size: var(--type-0); padding: 2px var(--space-3); } .eid-btn--danger{ border-color: var(--rule-danger); color: var(--text-danger); } .eid-btn--danger:hover{ background: var(--status-authority); color: var(--text-inverse); } .eid-btn--active-gm{ background: var(--status-authority); color: var(--text-inverse); border-color: var(--status-authority); } .eid-btn:disabled{ opacity: .4; cursor: not-allowed; }"
+    - paragraph [ref=e104]: Hover and focus-visible share one rule — keyboard focus is at least as strong as hover. There is no opacity-dim or scale-shrink press state; the control simply inverts. Danger inverts to stamp red; active-gm is the only button that ships pre-filled.

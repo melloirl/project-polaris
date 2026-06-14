@@ -1,29 +1,30 @@
 <template>
-  <nav class="eid-tabs" :aria-label="t('ui.tabs.aria')">
-    <a
-      v-for="tab in tabs"
-      :key="tab.view"
-      :href="`#/${tab.view}`"
-      :class="{ active: ui.view === tab.view }"
-      @click.prevent="go(tab.view)"
-    >
-      {{ tab.label }}
-    </a>
-    <span class="eid-tabs__spacer" />
-    <span class="eid-tool-buttons">
-      <button class="eid-button" :class="{ 'eid-button--active-gm': ui.gm }" type="button" :title="t('ui.toolbar.gmTitle')" @click="toggleGm">
+  <UiTabs
+    class="dossier-tabs"
+    :items="tabs"
+    :model-value="ui.view"
+    :aria-label="t('ui.tabs.aria')"
+    @update:model-value="go"
+  >
+    <template #tools>
+      <UiButton
+        :variant="ui.gm ? 'active-gm' : 'default'"
+        :title="t('ui.toolbar.gmTitle')"
+        @click="toggleGm"
+      >
         {{ t('ui.toolbar.gmMode', { state: ui.gm ? t('ui.toolbar.on') : t('ui.toolbar.off') }) }}
-      </button>
-      <button class="eid-button" type="button" @click="download">{{ t('ui.toolbar.export') }}</button>
-      <button class="eid-button" type="button" @click="importInput?.click()">{{ t('ui.toolbar.import') }}</button>
-      <button class="eid-button" type="button" @click="print">{{ t('ui.toolbar.print') }}</button>
-      <input ref="importInput" class="eid-hidden-input" type="file" accept="application/json" @change="importFile">
-    </span>
-  </nav>
+      </UiButton>
+      <UiButton @click="download">{{ t('ui.toolbar.export') }}</UiButton>
+      <UiButton @click="importInput?.click()">{{ t('ui.toolbar.import') }}</UiButton>
+      <UiButton @click="print">{{ t('ui.toolbar.print') }}</UiButton>
+      <input ref="importInput" class="dossier-tabs__hidden-input" type="file" accept="application/json" @change="importFile">
+    </template>
+  </UiTabs>
 </template>
 
 <script setup lang="ts">
 import type { DossierView } from '~/types/dossier'
+import type { UiTabItem } from '~/types/ui'
 
 const {
   ui,
@@ -36,17 +37,17 @@ const { t } = useDossierI18n()
 
 const importInput = ref<HTMLInputElement | null>(null)
 
-const tabs: Array<{ label: string, view: DossierView }> = [
-  { label: t('ui.tabs.dossier'), view: 'dossier' },
-  { label: t('ui.tabs.archive'), view: 'archive' },
-  { label: t('ui.tabs.operations'), view: 'operations' },
-  { label: t('ui.tabs.reference'), view: 'reference' },
+const tabs: UiTabItem[] = [
+  { label: t('ui.tabs.dossier'), value: 'dossier', href: '#dossier' },
+  { label: t('ui.tabs.archive'), value: 'archive', href: '#archive' },
+  { label: t('ui.tabs.operations'), value: 'operations', href: '#operations' },
+  { label: t('ui.tabs.reference'), value: 'reference', href: '#reference' },
 ]
 
-function go(view: DossierView) {
+function go(view: string) {
   setView(view)
   if (import.meta.client) {
-    window.location.hash = `/${view}`
+    window.location.hash = view as DossierView
   }
 }
 
@@ -86,3 +87,13 @@ function print() {
   window.print()
 }
 </script>
+
+<style scoped lang="scss">
+.dossier-tabs {
+  padding: 0 28px;
+}
+
+.dossier-tabs__hidden-input {
+  display: none;
+}
+</style>

@@ -1,69 +1,76 @@
 <script setup lang="ts">
-export type StampSize = 'sm' | 'md' | 'lg';
+import type { UiStampSize, UiStampTone } from '~/types/ui'
 
-withDefaults(defineProps<{
-  size?: StampSize;
-  angle?: number;
+const props = withDefaults(defineProps<{
+  tone?: UiStampTone
+  size?: UiStampSize
+  rotate?: number
 }>(), {
+  tone: 'danger',
   size: 'md',
-  angle: 0
-});
+  rotate: -3,
+})
 
+const stampStyle = computed(() => ({
+  transform: `rotate(${props.rotate}deg)`,
+}))
 </script>
 
 <template>
   <span
-    :class="['stamp', `stamp--${size}`]"
-    :style="`transform: rotate(${angle}deg)`"
+    :class="[
+      'eid-stamp',
+      'ui-stamp',
+      `eid-stamp--${tone}`,
+      `ui-stamp--${tone}`,
+      `eid-stamp--${size}`,
+      `ui-stamp--${size}`
+    ]"
+    :style="stampStyle"
   >
-    <span class="stamp__content">
-      <slot />
-    </span>
+    <slot />
   </span>
 </template>
 
 <style scoped lang="scss">
-.stamp {
-  --color-stamp: var(--stamp);
-  --stamp-border-width: 3px;
-  --stamp-font-size: var(--type-3);
-  --stamp-padding-block: var(--space-1);
-  --stamp-padding-inline: var(--space-5);
-
+.eid-stamp,
+.ui-stamp {
+  box-sizing: border-box;
   display: inline-block;
-  border: var(--stamp-border-width) solid var(--color-stamp);
-  padding: var(--stamp-padding-block) var(--stamp-padding-inline);
+  justify-self: center;
+  border: var(--border-stamp);
   background: transparent;
+  color: var(--text-danger);
+  font-family: var(--font-stamp);
+  font-size: var(--type-3);
+  font-weight: 700;
   letter-spacing: var(--track-stamp);
-
-  &__content {
-    font-family: var(--font-stamp);
-    font-weight: 700;
-    color: var(--color-stamp);
-    text-transform: uppercase;
-    font-size: var(--stamp-font-size);
-    line-height: var(--leading-tight);
-  }
+  line-height: var(--leading-tight);
+  padding: var(--space-1) var(--space-5);
+  text-transform: uppercase;
 }
 
-.stamp--sm {
-  --stamp-border-width: 2px;
-  --stamp-font-size: var(--type-2);
-  --stamp-padding-block: var(--space-1);
-  --stamp-padding-inline: var(--space-4);
+.eid-stamp--ink,
+.ui-stamp--ink {
+  border-color: var(--rule-hard);
+  color: var(--text-primary);
 }
 
-.stamp--md {
-  --stamp-border-width: 3px;
-  --stamp-font-size: var(--type-3);
-  --stamp-padding-block: var(--space-1);
-  --stamp-padding-inline: var(--space-5);
+.eid-stamp--eden,
+.ui-stamp--eden {
+  border-color: var(--rule-eden);
+  color: var(--text-eden);
 }
 
-.stamp--lg {
-  --stamp-border-width: 3px;
-  --stamp-font-size: var(--type-4);
-  --stamp-padding-block: var(--space-2);
-  --stamp-padding-inline: var(--space-6);
+.eid-stamp--echo,
+.ui-stamp--echo {
+  border-color: var(--rule-echo);
+  color: var(--text-echo);
+}
+
+.eid-stamp--sm,
+.ui-stamp--sm {
+  padding: 2px var(--space-3);
+  font-size: var(--type-1);
 }
 </style>

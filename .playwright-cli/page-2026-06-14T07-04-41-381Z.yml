@@ -1,0 +1,358 @@
+- main [ref=e3]:
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - paragraph [ref=e6]: Interface Reference
+      - heading "Polaris Cookbook" [level=1] [ref=e7]
+    - generic "Eidolon" [ref=e8]:
+      - generic [ref=e9]: E
+  - region "Component cookbook" [ref=e10]:
+    - article [ref=e11]:
+      - generic [ref=e13]:
+        - paragraph [ref=e14]: Foundation
+        - heading "Color Palette" [level=2] [ref=e15]
+      - generic [ref=e16]:
+        - generic [ref=e17]:
+          - heading "Core" [level=3] [ref=e18]
+          - generic [ref=e19]:
+            - generic [ref=e20]:
+              - generic [ref=e22]: "--eid-paper"
+              - generic [ref=e23]: paper
+            - generic [ref=e24]:
+              - generic [ref=e26]: "--eid-paper-2"
+              - generic [ref=e27]: paper 2
+            - generic [ref=e28]:
+              - generic [ref=e30]: "--eid-ink"
+              - generic [ref=e31]: ink
+            - generic [ref=e32]:
+              - generic [ref=e34]: "--eid-rule"
+              - generic [ref=e35]: rule
+            - generic [ref=e36]:
+              - generic [ref=e38]: "--eid-stamp"
+              - generic [ref=e39]: stamp
+            - generic [ref=e40]:
+              - generic [ref=e42]: "--eid-eden"
+              - generic [ref=e43]: eden
+            - generic [ref=e44]:
+              - generic [ref=e46]: "--eid-echo"
+              - generic [ref=e47]: echo
+        - generic [ref=e48]:
+          - heading "Status" [level=3] [ref=e49]
+          - generic [ref=e50]:
+            - generic [ref=e51]:
+              - generic [ref=e53]: "--status-authority"
+              - generic [ref=e54]: authority
+            - generic [ref=e55]:
+              - generic [ref=e57]: "--status-resonance"
+              - generic [ref=e58]: resonance
+            - generic [ref=e59]:
+              - generic [ref=e61]: "--status-signal"
+              - generic [ref=e62]: signal
+            - generic [ref=e63]:
+              - generic [ref=e65]: "--status-confirmed"
+              - generic [ref=e66]: confirmed
+            - generic [ref=e67]:
+              - generic [ref=e69]: "--status-unknown"
+              - generic [ref=e70]: unknown
+        - generic [ref=e71]:
+          - heading "Files" [level=3] [ref=e72]
+          - generic [ref=e73]:
+            - generic [ref=e74]:
+              - generic [ref=e76]: "--file-federal"
+              - generic [ref=e77]: federal
+            - generic [ref=e78]:
+              - generic [ref=e80]: "--file-amber"
+              - generic [ref=e81]: amber
+            - generic [ref=e82]:
+              - generic [ref=e84]: "--file-olive"
+              - generic [ref=e85]: olive
+            - generic [ref=e86]:
+              - generic [ref=e88]: "--file-slate"
+              - generic [ref=e89]: slate
+            - generic [ref=e90]:
+              - generic [ref=e92]: "--file-oxblood"
+              - generic [ref=e93]: oxblood
+            - generic [ref=e94]:
+              - generic [ref=e96]: "--file-rose"
+              - generic [ref=e97]: rose
+    - article [ref=e98]:
+      - generic [ref=e100]:
+        - paragraph [ref=e101]: Core
+        - heading "Seal, Stamp, Button, Tabs" [level=2] [ref=e102]
+      - generic [ref=e103]:
+        - generic [ref=e104]:
+          - generic [ref=e105]:
+            - heading "Seal" [level=3] [ref=e106]
+            - generic [ref=e107]: wordmark / stamp
+          - generic [ref=e108]:
+            - generic [ref=e109]:
+              - generic [ref=e110]: E
+              - generic [ref=e111]:
+                - generic [ref=e112]: Eidolon
+                - generic [ref=e113]: Advanced Research Directorate
+            - generic "Eidolon" [ref=e114]:
+              - generic [ref=e115]: E
+        - generic [ref=e116]:
+          - generic [ref=e117]:
+            - heading "Stamp" [level=3] [ref=e118]
+            - generic [ref=e119]: tones
+          - generic [ref=e120]:
+            - generic [ref=e121]: Restricted
+            - generic [ref=e122]: Field Copy
+            - generic [ref=e123]: Unreconciled
+        - generic [ref=e124]:
+          - generic [ref=e125]:
+            - heading "Button" [level=3] [ref=e126]
+            - generic [ref=e127]: states
+          - generic [ref=e128]:
+            - button "Export File" [ref=e129] [cursor=pointer]
+            - 'button "GM Mode: On" [ref=e130] [cursor=pointer]'
+            - button "Withdraw" [ref=e131] [cursor=pointer]
+            - button "Unavailable" [disabled] [ref=e132]
+        - generic [ref=e133]:
+          - generic [ref=e134]:
+            - heading "Tabs" [level=3] [ref=e135]
+            - generic [ref=e136]: dossier
+          - navigation [ref=e138]:
+            - button "Dossier" [pressed] [ref=e139] [cursor=pointer]
+            - button "Archive" [ref=e140] [cursor=pointer]
+            - button "Operations" [ref=e141] [cursor=pointer]
+            - button "Reference" [ref=e142] [cursor=pointer]
+            - button "Tool" [ref=e145] [cursor=pointer]
+    - article [ref=e146]:
+      - generic [ref=e148]:
+        - paragraph [ref=e149]: Forms
+        - heading "Section, Field, Stepper, Photo Plate" [level=2] [ref=e150]
+      - generic [ref=e151]:
+        - generic [ref=e152]:
+          - button "Identity Record FORM E-1 / S2/v0.1" [expanded] [ref=e153] [cursor=pointer]:
+            - heading "Identity Record" [level=2] [ref=e154]
+            - generic [ref=e155]: FORM E-1 / S2/v0.1
+          - generic [ref=e156]:
+            - generic [ref=e157]:
+              - generic [ref=e158]:
+                - generic [ref=e159]: Subject
+                - textbox "Subject" [ref=e160]
+              - generic [ref=e161]:
+                - generic [ref=e162]: Immutable
+                - generic: Read-only field
+            - paragraph [ref=e163]: Filed copy pending handler countersign.
+        - generic [ref=e164]:
+          - generic [ref=e165]:
+            - heading "Stepper" [level=3] [ref=e166]
+            - generic [ref=e167]: "3"
+          - generic [ref=e169]:
+            - button "Decrease" [ref=e170] [cursor=pointer]: "-"
+            - generic [ref=e171]: "+3"
+            - button "Increase" [ref=e172] [cursor=pointer]: +
+        - generic [ref=e173]:
+          - generic [ref=e174]:
+            - heading "Photo Plate" [level=3] [ref=e175]
+            - generic [ref=e176]: coded
+          - figure [ref=e178]:
+            - generic [ref=e179]:
+              - generic [ref=e180]:
+                - generic [ref=e181]: Subject Registration
+                - generic [ref=e182]: Eidolon Archive
+              - generic [ref=e184]: Wren
+              - generic [ref=e185]:
+                - generic [ref=e186]: Wren
+                - generic [ref=e187]: Field Technician
+                - generic [ref=e188]: SUBJ-114
+    - article [ref=e189]:
+      - generic [ref=e191]:
+        - paragraph [ref=e192]: Instruments
+        - heading "Status Controls" [level=2] [ref=e193]
+      - generic [ref=e194]:
+        - generic [ref=e195]:
+          - generic [ref=e196]:
+            - generic [ref=e197]:
+              - img [ref=e198]
+              - text: Signal
+            - generic [ref=e201]: Clean frequency
+          - generic [ref=e202]:
+            - generic [ref=e203]: 3 / 4 available
+            - generic [ref=e204]:
+              - button "Signal 1" [ref=e205] [cursor=pointer]
+              - button "Signal 2" [ref=e206] [cursor=pointer]
+              - button "Signal 3" [ref=e207] [cursor=pointer]
+              - button "Signal 4" [ref=e208] [cursor=pointer]
+        - generic [ref=e209]:
+          - generic [ref=e210]:
+            - generic [ref=e211]:
+              - img [ref=e212]
+              - text: Resonance
+            - generic [ref=e217]: contamination
+          - generic [ref=e218]:
+            - generic [ref=e219]: 42% Atravessado
+            - generic [ref=e230]:
+              - generic [ref=e231]: Clear
+              - generic [ref=e232]: Stained
+              - generic [ref=e233]: Atravessado
+              - generic [ref=e234]: Breached
+              - generic [ref=e235]: Consumed
+            - generic [ref=e236]:
+              - button "-5" [ref=e237] [cursor=pointer]
+              - button "+5" [ref=e238] [cursor=pointer]
+        - generic [ref=e239]:
+          - generic [ref=e240]:
+            - generic [ref=e241]:
+              - img [ref=e242]
+              - text: Karma
+            - generic [ref=e246]: path depth
+          - generic [ref=e247]:
+            - generic [ref=e248]: "-1 Occult Eden"
+            - generic [ref=e249]:
+              - generic [ref=e250]:
+                - button "-5" [ref=e251] [cursor=pointer]
+                - button "-4" [ref=e252] [cursor=pointer]
+                - button "-3" [ref=e253] [cursor=pointer]
+                - button "-2" [ref=e254] [cursor=pointer]
+                - button "-1" [ref=e255] [cursor=pointer]
+                - button "0" [ref=e256] [cursor=pointer]
+                - button "+1" [ref=e257] [cursor=pointer]
+                - button "+2" [ref=e258] [cursor=pointer]
+                - button "+3" [ref=e259] [cursor=pointer]
+                - button "+4" [disabled] [ref=e260]
+                - button "+5" [disabled] [ref=e261]
+              - generic [ref=e262]:
+                - generic [ref=e263]: Occult Eden
+                - generic [ref=e264]: Echologist
+        - generic [ref=e265]:
+          - generic [ref=e266]:
+            - generic [ref=e267]:
+              - img [ref=e268]
+              - text: Harm
+            - generic [ref=e272]: wound slots
+          - generic [ref=e274]:
+            - generic [ref=e275]:
+              - generic [ref=e276]: Minor
+              - generic [ref=e277]:
+                - button "Minor 1" [ref=e278] [cursor=pointer]
+                - button "Minor 2" [ref=e279] [cursor=pointer]
+            - generic [ref=e280]:
+              - generic [ref=e281]: Serious
+              - generic [ref=e282]:
+                - button "Serious 1" [ref=e283] [cursor=pointer]
+                - button "Serious 2" [ref=e284] [cursor=pointer]
+              - emphasis [ref=e285]: when relevant
+            - generic [ref=e286]:
+              - generic [ref=e287]: Critical
+              - button "Critical 1" [ref=e289] [cursor=pointer]
+      - generic "Instrument glyphs" [ref=e290]:
+        - generic [ref=e291]:
+          - img [ref=e292]
+          - text: signal
+        - generic [ref=e295]:
+          - img [ref=e296]
+          - text: resonance
+        - generic [ref=e301]:
+          - img [ref=e302]
+          - text: karma
+        - generic [ref=e306]:
+          - img [ref=e307]
+          - text: harm
+        - generic [ref=e311]:
+          - img [ref=e312]
+          - text: access
+        - generic [ref=e316]:
+          - img [ref=e317]
+          - text: technique
+        - generic [ref=e321]:
+          - img [ref=e322]
+          - text: device
+        - generic [ref=e327]:
+          - img [ref=e328]
+          - text: mark
+        - generic [ref=e331]:
+          - img [ref=e332]
+          - text: subject
+        - generic [ref=e336]:
+          - img [ref=e337]
+          - text: ground
+    - article [ref=e341]:
+      - generic [ref=e343]:
+        - paragraph [ref=e344]: Records
+        - heading "Cards" [level=2] [ref=e345]
+      - generic [ref=e346]:
+        - article [ref=e347]:
+          - generic [ref=e348]:
+            - generic [ref=e349]:
+              - img [ref=e350]
+              - generic [ref=e353]: Photograph, Pumping Stn.
+            - generic [ref=e354]: Evidence
+          - generic [ref=e355]:
+            - generic [ref=e356]:
+              - generic [ref=e357]: Source
+              - generic [ref=e358]: OPS-CASE-01
+            - generic [ref=e359]:
+              - generic [ref=e360]: Confidence
+              - generic [ref=e361]: Field-Reported
+        - article [ref=e362]:
+          - generic [ref=e363]:
+            - generic [ref=e364]:
+              - img [ref=e365]
+              - generic [ref=e369]: Read the Static
+            - generic [ref=e370]: Occult Eden
+          - generic [ref=e372]:
+            - generic [ref=e373]: Effect
+            - generic [ref=e374]: Ask one question about emotional residue.
+        - article [ref=e375]:
+          - generic [ref=e377]: Eidolon
+          - generic [ref=e378]:
+            - generic [ref=e379]:
+              - generic [ref=e380]:
+                - img [ref=e381]
+                - text: Ground Yourself
+              - generic [ref=e385]: reaction
+            - generic [ref=e386]:
+              - generic [ref=e388]: Cost
+              - paragraph [ref=e391]: Clear one unstable sensory detail.
+        - article [ref=e392]:
+          - generic [ref=e394]: Occult Eden
+          - generic [ref=e395]:
+            - generic [ref=e397]:
+              - img [ref=e398]
+              - text: Borrowed Door
+            - generic [ref=e402]:
+              - generic [ref=e403]:
+                - generic [ref=e404]: Cost
+                - strong [ref=e405]: +5%
+              - paragraph [ref=e406]: Open a route where no route was recorded.
+              - paragraph [ref=e407]: Leaves an unreconciled mark.
+        - article [ref=e408]:
+          - complementary [ref=e409]:
+            - img [ref=e410]
+            - generic [ref=e415]: SERIAL-LOGGED
+          - generic [ref=e416]:
+            - generic [ref=e417]:
+              - strong [ref=e418]: Resonant Cell Mk I
+              - generic [ref=e419]: Containment Device
+            - paragraph [ref=e443]: Stores unstable resonance for later purge.
+        - article [ref=e444]:
+          - complementary [ref=e445]:
+            - img [ref=e446]
+            - generic [ref=e451]: FIELD COPY
+          - generic [ref=e452]:
+            - generic [ref=e453]:
+              - strong [ref=e454]: Signal Tap
+              - generic [ref=e455]: Field Receiver
+            - paragraph [ref=e479]: Checked out to Handler D-4.
+    - article [ref=e480]:
+      - generic [ref=e481]:
+        - generic [ref=e482]:
+          - paragraph [ref=e483]: Feedback
+          - heading "Redaction and Classification" [level=2] [ref=e484]
+        - 'button "GM Mode: Off" [ref=e485] [cursor=pointer]'
+      - paragraph [ref=e486]:
+        - text: Witness identified as
+        - generic [ref=e488]: Source Protected
+        - text: . Subject recalls a room that
+        - generic [ref=e490]: Withheld
+        - text: .
+      - generic [ref=e491]:
+        - generic [ref=e492]: Confirmed
+        - generic [ref=e493]: Contradicted
+        - generic [ref=e494]: Eyes Only
+        - generic [ref=e495]: Field-Reported
+        - generic [ref=e496]: Purged Copy
+        - generic [ref=e497]: Unreconciled

@@ -13,7 +13,7 @@
         <span>{{ record.tag }}</span>{{ record.title }}
       </button>
       <div class="eid-index__foot eid-no-print">
-        <button class="eid-button" type="button" @click="addArchiveRecord">{{ t('ui.archive.newRecord') }}</button>
+        <UiButton size="sm" @click="addArchiveRecord">{{ t('ui.archive.newRecord') }}</UiButton>
       </div>
     </aside>
 
@@ -41,7 +41,7 @@
         @commit="commitArchive('body', $event)"
       />
       <div class="eid-add-row eid-no-print">
-        <button class="eid-button eid-button--danger" type="button" @click="destroyArchive">{{ t('ui.archive.destroy') }}</button>
+        <UiButton variant="danger" size="sm" @click="destroyArchive">{{ t('ui.archive.destroy') }}</UiButton>
       </div>
     </article>
     <p v-else class="eid-note">{{ t('ui.archive.empty') }}</p>

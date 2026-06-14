@@ -83,30 +83,13 @@ a {
 
 .eid-org {
   display: flex;
+  min-width: 0;
+  max-width: 100%;
+  flex: 1 1 280px;
   align-items: center;
   gap: 14px;
-
-  h1 {
-    font-size: var(--type-5);
-    font-weight: 700;
-    letter-spacing: 0.32em;
-    text-transform: uppercase;
-  }
 }
 
-.eid-org__sigil {
-  display: flex;
-  width: 44px;
-  height: 44px;
-  align-items: center;
-  justify-content: center;
-  border: var(--border-status);
-  border-radius: var(--radius-circle);
-  font-size: 22px;
-  font-weight: 700;
-}
-
-.eid-org__sub,
 .eid-fileline {
   font-size: var(--type-1);
   letter-spacing: 0.16em;
@@ -115,97 +98,6 @@ a {
 
 .eid-fileline {
   text-align: right;
-}
-
-.eid-stamp {
-  border: var(--border-stamp);
-  color: var(--status-authority);
-  padding: 4px 14px;
-  font-size: var(--type-3);
-  font-weight: 700;
-  letter-spacing: var(--track-stamp);
-  text-transform: uppercase;
-  transform: rotate(-3deg);
-}
-
-.eid-tabs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0;
-  padding: 0 28px;
-  border-bottom: var(--border-hard);
-
-  a {
-    margin-top: 8px;
-    margin-right: 6px;
-    padding: 8px 18px 6px;
-    border: 1px solid var(--rule-soft);
-    border-bottom: 0;
-    background: var(--surface-inset);
-    font-size: var(--type-2);
-    letter-spacing: var(--track-wide);
-    text-decoration: none;
-    text-transform: uppercase;
-  }
-
-  a.active {
-    position: relative;
-    top: 1px;
-    border-color: var(--text-primary);
-    background: var(--surface-page);
-    font-weight: 700;
-  }
-}
-
-.eid-tabs__spacer {
-  flex: 1;
-}
-
-.eid-tool-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 0 6px;
-}
-
-.eid-hidden-input {
-  display: none;
-}
-
-.eid-button {
-  border: var(--border-panel);
-  background: var(--surface-page);
-  color: var(--text-primary);
-  cursor: pointer;
-  font-family: var(--font-record);
-  font-size: var(--type-1);
-  letter-spacing: var(--track-meta);
-  padding: 4px 10px;
-  text-transform: uppercase;
-
-  &:hover,
-  &:focus-visible {
-    background: var(--surface-inverse);
-    color: var(--text-inverse);
-  }
-}
-
-.eid-button--danger {
-  border-color: var(--status-authority);
-  color: var(--status-authority);
-
-  &:hover,
-  &:focus-visible {
-    background: var(--status-authority);
-    color: var(--text-inverse);
-  }
-}
-
-.eid-button--active-gm {
-  border-color: var(--status-authority);
-  background: var(--status-authority);
-  color: var(--text-inverse);
 }
 
 .eid-main {
@@ -251,79 +143,10 @@ a {
   text-transform: uppercase;
 }
 
-.eid-form-section {
-  margin-bottom: 20px;
-  border: var(--border-panel);
-  background: var(--surface-page);
-}
-
-.eid-form-section--gm {
-  border: 2px solid var(--status-authority);
-
-  .eid-form-section__head {
-    border-bottom-color: var(--status-authority);
-    background: var(--surface-page);
-
-    h2 {
-      color: var(--status-authority);
-    }
-  }
-}
-
-.eid-form-section__head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 7px 12px;
-  border-bottom: var(--border-hard);
-  background: var(--surface-inset);
-  cursor: pointer;
-
-  h2 {
-    font-size: var(--type-2);
-    font-weight: 700;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-  }
-
-  span {
-    color: var(--text-primary);
-    font-size: var(--type-0);
-    letter-spacing: 0.18em;
-  }
-}
-
-.eid-form-section__body {
-  padding: 12px 14px;
-}
-
-.eid-form-section.is-collapsed .eid-form-section__body {
-  display: none;
-}
-
 .eid-field-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 8px 22px;
-}
-
-.eid-field {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-
-  label {
-    color: var(--text-primary);
-    font-size: var(--type-0);
-    letter-spacing: 0.18em;
-    opacity: 0.75;
-    text-transform: uppercase;
-  }
-}
-
-.eid-field--wide {
-  grid-column: 1 / -1;
 }
 
 .eid-identity-record {
@@ -345,99 +168,6 @@ a {
 .eid-photo-frame {
   width: 178px;
   justify-self: end;
-}
-
-.eid-photo-frame__plate {
-  position: relative;
-  padding: 7px;
-  border: var(--border-panel);
-  background:
-    linear-gradient(135deg, transparent 0 48%, color-mix(in srgb, var(--text-primary) 18%, transparent) 49% 51%, transparent 52%),
-    var(--surface-inset);
-}
-
-.eid-photo-frame__plate::before,
-.eid-photo-frame__plate::after {
-  position: absolute;
-  z-index: 1;
-  width: 22px;
-  height: 22px;
-  border-color: var(--status-authority);
-  content: "";
-  opacity: 0.8;
-  pointer-events: none;
-}
-
-.eid-photo-frame__plate::before {
-  top: 4px;
-  left: 4px;
-  border-top: 2px solid;
-  border-left: 2px solid;
-}
-
-.eid-photo-frame__plate::after {
-  right: 4px;
-  bottom: 4px;
-  border-right: 2px solid;
-  border-bottom: 2px solid;
-}
-
-.eid-photo-frame__label,
-.eid-photo-frame__meta {
-  display: flex;
-  justify-content: space-between;
-  gap: 6px;
-  font-size: 8px;
-  letter-spacing: var(--track-meta);
-  line-height: var(--leading-tight);
-  text-transform: uppercase;
-}
-
-.eid-photo-frame__label {
-  margin-bottom: 5px;
-  color: var(--status-authority);
-  font-weight: 700;
-}
-
-.eid-photo-frame__well {
-  display: grid;
-  aspect-ratio: 3 / 4;
-  place-items: center;
-  border: var(--border-panel);
-  background:
-    linear-gradient(90deg, color-mix(in srgb, var(--text-primary) 10%, transparent) 1px, transparent 1px),
-    linear-gradient(color-mix(in srgb, var(--text-primary) 10%, transparent) 1px, transparent 1px),
-    color-mix(in srgb, var(--surface-page) 55%, transparent);
-  background-size: 14px 14px;
-  color: color-mix(in srgb, var(--text-primary) 58%, transparent);
-  font-size: 9px;
-  letter-spacing: 0.16em;
-  padding: 10px;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-.eid-photo-frame__meta {
-  margin-top: 5px;
-  opacity: 0.72;
-}
-
-.eid-field__value {
-  min-height: 21px;
-  padding: 1px 2px;
-  border-bottom: var(--border-field);
-  outline: none;
-  white-space: pre-wrap;
-
-  &:focus {
-    border-bottom-style: solid;
-    background: var(--surface-inset);
-  }
-}
-
-.eid-field__value--empty::before {
-  content: "-";
-  opacity: 0.3;
 }
 
 .eid-select {
@@ -464,14 +194,6 @@ a {
   font-size: var(--type-1);
   letter-spacing: var(--track-tight);
   padding-top: 8px;
-}
-
-.eid-redacted-grid .eid-field__value {
-  border-bottom: 0;
-  background: var(--surface-inverse);
-  color: var(--text-primary);
-  pointer-events: none;
-  user-select: none;
 }
 
 .eid-stat {
@@ -504,118 +226,10 @@ a {
   }
 }
 
-.eid-step {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.eid-step__button {
-  padding: 0 7px;
-  font-size: 13px;
-  line-height: 20px;
-}
-
-.eid-step__num {
-  display: inline-block;
-  min-width: 34px;
-  border: var(--border-panel);
-  background: var(--surface-inset);
-  font-size: 15px;
-  font-weight: 700;
-  padding: 1px 4px;
-  text-align: center;
-}
-
 .eid-card-list {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--card-gap);
-}
-
-.eid-card {
-  border: var(--border-panel);
-  background: var(--surface-page);
-}
-
-.eid-card--wide {
-  grid-column: 1 / -1;
-}
-
-.eid-card__head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 5px 9px;
-  border-bottom: var(--border-hard);
-  background: var(--surface-inset);
-}
-
-.eid-card__name {
-  flex: 1;
-  min-height: 18px;
-  border-bottom: 0;
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.eid-card__meta {
-  min-height: 16px;
-  border-bottom: 0;
-  font-size: 9px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-
-.eid-card__body {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  padding: 8px 10px;
-}
-
-.eid-card__row {
-  display: flex;
-  gap: 8px;
-  font-size: var(--type-2);
-}
-
-.eid-card__key {
-  min-width: 86px;
-  padding-top: 2px;
-  font-size: 9px;
-  letter-spacing: var(--track-meta);
-  opacity: 0.7;
-  text-transform: uppercase;
-}
-
-.eid-card__value {
-  flex: 1;
-  min-height: 18px;
-  border-bottom-color: var(--rule-soft);
-}
-
-.eid-card__foot {
-  border-top: var(--border-dotted);
-  padding: 4px 9px;
-  text-align: right;
-}
-
-.fac-eden {
-  color: var(--status-resonance);
-}
-
-.fac-echologist {
-  color: var(--status-signal);
-}
-
-.fac-pact {
-  color: var(--status-authority);
-}
-
-.fac-general {
-  color: var(--text-primary);
 }
 
 .eid-add-row {
@@ -623,227 +237,6 @@ a {
   flex-wrap: wrap;
   gap: 8px;
   margin-top: 10px;
-}
-
-.eid-status-panel {
-  margin-bottom: 18px;
-  border: var(--border-status);
-  background: var(--surface-page);
-
-  h3 {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    border-bottom: var(--border-hard);
-    background: var(--surface-inset);
-    font-size: var(--type-1);
-    font-weight: 700;
-    letter-spacing: 0.26em;
-    padding: 6px 10px;
-    text-transform: uppercase;
-
-    span {
-      font-size: 9px;
-      font-weight: 400;
-      letter-spacing: 0.12em;
-      opacity: 0.7;
-    }
-  }
-}
-
-.eid-status-panel__pad {
-  padding: 10px 12px;
-}
-
-.eid-bigread {
-  font-size: var(--type-6);
-  font-weight: 700;
-  letter-spacing: 0.04em;
-
-  small {
-    font-size: var(--type-1);
-    font-weight: 400;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-  }
-}
-
-.eid-bigread--small {
-  font-size: 18px;
-}
-
-.eid-pips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 6px;
-}
-
-.eid-pip,
-.eid-wound-box {
-  border: var(--border-panel);
-  background: var(--surface-inset);
-  cursor: pointer;
-}
-
-.eid-pip {
-  width: 20px;
-  height: 20px;
-
-  &.on {
-    background: var(--status-signal);
-  }
-}
-
-.eid-gauge {
-  margin-top: 8px;
-}
-
-.eid-gauge__track {
-  position: relative;
-  height: 26px;
-  border: var(--border-panel);
-  background: var(--surface-inset);
-}
-
-.eid-gauge__fill {
-  position: absolute;
-  inset: 0 auto 0 0;
-  border-right: 2px solid var(--text-primary);
-  background: var(--status-resonance);
-}
-
-.eid-gauge__tick {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: var(--surface-inverse);
-}
-
-.eid-gauge__stages {
-  display: flex;
-  margin-top: 3px;
-  font-size: 8.5px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-
-  span {
-    width: 20%;
-    overflow: hidden;
-    text-align: center;
-    white-space: nowrap;
-  }
-
-  .cur {
-    font-weight: 700;
-    text-decoration: underline;
-  }
-}
-
-.eid-kruler {
-  display: grid;
-  grid-template-columns: repeat(11, 1fr);
-  margin-top: 8px;
-  border: var(--border-panel);
-}
-
-.eid-kruler__cell {
-  border: 0;
-  border-right: 1px solid var(--rule-soft);
-  background: var(--surface-inset);
-  cursor: pointer;
-  font-size: var(--type-0);
-  padding: 5px 0;
-  text-align: center;
-  user-select: none;
-
-  &:last-child {
-    border-right: 0;
-  }
-
-  &.neg {
-    color: var(--status-resonance);
-  }
-
-  &.pos {
-    color: var(--status-signal);
-  }
-
-  &.cur {
-    color: var(--text-inverse);
-    font-weight: 700;
-  }
-
-  &.cur.neg {
-    background: var(--status-resonance);
-  }
-
-  &.cur.pos {
-    background: var(--status-signal);
-  }
-
-  &.cur.zero {
-    background: var(--surface-inverse);
-  }
-
-  &.barred {
-    cursor: not-allowed;
-    opacity: 0.45;
-    text-decoration: line-through;
-  }
-}
-
-.eid-klabels {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 3px;
-  font-size: 9px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-
-  span:first-child {
-    color: var(--status-resonance);
-  }
-
-  span:last-child {
-    color: var(--status-signal);
-  }
-}
-
-.eid-wound-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 5px;
-
-  > span:first-child {
-    width: 64px;
-    font-size: var(--type-0);
-    letter-spacing: var(--track-meta);
-    text-transform: uppercase;
-  }
-
-  em {
-    font-size: var(--type-1);
-    font-style: normal;
-    opacity: 0.7;
-  }
-}
-
-.eid-wound-boxes {
-  display: inline-flex;
-  gap: 8px;
-}
-
-.eid-wound-box {
-  width: 18px;
-  height: 18px;
-  background: var(--surface-page);
-
-  &.on {
-    background: var(--status-authority);
-  }
 }
 
 .eid-index {
@@ -1015,7 +408,7 @@ a {
 
   .eid-main,
   .eid-letterhead,
-  .eid-tabs,
+  .dossier-tabs,
   .eid-footer {
     padding-right: 16px;
     padding-left: 16px;
@@ -1036,19 +429,19 @@ a {
     border: 0;
   }
 
-  .eid-tabs,
-  .eid-tool-buttons,
+  .dossier-tabs,
   .eid-add-row,
   .eid-character-picker,
   .eid-no-print,
   .eid-footer__hint,
-  .eid-card__foot {
+  .ui-record-card__foot,
+  .ui-technique__foot {
     display: none !important;
   }
 
-  .eid-form-section,
-  .eid-card,
-  .eid-status-panel,
+  .ui-form-section,
+  .ui-record-card,
+  .ui-status-panel,
   .eid-article {
     break-inside: avoid;
   }

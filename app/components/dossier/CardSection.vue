@@ -19,18 +19,17 @@
     </div>
 
     <div v-if="kind === 'techniques'" class="eid-add-row eid-no-print">
-      <button
+      <UiButton
         v-for="faction in techniqueFactions"
         :key="faction"
-        class="eid-button"
-        type="button"
+        size="sm"
         @click="addCard('techniques', faction)"
       >
         + {{ faction === tm<string>('ui.cards.factions.geistPact') ? t('ui.cards.pactAbility') : faction }}
-      </button>
+      </UiButton>
     </div>
     <div v-else class="eid-add-row eid-no-print">
-      <button class="eid-button" type="button" @click="addCard(kind)">{{ t(`ui.cards.add.${kind}`) }}</button>
+      <UiButton size="sm" @click="addCard(kind)">{{ t(`ui.cards.add.${kind}`) }}</UiButton>
     </div>
   </template>
 </template>

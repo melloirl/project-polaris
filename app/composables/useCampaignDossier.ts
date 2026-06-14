@@ -142,6 +142,13 @@ export function useCampaignDossier() {
     }
   }
 
+  function setSignal(current: number) {
+    const character = activeChar.value
+    if (character) {
+      character.signal.current = Math.max(0, Math.min(signalMax(character), current))
+    }
+  }
+
   function setKarma(value: number, act: string) {
     const character = activeChar.value
     if (!character || value < character.karma.edenLimit || value > character.karma.echoLimit) {
@@ -301,6 +308,7 @@ export function useCampaignDossier() {
     setSelect,
     changeResonance,
     setSignalByPip,
+    setSignal,
     setKarma,
     toggleWound,
     addCharacter,

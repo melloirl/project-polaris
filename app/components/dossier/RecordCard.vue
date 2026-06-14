@@ -1,41 +1,50 @@
 <template>
-  <article class="eid-card" :class="{ 'eid-card--wide': wide }">
-    <header class="eid-card__head">
+  <UiRecordCard
+    :name="name"
+    :tag="meta"
+    :tone="tone"
+    :glyph="glyph"
+    :wide="wide"
+  >
+    <template #name>
       <DossierEditableValue
-        class="eid-card__name"
+        class="record-card__name"
         :model-value="name"
         :label="t('ui.cards.cardName')"
         @commit="$emit('commit-name', $event)"
       />
+    </template>
+    <template #tag>
       <DossierEditableValue
         v-if="editableMeta"
-        class="eid-card__meta"
-        :class="metaClass"
+        class="record-card__meta"
         :model-value="meta"
         :label="t('ui.cards.cardSource')"
         @commit="$emit('commit-meta', $event)"
       />
-      <span v-else class="eid-card__meta" :class="metaClass">{{ meta }}</span>
-    </header>
-    <div class="eid-card__body">
-      <div v-for="row in rows" :key="row.key" class="eid-card__row">
-        <span class="eid-card__key">{{ row.label }}</span>
+      <span v-else class="record-card__meta">{{ meta }}</span>
+    </template>
+    <template #rows>
+      <div v-for="row in rows" :key="row.key" class="record-card__row">
+        <span class="record-card__key">{{ row.label }}</span>
         <DossierEditableValue
-          class="eid-card__value"
+          class="record-card__value"
           :model-value="row.value"
           :label="row.label"
           @commit="$emit('commit-row', row.key, $event)"
         />
       </div>
-    </div>
-    <footer class="eid-card__foot eid-no-print">
-      <button class="eid-button eid-button--danger" type="button" @click="$emit('remove')">{{ t('ui.cards.remove') }}</button>
-    </footer>
-  </article>
+    </template>
+    <template #footer>
+      <UiButton variant="danger" size="sm" @click="$emit('remove')">{{ t('ui.cards.remove') }}</UiButton>
+    </template>
+  </UiRecordCard>
 </template>
 
 <script setup lang="ts">
-defineProps<{
+import type { UiCardTone, UiInstrumentGlyphName } from '~/types/ui'
+
+const props = defineProps<{
   name: string
   meta: string
   rows: Array<{ key: string, label: string, value: string }>
@@ -52,4 +61,56 @@ defineEmits<{
 }>()
 
 const { t } = useDossierI18n()
+
+const tone = computed<UiCardTone>(() => {
+  if (props.metaClass === 'fac-eden') return 'eden'
+  if (props.metaClass === 'fac-echologist') return 'echo'
+  if (props.metaClass === 'fac-pact') return 'pact'
+  return 'ink'
+})
+
+const glyph = computed<UiInstrumentGlyphName>(() => {
+  if (tone.value === 'eden' || tone.value === 'pact') return 'technique'
+  if (tone.value === 'echo') return 'device'
+  return 'mark'
+})
 </script>
+
+<style scoped lang="scss">
+.record-card__name {
+  flex: 1;
+  min-height: 18px;
+  border-bottom: 0;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.record-card__meta {
+  min-height: 16px;
+  border-bottom: 0;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.record-card__row {
+  display: flex;
+  gap: var(--space-3);
+  font-size: var(--type-2);
+}
+
+.record-card__key {
+  min-width: 86px;
+  padding-top: 2px;
+  font-size: 9px;
+  letter-spacing: var(--track-meta);
+  opacity: 0.7;
+  text-transform: uppercase;
+}
+
+.record-card__value {
+  flex: 1;
+  min-height: 18px;
+  border-bottom-color: var(--rule-soft);
+}
+</style>

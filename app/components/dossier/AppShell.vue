@@ -25,7 +25,7 @@ const { ui, setView } = useCampaignDossier()
 const { t } = useDossierI18n()
 
 function syncHash() {
-  const view = window.location.hash.replace('#/', '') || 'dossier'
+  const view = window.location.hash.replace(/^#\/?/, '') || 'dossier'
   setView(view)
 }
 

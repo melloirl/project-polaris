@@ -1,8 +1,8 @@
 <template>
   <div
     ref="editable"
-    class="eid-field__value"
-    :class="{ 'eid-field__value--empty': !modelValue }"
+    class="dossier-editable"
+    :class="{ 'is-empty': !modelValue }"
     contenteditable="true"
     role="textbox"
     :aria-label="label"
@@ -43,3 +43,24 @@ watch(() => props.modelValue, writeValue)
 
 onMounted(writeValue)
 </script>
+
+<style scoped lang="scss">
+.dossier-editable {
+  min-height: 21px;
+  padding: 1px 2px;
+  border-bottom: var(--border-field);
+  font-family: var(--font-record);
+  outline: none;
+  white-space: pre-wrap;
+
+  &:focus {
+    border-bottom-style: solid;
+    background: var(--surface-inset);
+  }
+}
+
+.dossier-editable.is-empty::before {
+  content: "-";
+  opacity: 0.3;
+}
+</style>
