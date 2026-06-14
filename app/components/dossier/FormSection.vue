@@ -19,6 +19,7 @@ defineEmits<{
     :note="note"
     :collapsed="collapsed"
     :gm="gm"
+    collapsible
     @toggle="$emit('toggle')"
   >
     <slot />

@@ -114,8 +114,8 @@ const coreCss = {
 }
 
 const activeTab = ref('dossier')
-const sectionCollapsed = ref(false)
 const fieldValue = ref('Irene Vasquez')
+const fieldAge = ref('29')
 const stepValue = ref(3)
 const signalValue = ref(3)
 const resonancePct = ref(42)
@@ -370,15 +370,13 @@ function toggleWound(key: string, index: number) {
         </header>
         <div class="variant-grid variant-grid--forms">
           <UiFormSection
-            title="Identity Record"
-            code="FORM E-1 / S2/v0.1"
-            note="Filed copy pending handler countersign."
-            :collapsed="sectionCollapsed"
-            @toggle="sectionCollapsed = !sectionCollapsed"
+            title="Identity"
+            code="FORM E-1 · S2/v0.1"
+            note="Keep the character human - the supernatural complicates identity, it does not replace it."
           >
             <div class="field-pair">
-              <UiField label="Subject" :model-value="fieldValue" @commit="fieldValue = $event" />
-              <UiField label="Immutable" model-value="Read-only field" :editable="false" />
+              <UiField label="Name" :model-value="fieldValue" @commit="fieldValue = $event" />
+              <UiField label="Age" :model-value="fieldAge" @commit="fieldAge = $event" />
             </div>
           </UiFormSection>
           <section class="variant">
@@ -390,7 +388,11 @@ function toggleWound(key: string, index: number) {
           <section class="variant photo-sample">
             <header class="variant__header"><h3>Photo Plate</h3><span>coded</span></header>
             <div class="variant__preview">
-              <UiPhotoPlate codename="Wren" title="Field Technician" code-no="SUBJ-114" />
+              <UiPhotoPlate
+                codename="Wren"
+                title="Field Technician"
+                code-no="SUBJ-114"
+              />
             </div>
           </section>
         </div>
@@ -910,7 +912,12 @@ function toggleWound(key: string, index: number) {
 }
 
 .photo-sample {
-  max-width: 240px;
+  max-width: 210px;
+
+  .variant__preview {
+    align-items: flex-start;
+    padding: var(--space-5);
+  }
 }
 
 .cookbook-row,

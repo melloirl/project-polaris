@@ -5,10 +5,12 @@ withDefaults(defineProps<{
   note?: string
   gm?: boolean
   collapsed?: boolean
+  collapsible?: boolean
 }>(), {
   note: '',
   gm: false,
   collapsed: false,
+  collapsible: false,
 })
 
 defineEmits<{
@@ -17,8 +19,9 @@ defineEmits<{
 </script>
 
 <template>
-  <section :class="['ui-form-section', { 'ui-form-section--gm': gm, 'is-collapsed': collapsed }]">
+  <section :class="['ui-form-section', { 'ui-form-section--gm': gm, 'is-collapsed': collapsed, 'is-collapsible': collapsible }]">
     <button
+      v-if="collapsible"
       class="ui-form-section__head"
       type="button"
       :aria-expanded="!collapsed"
@@ -27,6 +30,10 @@ defineEmits<{
       <h2>{{ title }}</h2>
       <span class="ui-form-section__code">{{ code }}</span>
     </button>
+    <header v-else class="ui-form-section__head">
+      <h2>{{ title }}</h2>
+      <span class="ui-form-section__code">{{ code }}</span>
+    </header>
     <div v-show="!collapsed" class="ui-form-section__body">
       <slot />
       <p v-if="note" class="ui-form-section__note">{{ note }}</p>
@@ -57,7 +64,6 @@ defineEmits<{
   border-bottom: var(--border-hard);
   background: var(--surface-inset);
   color: var(--text-primary);
-  cursor: pointer;
   text-align: left;
 
   h2 {
@@ -68,6 +74,14 @@ defineEmits<{
     line-height: var(--leading-tight);
     text-transform: uppercase;
   }
+}
+
+.ui-form-section.is-collapsible .ui-form-section__head {
+  cursor: pointer;
+}
+
+.ui-form-section.is-collapsed .ui-form-section__head {
+  border-bottom: 0;
 }
 
 .ui-form-section--gm .ui-form-section__head {

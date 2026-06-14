@@ -62,7 +62,10 @@ function change(delta: number) {
 }
 
 .ui-stepper__button {
-  min-width: 23px;
+  display: inline-grid;
+  width: 20px;
+  height: 20px;
+  place-items: center;
   border: var(--border-hard);
   background: var(--surface-page);
   color: var(--text-primary);
@@ -86,11 +89,13 @@ function change(delta: number) {
 
 .ui-stepper__num {
   min-width: 34px;
+  height: 26px;
+  place-items: center;
   border: var(--border-hard);
   background: var(--surface-inset);
   font-size: var(--type-5);
   font-weight: 700;
-  line-height: 24px;
+  line-height: 1;
   padding: 0 var(--space-1);
   text-align: center;
 }
