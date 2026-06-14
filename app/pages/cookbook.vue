@@ -112,6 +112,8 @@ const buttonSizes = [
   { label: 'LG', value: 'lg' as const }
 ];
 
+const stampSizes = buttonSizes;
+
 const buttonRows = [
   {
     name: 'Primary',
@@ -139,101 +141,150 @@ const buttonRows = [
     props: { variant: 'primary' as const, disabled: true }
   }
 ];
+
+const stampVariants = [
+  {
+    name: 'Restricted',
+    meta: 'authority',
+    props: { angle: -3 }
+  },
+  {
+    name: 'Eyes Only',
+    meta: 'authority',
+    props: { angle: 2 }
+  },
+  {
+    name: 'Field Copy',
+    meta: 'ink copy',
+    props: { angle: -1 },
+    style: '--color-stamp: var(--ink)'
+  }
+];
 </script>
 
 <template>
-  <main class="cookbook">
-    <header class="cookbook__masthead">
-      <div>
-        <p class="cookbook__eyebrow">
-          Interface Reference
-        </p>
-        <h1>Polaris Cookbook</h1>
+<main class="cookbook">
+  <header class="cookbook__masthead">
+    <div>
+      <p class="cookbook__eyebrow">
+        Interface Reference
+      </p>
+      <h1>Polaris Cookbook</h1>
+    </div>
+    <UiSealLockup mode="stamp" />
+  </header>
+
+  <section class="cookbook__grid" aria-label="Component cookbook">
+    <article class="cookbook-card cookbook-card--wide">
+      <header class="cookbook-card__header">
+        <div>
+          <p class="cookbook__eyebrow">
+            Foundation
+          </p>
+          <h2>Color Palette</h2>
+        </div>
+      </header>
+
+      <div class="palette">
+        <section v-for="group in paletteGroups" :key="group.label" class="palette__group">
+          <h3>{{ group.label }}</h3>
+          <div class="palette__items">
+            <div v-for="color in group.colors" :key="color.token" class="palette__item">
+              <span class="palette__pip" :style="{ backgroundColor: `var(${color.token})` }" />
+              <span class="palette__token">{{ color.token }}</span>
+              <span class="palette__alias">{{ color.alias }}</span>
+            </div>
+          </div>
+        </section>
       </div>
-      <UiSealLockup mode="stamp" />
-    </header>
+    </article>
 
-    <section class="cookbook__grid" aria-label="Component cookbook">
-      <article class="cookbook-card cookbook-card--wide">
-        <header class="cookbook-card__header">
-          <div>
-            <p class="cookbook__eyebrow">
-              Foundation
-            </p>
-            <h2>Color Palette</h2>
-          </div>
-        </header>
-
-        <div class="palette">
-          <section v-for="group in paletteGroups" :key="group.label" class="palette__group">
-            <h3>{{ group.label }}</h3>
-            <div class="palette__items">
-              <div v-for="color in group.colors" :key="color.token" class="palette__item">
-                <span class="palette__pip" :style="{ backgroundColor: `var(${color.token})` }" />
-                <span class="palette__token">{{ color.token }}</span>
-                <span class="palette__alias">{{ color.alias }}</span>
-              </div>
-            </div>
-          </section>
+    <article class="cookbook-card cookbook-card--wide">
+      <header class="cookbook-card__header">
+        <div>
+          <p class="cookbook__eyebrow">
+            Brand
+          </p>
+          <h2>Seal Lockup</h2>
         </div>
-      </article>
+        <span class="cookbook-card__meta">3 variants</span>
+      </header>
 
-      <article class="cookbook-card cookbook-card--wide">
-        <header class="cookbook-card__header">
-          <div>
-            <p class="cookbook__eyebrow">
-              Brand
-            </p>
-            <h2>Seal Lockup</h2>
+      <div class="variant-grid variant-grid--seal">
+        <section v-for="variant in sealVariants" :key="variant.name" class="variant">
+          <header class="variant__header">
+            <h3>{{ variant.name }}</h3>
+            <span>{{ variant.meta }}</span>
+          </header>
+          <div class="variant__preview variant__preview--brand">
+            <UiSealLockup v-bind="variant.props" />
           </div>
-          <span class="cookbook-card__meta">3 variants</span>
-        </header>
+        </section>
+      </div>
+    </article>
 
-        <div class="variant-grid variant-grid--seal">
-          <section v-for="variant in sealVariants" :key="variant.name" class="variant">
-            <header class="variant__header">
-              <h3>{{ variant.name }}</h3>
-              <span>{{ variant.meta }}</span>
-            </header>
-            <div class="variant__preview variant__preview--brand">
-              <UiSealLockup v-bind="variant.props" />
-            </div>
-          </section>
+    <article class="cookbook-card cookbook-card--wide">
+      <header class="cookbook-card__header">
+        <div>
+          <p class="cookbook__eyebrow">
+            Controls
+          </p>
+          <h2>Button</h2>
         </div>
-      </article>
+        <span class="cookbook-card__meta">tone / fill / size</span>
+      </header>
 
-      <article class="cookbook-card cookbook-card--wide">
-        <header class="cookbook-card__header">
-          <div>
-            <p class="cookbook__eyebrow">
-              Controls
-            </p>
-            <h2>Button</h2>
-          </div>
-          <span class="cookbook-card__meta">tone / fill / size</span>
-        </header>
-
-        <div class="button-matrix">
-          <div class="button-matrix__head" aria-hidden="true" />
-          <div v-for="size in buttonSizes" :key="size.value" class="button-matrix__size">
-            {{ size.label }}
-          </div>
-
-          <template v-for="row in buttonRows" :key="`${row.name}-${row.meta}`">
-            <div class="button-matrix__label">
-              <strong>{{ row.name }}</strong>
-              <span>{{ row.meta }}</span>
-            </div>
-            <div v-for="size in buttonSizes" :key="`${row.name}-${row.meta}-${size.value}`" class="button-matrix__cell">
-              <UiButton v-bind="row.props" :size="size.value">
-                Button
-              </UiButton>
-            </div>
-          </template>
+      <div class="button-matrix">
+        <div class="button-matrix__head" aria-hidden="true" />
+        <div v-for="size in buttonSizes" :key="size.value" class="button-matrix__size">
+          {{ size.label }}
         </div>
-      </article>
-    </section>
-  </main>
+
+        <template v-for="row in buttonRows" :key="`${row.name}-${row.meta}`">
+          <div class="button-matrix__label">
+            <strong>{{ row.name }}</strong>
+            <span>{{ row.meta }}</span>
+          </div>
+          <div v-for="size in buttonSizes" :key="`${row.name}-${row.meta}-${size.value}`" class="button-matrix__cell">
+            <UiButton v-bind="row.props" :size="size.value">
+              Button
+            </UiButton>
+          </div>
+        </template>
+      </div>
+    </article>
+
+    <article class="cookbook-card cookbook-card--wide">
+      <header class="cookbook-card__header">
+        <div>
+          <p class="cookbook__eyebrow">
+            Brand
+          </p>
+          <h2>Stamp</h2>
+        </div>
+        <span class="cookbook-card__meta">restricted / eyes-only / field copy</span>
+      </header>
+      <div class="button-matrix stamp-matrix">
+        <div class="button-matrix__head" aria-hidden="true" />
+        <div v-for="size in stampSizes" :key="size.value" class="button-matrix__size">
+          {{ size.label }}
+        </div>
+
+        <template v-for="variant in stampVariants" :key="variant.name">
+          <div class="button-matrix__label">
+            <strong>{{ variant.name }}</strong>
+            <span>{{ variant.meta }}</span>
+          </div>
+          <div v-for="size in stampSizes" :key="`${variant.name}-${size.value}`" class="button-matrix__cell">
+            <UiStamp v-bind="variant.props" :size="size.value" :style="variant.style">
+              {{ variant.name }}
+            </UiStamp>
+          </div>
+        </template>
+      </div>
+    </article>
+  </section>
+</main>
 </template>
 
 <style scoped lang="scss">

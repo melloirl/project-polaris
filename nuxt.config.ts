@@ -6,6 +6,8 @@ export default defineNuxtConfig({
   ],
 
   css: [
+    '@fontsource/courier-prime/400.css',
+    '@fontsource/courier-prime/700.css',
     '~/assets/scss/main.scss',
   ],
 
