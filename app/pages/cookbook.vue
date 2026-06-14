@@ -45,6 +45,74 @@ const tabs: UiTabItem[] = [
   { label: 'Reference', value: 'reference' },
 ]
 
+const coreProps = {
+  seal: [
+    ['letter', 'string', '"E"', 'Glyph inside the ring.'],
+    ['name', 'string', '"Eidolon"', 'Wordmark line.'],
+    ['sub', 'string', '"Advanced Research Directorate"', 'Sub line under the wordmark.'],
+    ['size', 'number', '44', 'Sigil diameter (px); scales the wordmark.'],
+    ['tone', '"ink" | "stamp"', '"ink"', 'Ring color.'],
+    ['showWordmark', 'boolean', 'true', 'Hide for the bare sigil.'],
+  ],
+  stamp: [
+    ['children', 'Vue slot', '-', 'Stamp text (auto-uppercased).'],
+    ['tone', '"danger" | "ink" | "eden" | "echo"', '"danger"', 'danger = classification red; others = source/faction marks.'],
+    ['size', '"md" | "sm"', '"md"', 'sm for inline marks.'],
+    ['rotate', 'number', '-3', 'Rotation in degrees. Keep -4...+3.'],
+  ],
+  tabs: [
+    ['items', 'UiTabItem[]', '[]', 'Tab definitions.'],
+    ['modelValue', 'string', '-', 'Active tab id.'],
+    ['update:modelValue', '(id) => void', '-', 'Fired on tab click.'],
+    ['tools', 'slot', '-', 'Right-aligned toolbar.'],
+  ],
+}
+
+const coreCss = {
+  seal: `.ui-seal { display: inline-flex; align-items: center; gap: var(--space-4); }
+.ui-seal__sigil {
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid var(--eid-ink); border-radius: var(--radius-circle);
+  font-family: var(--font-ui); font-weight: 700;
+}
+.ui-seal__sigil--stamp { border-color: var(--eid-stamp); color: var(--eid-stamp); }
+.ui-seal__name {
+  font-family: var(--font-ui); font-weight: 700;
+  letter-spacing: var(--track-wide); text-transform: uppercase;
+}
+.ui-seal__sub {
+  font-family: var(--font-ui); font-size: var(--type-1);
+  letter-spacing: var(--track-meta); text-transform: uppercase; opacity: .8;
+}`,
+  stamp: `.ui-stamp {
+  font-family: var(--font-stamp);
+  border: var(--border-stamp);
+  color: var(--text-danger);
+  padding: var(--space-1) var(--space-5);
+  font-weight: 700;
+  letter-spacing: var(--track-stamp);
+  text-transform: uppercase;
+  font-size: var(--type-3);
+}
+.ui-stamp--ink { border-color: var(--rule-hard); color: var(--text-primary); }
+.ui-stamp--eden { border-color: var(--rule-eden); color: var(--text-eden); }
+.ui-stamp--echo { border-color: var(--rule-echo); color: var(--text-echo); }
+.ui-stamp--sm { font-size: var(--type-1); padding: 2px var(--space-3); }`,
+  tabs: `.ui-tabs { display: flex; flex-wrap: wrap; border-bottom: 1px solid var(--eid-ink); }
+.ui-tabs__tab {
+  font-family: var(--font-ui); font-size: var(--type-2);
+  letter-spacing: var(--track-wide); text-transform: uppercase;
+  background: var(--surface-inset); border: 1px solid var(--rule-soft);
+  border-bottom: 0; margin-top: var(--space-3); margin-right: var(--space-2);
+  padding: var(--space-3) var(--space-7) var(--space-2);
+}
+.ui-tabs__tab.is-active {
+  position: relative; top: 1px; background: var(--surface-page);
+  border-color: var(--eid-ink); font-weight: 700;
+  box-shadow: inset 0 3px 0 var(--subject-accent);
+}`,
+}
+
 const activeTab = ref('dossier')
 const sectionCollapsed = ref(false)
 const fieldValue = ref('Irene Vasquez')
@@ -86,13 +154,192 @@ function toggleWound(key: string, index: number) {
   <main class="cookbook">
     <header class="cookbook__masthead">
       <div>
-        <p class="cookbook__eyebrow">Interface Reference</p>
-        <h1>Polaris Cookbook</h1>
+        <p class="cookbook__eyebrow">Components - Core</p>
+        <h1>Core - Identity &amp; Navigation</h1>
+        <p class="cookbook__intro">
+          The chrome that frames every dossier: the Directorate <b>Seal</b> (the brand's single mark),
+          the classification <b>Stamp</b> (authority, not sticker), and record-divider <b>Tabs</b>.
+          All three are one-color, square-cornered, and survive a photocopier.
+        </p>
       </div>
-      <UiSeal :show-wordmark="false" />
     </header>
 
     <section class="cookbook__grid" aria-label="Component cookbook">
+      <article class="core-sheet">
+        <section class="core-entry">
+          <header class="core-entry__head">
+            <h2>Seal</h2>
+            <span>components/core/Seal.vue</span>
+          </header>
+          <p class="core-entry__summary">
+            A circular one-color sigil locked up with the wordmark. Never add glow or bevel.
+            Drop the wordmark for compact headers and stamps.
+          </p>
+          <code class="core-entry__sig">Seal({ letter, name, sub, size, tone, showWordmark })</code>
+          <div class="core-block">
+            <div class="core-block__label"><span>Variations - Live</span><span>Variants</span></div>
+            <div class="core-variants core-variants--seal">
+              <figure class="core-variant">
+                <div class="core-variant__stage core-variant__stage--left">
+                  <UiSeal />
+                </div>
+                <figcaption>&lt;Seal /&gt;</figcaption>
+              </figure>
+              <figure class="core-variant">
+                <div class="core-variant__stage core-variant__stage--left">
+                  <UiSeal :size="56" />
+                </div>
+                <figcaption>size={56}</figcaption>
+              </figure>
+              <figure class="core-variant">
+                <div class="core-variant__stage">
+                  <UiSeal :show-wordmark="false" />
+                </div>
+                <figcaption>showWordmark={false}</figcaption>
+              </figure>
+              <figure class="core-variant">
+                <div class="core-variant__stage">
+                  <UiSeal tone="stamp" :show-wordmark="false" />
+                </div>
+                <figcaption>tone="stamp" showWordmark={false}</figcaption>
+              </figure>
+            </div>
+          </div>
+          <div class="core-cols">
+            <section class="core-panel">
+              <h3>Props - API</h3>
+              <table class="core-props">
+                <thead>
+                  <tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                  <tr v-for="row in coreProps.seal" :key="row[0]">
+                    <td class="k">{{ row[0] }}</td>
+                    <td class="t">{{ row[1] }}</td>
+                    <td class="d">{{ row[2] }}</td>
+                    <td>{{ row[3] }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <section class="core-panel">
+              <h3>Applied Styles</h3>
+              <pre class="core-css">{{ coreCss.seal }}</pre>
+            </section>
+          </div>
+        </section>
+
+        <section class="core-entry">
+          <header class="core-entry__head">
+            <h2>Stamp</h2>
+            <span>components/core/Stamp.vue</span>
+          </header>
+          <p class="core-entry__summary">
+            A rotated classification stamp - the record's authority mark. Use one main stamp per record;
+            keep rotation between -4deg and +3deg.
+          </p>
+          <code class="core-entry__sig">Stamp({ children, tone, size, rotate })</code>
+          <div class="core-block">
+            <div class="core-block__label"><span>Variations - Live</span><span>Tones</span></div>
+            <div class="core-variants">
+              <figure class="core-variant">
+                <div class="core-variant__stage">
+                  <UiStamp>Restricted</UiStamp>
+                </div>
+                <figcaption>&lt;Stamp&gt;Restricted&lt;/Stamp&gt;</figcaption>
+              </figure>
+              <figure class="core-variant">
+                <div class="core-variant__stage">
+                  <UiStamp :rotate="2">Eyes Only</UiStamp>
+                </div>
+                <figcaption>rotate={2}</figcaption>
+              </figure>
+              <figure class="core-variant">
+                <div class="core-variant__stage">
+                  <UiStamp tone="ink" size="sm" :rotate="-1">Field Copy</UiStamp>
+                </div>
+                <figcaption>tone="ink" size="sm"</figcaption>
+              </figure>
+              <figure class="core-variant">
+                <div class="core-variant__stage">
+                  <UiStamp tone="eden" :rotate="1">Unreconciled</UiStamp>
+                </div>
+                <figcaption>tone="eden"</figcaption>
+              </figure>
+            </div>
+          </div>
+          <div class="core-cols">
+            <section class="core-panel">
+              <h3>Props - API</h3>
+              <table class="core-props">
+                <thead>
+                  <tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                  <tr v-for="row in coreProps.stamp" :key="row[0]">
+                    <td class="k">{{ row[0] }}</td>
+                    <td class="t">{{ row[1] }}</td>
+                    <td class="d">{{ row[2] }}</td>
+                    <td>{{ row[3] }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <section class="core-panel">
+              <h3>Applied Styles</h3>
+              <pre class="core-css">{{ coreCss.stamp }}</pre>
+            </section>
+          </div>
+        </section>
+
+        <section class="core-entry">
+          <header class="core-entry__head">
+            <h2>Tabs</h2>
+            <span>components/core/Tabs.vue</span>
+          </header>
+          <p class="core-entry__summary">
+            Record-divider tabs for the app shell. The active tab sits 1px lower so it joins the paper below,
+            and takes a top stripe in the subject's file color. Wraps on mobile instead of collapsing.
+          </p>
+          <code class="core-entry__sig">Tabs({ items, value, onChange, tools })</code>
+          <div class="core-block">
+            <div class="core-block__label"><span>Live - Click to switch</span><span>1</span></div>
+            <figure class="core-variant core-variant--wide">
+              <div class="core-variant__stage core-variant__stage--wide">
+                <UiTabs :items="tabs" :model-value="activeTab" @update:model-value="activeTab = $event" />
+              </div>
+              <figcaption>items={[...]} value={view} onChange={setView}</figcaption>
+            </figure>
+          </div>
+          <div class="core-cols">
+            <section class="core-panel">
+              <h3>Props - API</h3>
+              <table class="core-props">
+                <thead>
+                  <tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                  <tr v-for="row in coreProps.tabs" :key="row[0]">
+                    <td class="k">{{ row[0] }}</td>
+                    <td class="t">{{ row[1] }}</td>
+                    <td class="d">{{ row[2] }}</td>
+                    <td>{{ row[3] }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <section class="core-panel">
+              <h3>Applied Styles</h3>
+              <pre class="core-css">{{ coreCss.tabs }}</pre>
+            </section>
+          </div>
+          <p class="core-note">
+            The active-tab stripe reads var(--subject-accent), so in a coded sheet the current tab picks up
+            that character's file color automatically.
+          </p>
+        </section>
+      </article>
+
       <article class="cookbook-card cookbook-card--wide">
         <header class="cookbook-card__header">
           <div>
@@ -109,51 +356,6 @@ function toggleWound(key: string, index: number) {
                 <span class="palette__token">{{ color.token }}</span>
                 <span class="palette__alias">{{ color.alias }}</span>
               </div>
-            </div>
-          </section>
-        </div>
-      </article>
-
-      <article class="cookbook-card cookbook-card--wide">
-        <header class="cookbook-card__header">
-          <div>
-            <p class="cookbook__eyebrow">Core</p>
-            <h2>Seal, Stamp, Button, Tabs</h2>
-          </div>
-        </header>
-        <div class="variant-grid variant-grid--core">
-          <section class="variant">
-            <header class="variant__header"><h3>Seal</h3><span>wordmark / stamp</span></header>
-            <div class="variant__preview variant__preview--stack">
-              <UiSeal />
-              <UiSeal tone="stamp" :show-wordmark="false" />
-            </div>
-          </section>
-          <section class="variant">
-            <header class="variant__header"><h3>Stamp</h3><span>tones</span></header>
-            <div class="variant__preview variant__preview--stack">
-              <UiStamp>Restricted</UiStamp>
-              <UiStamp tone="ink" size="sm" :rotate="-1">Field Copy</UiStamp>
-              <UiStamp tone="eden" :rotate="1">Unreconciled</UiStamp>
-            </div>
-          </section>
-          <section class="variant">
-            <header class="variant__header"><h3>Button</h3><span>states</span></header>
-            <div class="variant__preview variant__preview--stack">
-              <UiButton>Export File</UiButton>
-              <UiButton variant="active-gm">GM Mode: On</UiButton>
-              <UiButton variant="danger">Withdraw Record</UiButton>
-              <UiButton disabled>Unavailable</UiButton>
-            </div>
-          </section>
-          <section class="variant variant--wide">
-            <header class="variant__header"><h3>Tabs</h3><span>{{ activeTab }}</span></header>
-            <div class="variant__preview variant__preview--wide">
-              <UiTabs :items="tabs" :model-value="activeTab" @update:model-value="activeTab = $event">
-                <template #tools>
-                  <UiButton size="sm">Tool</UiButton>
-                </template>
-              </UiTabs>
             </div>
           </section>
         </div>
@@ -278,13 +480,11 @@ function toggleWound(key: string, index: number) {
   min-height: 100vh;
   max-width: var(--page-max-width);
   margin: 0 auto;
-  padding: var(--space-9);
-  background:
-    linear-gradient(color-mix(in srgb, var(--rule-soft) 28%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--rule-soft) 22%, transparent) 1px, transparent 1px),
-    var(--surface-page);
-  background-size: 28px 28px;
+  padding: 26px 28px 34px;
+  background: var(--surface-page);
   color: var(--text-primary);
+  font-family: var(--font-record);
+  font-size: var(--type-3);
 
   h1,
   h2,
@@ -293,10 +493,10 @@ function toggleWound(key: string, index: number) {
   }
 
   h1 {
-    margin-top: var(--space-2);
+    margin-top: 5px;
     font-family: var(--font-ui);
-    font-size: var(--type-6);
-    letter-spacing: var(--track-wide);
+    font-size: 24px;
+    letter-spacing: var(--track-meta);
     text-transform: uppercase;
   }
 
@@ -308,12 +508,8 @@ function toggleWound(key: string, index: number) {
 }
 
 .cookbook__masthead {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--space-8);
-  margin-bottom: var(--space-9);
-  padding: var(--space-7) 0 var(--space-8);
+  margin-bottom: 24px;
+  padding-bottom: 14px;
   border-bottom: var(--border-double);
 }
 
@@ -327,13 +523,248 @@ function toggleWound(key: string, index: number) {
 }
 
 .cookbook__eyebrow {
+  color: var(--text-danger);
   font-weight: 700;
+}
+
+.cookbook__intro {
+  max-width: 78ch;
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: var(--leading-reading);
+  opacity: 0.82;
 }
 
 .cookbook__grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-7);
+  gap: 24px;
+}
+
+.core-sheet {
+  display: grid;
+  grid-column: 1 / -1;
+  gap: 24px;
+}
+
+.core-entry {
+  border: var(--border-hard);
+  background: var(--surface-panel);
+}
+
+.core-entry__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 9px 13px;
+  border-bottom: var(--border-hard);
+  background: var(--surface-inset);
+
+  h2 {
+    font-family: var(--font-ui);
+    font-size: var(--type-3);
+    font-weight: 700;
+    letter-spacing: var(--track-wide);
+    text-transform: uppercase;
+  }
+
+  span {
+    font-family: var(--font-mono);
+    font-size: var(--type-0);
+    letter-spacing: 0.04em;
+    opacity: 0.6;
+    white-space: nowrap;
+  }
+}
+
+.core-entry__summary {
+  padding: 10px 13px 0;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  line-height: 1.55;
+  opacity: 0.85;
+}
+
+.core-entry__sig {
+  display: block;
+  margin: 10px 13px 0;
+  padding: 7px 10px;
+  border-left: 3px solid var(--eid-ink);
+  background: var(--tint-ink);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.core-block {
+  padding: 12px 13px 16px;
+}
+
+.core-block__label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 7px;
+  margin-bottom: 12px;
+  padding-bottom: 5px;
+  border-bottom: 1px dotted var(--rule-soft);
+  font-family: var(--font-ui);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: var(--track-wide);
+  opacity: 0.55;
+  text-transform: uppercase;
+}
+
+.core-variants {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 13px;
+  align-items: start;
+}
+
+.core-variants--seal {
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+
+.core-variant {
+  min-width: 0;
+  margin: 0;
+  border: 1px dotted var(--rule-soft);
+  background: var(--surface-page);
+}
+
+.core-variant--wide {
+  width: 100%;
+}
+
+.core-variant__stage {
+  display: flex;
+  min-height: 58px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  overflow: hidden;
+  padding: 14px 13px;
+}
+
+.core-variant__stage--left {
+  justify-content: flex-start;
+}
+
+.core-variant__stage--wide {
+  display: block;
+  width: 100%;
+  padding: 20px 13px 14px;
+}
+
+.core-variant figcaption {
+  padding: 6px 8px;
+  border-top: 1px dotted var(--rule-soft);
+  background: var(--surface-inset);
+  font-family: var(--font-mono);
+  font-size: var(--type-0);
+  line-height: 1.45;
+  opacity: 0.92;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.core-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: var(--border-hard);
+}
+
+.core-panel {
+  min-width: 0;
+  padding: 12px 13px 16px;
+
+  &:first-child {
+    border-right: var(--border-hard);
+  }
+
+  h3 {
+    margin-bottom: 12px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted var(--rule-soft);
+    font-family: var(--font-ui);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: var(--track-wide);
+    opacity: 0.55;
+    text-transform: uppercase;
+  }
+}
+
+.core-props {
+  width: 100%;
+  border-collapse: collapse;
+
+  th {
+    padding: 3px 7px 5px;
+    border-bottom: 1px solid var(--rule-hard);
+    font-family: var(--font-ui);
+    font-size: 8.5px;
+    letter-spacing: var(--track-meta);
+    opacity: 0.6;
+    text-align: left;
+    text-transform: uppercase;
+  }
+
+  td {
+    padding: 5px 7px;
+    border-bottom: 1px dotted var(--rule-soft);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    line-height: 1.4;
+    vertical-align: top;
+  }
+
+  tr:last-child td {
+    border-bottom: 0;
+  }
+
+  .k {
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .t {
+    color: var(--text-eden);
+    white-space: pre-wrap;
+  }
+
+  .d {
+    opacity: 0.65;
+    white-space: nowrap;
+  }
+}
+
+.core-css {
+  margin: 0;
+  padding: 9px 11px;
+  border-left: 3px solid var(--rule-soft);
+  background: var(--surface-inset);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.core-note {
+  margin: 0 13px 16px;
+  padding-left: 10px;
+  border-left: 1px dotted var(--rule-soft);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  line-height: 1.55;
+  opacity: 0.7;
 }
 
 .cookbook-card {
@@ -525,6 +956,15 @@ function toggleWound(key: string, index: number) {
   .record-grid {
     grid-template-columns: 1fr;
   }
+
+  .core-cols {
+    grid-template-columns: 1fr;
+  }
+
+  .core-panel:first-child {
+    border-right: 0;
+    border-bottom: var(--border-hard);
+  }
 }
 
 @media (max-width: 560px) {
@@ -533,7 +973,8 @@ function toggleWound(key: string, index: number) {
   }
 
   .cookbook__masthead,
-  .cookbook-card__header {
+  .cookbook-card__header,
+  .core-entry__head {
     flex-direction: column;
   }
 

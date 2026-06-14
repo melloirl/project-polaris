@@ -20,6 +20,8 @@ const props = withDefaults(defineProps<{
 const sealStyle = computed(() => ({
   '--seal-size': `${props.size}px`,
   '--seal-font-size': `${Math.max(12, Math.round(props.size * 0.5))}px`,
+  '--seal-name-size': `${Math.max(14, Math.round(props.size * 0.32))}px`,
+  '--seal-sub-size': `${Math.max(11, Math.round(props.size * 0.2))}px`,
 }))
 </script>
 
@@ -85,14 +87,20 @@ const sealStyle = computed(() => ({
 }
 
 .ui-seal__name {
+  font-size: var(--seal-name-size);
   font-weight: 700;
   letter-spacing: var(--track-wide);
+  line-height: var(--leading-tight);
 }
 
 .ui-seal__sub {
   margin-top: 3px;
-  font-size: var(--type-1);
+  font-size: var(--seal-sub-size);
   letter-spacing: var(--track-meta);
+  line-height: var(--leading-tight);
   opacity: 0.8;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
 }
 </style>
