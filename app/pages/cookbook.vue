@@ -142,7 +142,7 @@ function toggleWound(key: string, index: number) {
             <div class="variant__preview variant__preview--stack">
               <UiButton>Export File</UiButton>
               <UiButton variant="active-gm">GM Mode: On</UiButton>
-              <UiButton variant="danger" size="sm">Withdraw</UiButton>
+              <UiButton variant="danger">Withdraw Record</UiButton>
               <UiButton disabled>Unavailable</UiButton>
             </div>
           </section>

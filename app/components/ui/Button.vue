@@ -43,11 +43,12 @@ withDefaults(defineProps<{
 <style scoped lang="scss">
 .eid-btn,
 .ui-button {
+  appearance: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  justify-self: center;
   min-height: 28px;
+  max-width: 100%;
   border: var(--border-hard);
   border-radius: var(--radius-none);
   background: var(--surface-page);
@@ -58,10 +59,14 @@ withDefaults(defineProps<{
   letter-spacing: var(--track-meta);
   line-height: var(--leading-tight);
   padding: var(--space-1) var(--space-4);
+  text-align: center;
+  text-decoration: none;
   text-transform: uppercase;
   transition:
     background var(--motion-fast),
     color var(--motion-fast);
+  user-select: none;
+  white-space: nowrap;
 
   &:hover:not(:disabled),
   &:focus-visible:not(:disabled) {
@@ -103,7 +108,6 @@ withDefaults(defineProps<{
   &:hover:not(:disabled),
   &:focus-visible:not(:disabled) {
     background: var(--surface-inverse);
-    border-color: var(--rule-hard);
   }
 }
 
